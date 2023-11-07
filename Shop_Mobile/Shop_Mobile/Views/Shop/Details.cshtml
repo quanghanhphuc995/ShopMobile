@@ -1,4 +1,4 @@
-﻿
+﻿@model ShopConnection.SanPham
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/MainLayout.cshtml";
@@ -9,9 +9,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Home</a></li>
                     <li><a href="category.html">Category</a></li>
-                    <li><a href="#">Samsung Galaxy</a></li>
+                    <li><a href="#">@Model.TenSanPham</a></li>
                 </ul>
             </div>
         </div>
@@ -20,7 +20,7 @@
                 <div class="product">
                     <div class="col-md-6">
                         <div class="image">
-                            <img src="~/Asset/images/galaxy-note.jpg" />
+                            <img src="~/Asset/images/@Model.HinhChinh" />
                             <div class="image-more">
                                 <ul class="row">
                                     <li class="col-lg-3 col-sm-3 col-xs-4">
@@ -41,14 +41,14 @@
                     </div>
                     <div class="col-md-6">
                         <div class="caption">
-                            <div class="name"><h3>Aliquam erat volutpat</h3></div>
+                            <div class="name"><h3>@Model.TenSanPham</h3></div>
                             <div class="info">
                                 <ul>
                                     <li>Brand: text</li>
                                     <li>ID: 0122222</li>
                                 </ul>
                             </div>
-                            <div class="price">$122<span>$98</span></div>
+                            <div class="price">@Model.Gia</div>
                             <div class="options">
                                 AVAILABLE OPTIONS
                                 <select>
@@ -153,7 +153,7 @@
                                     <a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
                                 </div>
                                 <div class="caption">
-                                    <div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></div>
+                                    <div class="name"><h3></h3>x<a href="product.html">Aliquam erat volutpat</a></div>
                                     <div class="price">$122<span>$98</span></div>
                                     <div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
                                 </div>

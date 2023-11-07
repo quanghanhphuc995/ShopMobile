@@ -287,9 +287,11 @@ namespace ShopConnection
 
 		[Column] public string TinhTrang { get; set; }
 
-
-
-	}
+        internal object ToPageList()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     
 
