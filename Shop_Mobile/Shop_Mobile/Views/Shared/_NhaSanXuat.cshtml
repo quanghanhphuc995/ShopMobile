@@ -6,7 +6,7 @@
             <ul class="list-unstyled">
                 @foreach (var item in Model)
                 {
-                    <li><a href="category.html">@item.TenNhaSanXuat</a></li>
+                    <li><a href="@Url.Action("Index","NhaSanXuat",new { id= @item.MaNhaSanXuat})">@item.TenNhaSanXuat</a></li>
                 }
 
             </ul>

@@ -11,7 +11,7 @@ namespace Shop_Mobile.Controllers
     public class ShopController : Controller
     {
         // GET: Shop
-        public ActionResult Index(int page =1, int pagesize =3)
+        public ActionResult Index(int page =1, int pagesize =6)
         {
             var db = ShopOnlineBUS.DanhSach().ToPagedList(page, pagesize);
             return View(db);
