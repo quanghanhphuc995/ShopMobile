@@ -19,5 +19,11 @@ namespace Shop_Mobile.Models.BUS
             var db = new ShopConnectionDB();
             return db.Query<SanPham>("select * from SanPham where MaNhaSanXuat ='"+id+"'");
         }
+
+        public static void ThemNSX(NhaSanXuat nsx)
+        {
+            var db = new ShopConnectionDB();
+            db.Insert(nsx);
+        }
     }
 }

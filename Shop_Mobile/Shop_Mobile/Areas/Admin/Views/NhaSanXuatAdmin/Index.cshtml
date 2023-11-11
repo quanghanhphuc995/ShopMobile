@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ShopConnection.NhaSanXuat>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin: auto;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+    img {
+        max-width: 15px;
+        max-height: 15px;
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+        
+    }
+</style>
+
+
+    <h2>Quang li nha san xuat</h2>
+    <p>Add the border-bottom property to th and td for horizontal dividers:</p>
+
+    <table>
+
+        <tr>
+            <th>Ma Nha San Xuat</th>
+            <th>Ten Nha San Xuat</th>
+            <th>Tinh Trang</th>
+            <th><a href="@Url.Action("Create","NhaSanXuatAdmin")"><img src="~/Asset/images/add.png.png" style="margin-left:auto" /></a></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaNhaSanXuat</td>
+                <td>@item.TenNhaSanXuat</td>
+                <td>@item.TinhTrang</td>
+                <td><img src="~/Asset/images/edit.png.png" /></td>
+                <td><img src="~/Asset/images/delete.png.png" /></td>
+            </tr>
+        }
+
+    </table>
+

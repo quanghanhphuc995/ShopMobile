@@ -18,5 +18,17 @@ namespace Shop_Mobile.Models.BUS
             var db = new ShopConnectionDB();
             return db.SingleOrDefault<SanPham>("select * from SanPham where MaSanPham=@0",a);
         }
+
+        public static IEnumerable<SanPham> TopNew()
+        {
+            var db = new ShopConnectionDB();
+            return db.Query<SanPham>("select Top 4 * from SanPham where GhiChu = N'New'");
+        }
+
+        public static IEnumerable<SanPham> TopBanNhieuNhat()
+        {
+            var db = new ShopConnectionDB();
+            return db.Query<SanPham>("select Top 4 * from SanPham where SoLuongDaBan = 0");
+        }
     };
 }
