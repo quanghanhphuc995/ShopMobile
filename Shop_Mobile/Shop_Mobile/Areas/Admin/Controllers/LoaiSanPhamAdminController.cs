@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Shop_Mobile.Models.BUS;
+using ShopConnection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,8 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         // GET: Admin/LoaiSanPham
         public ActionResult Index()
         {
-            return View();
+            var db = LoaiSanPhamBUS.DanhSachAdmin();
+            return View(db);
         }
 
         // GET: Admin/LoaiSanPham/Details/5
@@ -28,12 +31,12 @@ namespace Shop_Mobile.Areas.Admin.Controllers
 
         // POST: Admin/LoaiSanPham/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(LoaiSanPham lsp)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                LoaiSanPhamBUS.ThemLSP(lsp);
                 return RedirectToAction("Index");
             }
             catch
@@ -43,19 +46,19 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         }
 
         // GET: Admin/LoaiSanPham/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            return View(LoaiSanPhamBUS.ChitietLSPAdmin(id));
         }
 
         // POST: Admin/LoaiSanPham/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(string id, LoaiSanPham lsp)
         {
             try
             {
                 // TODO: Add update logic here
-
+                LoaiSanPhamBUS.UpdateLSP(id, lsp);
                 return RedirectToAction("Index");
             }
             catch

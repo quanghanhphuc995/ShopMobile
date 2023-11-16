@@ -3,8 +3,8 @@
 	// Settings
     ConnectionStringName = "ShopConnection";			// Uses last connection string in config if not specified
     Namespace = "";
-    RepoName = "";
-    GenerateOperations = true;
+    RepoName = "";   
+    GenerateOperations = true;   
 	GeneratePocos = true;
 	GenerateCommon = true;
 	ClassPrefix = "";

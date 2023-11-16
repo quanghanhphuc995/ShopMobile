@@ -352,6 +352,11 @@
     <Content Include="Areas\AssetAdmin\font-awesome\scss\_variables.scss" />
     <Content Include="Areas\Admin\Views\NhaSanXuatAdmin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\NhaSanXuatAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NhaSanXuatAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NhaSanXuatAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\LoaiSanPhamAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LoaiSanPhamAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\LoaiSanPhamAdmin\Edit.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

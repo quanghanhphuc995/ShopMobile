@@ -43,10 +43,12 @@
                 <td>@item.MaNhaSanXuat</td>
                 <td>@item.TenNhaSanXuat</td>
                 <td>@item.TinhTrang</td>
-                <td><img src="~/Asset/images/edit.png.png" /></td>
-                <td><img src="~/Asset/images/delete.png.png" /></td>
+                <td><a href="@Url.Action("Edit","NhaSanXuatAdmin",new {id=@item.MaNhaSanXuat })"><img src="~/Asset/images/edit.png.png" /></a></td>
+                <td><a href="@Url.Action("Delete","NhaSanXuatAdmin",new {id=@item.MaNhaSanXuat})"><img src="~/Asset/images/delete.png.png" /></a></td>
             </tr>
         }
+
+
 
     </table>
 

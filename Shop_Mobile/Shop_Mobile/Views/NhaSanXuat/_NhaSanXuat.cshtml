@@ -1,0 +1,11 @@
+﻿@model IEnumerable<ShopConnection.SanPham>
+@{
+    ViewBag.Title = "_NhaSanXuat";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@foreach (var item in Model)
+            {
+                @item.MaNhaSanXuat
+            }
+

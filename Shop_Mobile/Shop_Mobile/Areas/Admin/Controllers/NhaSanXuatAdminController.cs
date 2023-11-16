@@ -13,7 +13,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         // GET: Admin/NhaSanXuat
         public ActionResult Index()
         {
-            var danhSach = NhaSanXuatBUS.DanhSach();
+            var danhSach = NhaSanXuatBUS.DanhSachAdmin();
             return View(danhSach);
         }
 
@@ -31,7 +31,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
 
         // POST: Admin/NhaSanXuat/Create
         [HttpPost]
-        public ActionResult Create(NhaSanXuat nsx)
+        public ActionResult Create( NhaSanXuat nsx)
         {
             try
             {
@@ -46,19 +46,19 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         }
 
         // GET: Admin/NhaSanXuat/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(String id)
         {
-            return View();
+            return View(NhaSanXuatBUS.ChitietSPAdmin(id));
         }
 
         // POST: Admin/NhaSanXuat/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(String id, NhaSanXuat nsx)
         {
             try
             {
                 // TODO: Add update logic here
-
+                NhaSanXuatBUS.UpadateNSX(id,nsx);
                 return RedirectToAction("Index");
             }
             catch
@@ -68,19 +68,19 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         }
 
         // GET: Admin/NhaSanXuat/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            return View(NhaSanXuatBUS.ChitietSPAdmin(id));
         }
 
         // POST: Admin/NhaSanXuat/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, FormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                NhaSanXuatBUS.DeleteNSX( id);
                 return RedirectToAction("Index");
             }
             catch

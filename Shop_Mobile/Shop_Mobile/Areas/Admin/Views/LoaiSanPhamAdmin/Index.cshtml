@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ShopConnection.LoaiSanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin: auto;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    img {
+        max-width: 15px;
+        max-height: 15px;
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+    }
+</style>
+
+
+<h2>Quản Lý Loại Sản Phẩm</h2>
+
+
+<table>
+
+    <tr>
+        <th>Mã Loại Sản Phẩm</th>
+        <th>Tên Loại Sản Phẩm</th>
+        <th>Tình Trạng</th>
+        <th><a href="@Url.Action("Create","LoaiSanPhamAdmin")"><img src="~/Asset/images/add.png.png" style="margin-left:auto" /></a></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MaLoaiSanPham</td>
+            <td>@item.TenLoaiSanPham</td>
+            <td>@item.TinhTrang</td>
+            <td><a href="@Url.Action("Edit","LoaiSanPhamAdmin",new {id=@item.MaLoaiSanPham })"><img src="~/Asset/images/edit.png.png" /></a></td>
+            <td><a href="@Url.Action("Delete","LoaiSanPhamAdmin",new {id=@item.MaLoaiSanPham})"><img src="~/Asset/images/delete.png.png" /></a></td>
+        </tr>
+    }
+
+
+
+</table>
+

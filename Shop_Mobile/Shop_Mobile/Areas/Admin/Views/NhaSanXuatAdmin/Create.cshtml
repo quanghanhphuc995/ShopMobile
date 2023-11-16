@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<ShopConnection.NhaSanXuat>
 @{
     ViewBag.Title = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
@@ -62,8 +62,8 @@
 
             <label for="country">tinh Trang</label>
             <select id="country" name="TinhTrang" required>
-                <option value="0">Australia</option>
-                <option value="1">Canada</option>   
+                <option value="0" selected>0</option>
+                <option value="1">1</option>   
             </select>
 
             <input type="submit" value="Submit">
