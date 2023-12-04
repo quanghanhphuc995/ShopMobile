@@ -203,6 +203,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\AssetAdmin\js\PreviewFile.js" />
     <Content Include="Areas\AssetAdmin\bootstrap\css\bootstrap.css" />
     <Content Include="Areas\AssetAdmin\bootstrap\css\bootstrap.min.css" />
     <Content Include="Areas\AssetAdmin\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -357,6 +358,10 @@
     <Content Include="Areas\Admin\Views\LoaiSanPhamAdmin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\LoaiSanPhamAdmin\Create.cshtml" />
     <Content Include="Areas\Admin\Views\LoaiSanPhamAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPhamAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPhamAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPhamAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPhamAdmin\Delete.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

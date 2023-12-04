@@ -1,6 +1,7 @@
 ﻿using ShopConnection;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -47,5 +48,7 @@ namespace Shop_Mobile.Models.BUS
             var db = new ShopConnectionDB();
             return db.SingleOrDefault<LoaiSanPham>("select * from LoaiSanPham where MaLoaiSanPham = '" + id + "'");
         }
+
+       
     }
 }

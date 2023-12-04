@@ -8,6 +8,7 @@ namespace Shop_Mobile.Models.BUS
 {
     public class ShopOnlineBUS
     {
+        //--------------------- khách hàng-----------------------------
         public static IEnumerable<SanPham> DanhSach()
         {
             var db = new ShopConnectionDB();
@@ -30,5 +31,36 @@ namespace Shop_Mobile.Models.BUS
             var db = new ShopConnectionDB();
             return db.Query<SanPham>("select Top 4 * from SanPham where SoLuongDaBan = 0");
         }
-    };
+
+        //----------------------- Admin Sản phẩm-------------------------------------
+        public static IEnumerable<SanPham> DanhSachSPAdmin()
+        {
+            var db = new ShopConnectionDB();
+            return db.Query<SanPham>("select * from SanPham");
+        }
+
+        public static void ThemSP(SanPham sp)
+        {
+            var db = new ShopConnectionDB();
+            db.Insert(sp);
+        }
+        
+        public static SanPham ChitietSPAdmin(string id)
+        {
+            var db = new ShopConnectionDB();
+            return db.SingleOrDefault<SanPham>("select * from SanPham where MaSanPham ='"+id+"'");
+        }
+
+        public static void UpdateSP(string id, SanPham sp)
+        {
+            var db = new ShopConnectionDB();
+            db.Update(sp, id);
+        }
+
+        public static void XoaSP(string id)
+        {
+            var db = new ShopConnectionDB();
+            db.Delete(id);
+        }
+    }
 }

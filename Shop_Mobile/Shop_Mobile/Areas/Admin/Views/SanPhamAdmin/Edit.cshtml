@@ -1,0 +1,107 @@
+﻿@model ShopConnection.SanPham
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<style>
+    :root {
+        --text-black: black;
+    }
+
+    h3 {
+        color: var(--text-black);
+    }
+
+    input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    label {
+        color: var(--text-black);
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    .mrc {
+        margin: auto;
+    }
+</style>
+
+<h3>Using CSS to style an HTML Form</h3>
+
+<div>
+    @using (Html.BeginForm("Edit", "SanPhamAdmin", FormMethod.Post, new { @Style = "" }))
+    {
+        <label for="fname">Mã Sản Phẩm</label>
+        <input type="text" id="fname" name="MaSanPham" placeholder="Nhập mã sản phẩm" required value="@Model.MaSanPham">
+
+        <label for="lname">Mã Loại Sản Phẩm</label>
+        <input type="text" id="lname" name="MaLoaiSanPham" placeholder="Mã loại sản phẩm" required value="@Model.MaLoaiSanPham">
+
+        <label for="fname">Mã Nhà Sản Xuất</label>
+        <input type="text" id="fname" name="MaNhaSanXuat" placeholder="Nhập mã nhà sản xuất " required value="@Model.MaNhaSanXuat">
+
+        <label for="lname">Tên sản phẩm</label>
+        <input type="text" id="lname" name="TenSanPham" placeholder="Nhập tên sản phẩm" required value="@Model.TenSanPham">
+
+        <label for="fname">Cấu hình</label>
+        <input type="text" id="fname" name="CauHinh" placeholder="Nhap ma nha san xuat" required value="@Model.CauHinh">
+
+        <label for="lname">Hình chính</label>
+        <input type="file" id="lname" name="HinhChinh" placeholder="Your last name.."  value="@Model.HinhChinh">
+
+        <label for="lname">Hình 1</label>
+        <input type="file" id="lname" name="Hinh1" placeholder="Your last name.."  value="@Model.Hinh1">
+
+        <label for="fname">Hình 2</label>
+        <input type="file" id="fname" name="Hinh2" placeholder="Nhap ma nha san xuat"  value="@Model.Hinh2">
+
+        <label for="lname">Hình 3</label>
+        <input type="file" id="lname" name="Hinh3" placeholder="Your last name.."  value="@Model.Hinh3">
+
+        <label for="fname">Hình 4</label>
+        <input type="file" id="fname" name="Hinh4" placeholder="Nhap ma nha san xuat"  value="@Model.Hinh4">
+
+        <label for="lname">Giá</label>
+        <input type="number" id="lname" name="Gia" placeholder="Your last name.." required value="@Model.Gia">
+
+        <label for="country">Tình Trạng</label>
+        <select id="country" name="TinhTrang" required value="@Model.TinhTrang">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+        </select>
+
+        <input type="submit" value="Xác Nhận Chỉnh S">
+    }
+</div>
+
+
+
+
+
