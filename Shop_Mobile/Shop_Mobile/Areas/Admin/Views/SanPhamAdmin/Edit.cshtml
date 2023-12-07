@@ -4,29 +4,42 @@
     Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
 }
 
+<script src="~/Areas/Admin/AssetAdmin/js/PreviewFile.js"></script>
+
 <style>
-    :root {
-        --text-black: black;
-    }
-
-    h3 {
-        color: var(--text-black);
-    }
-
-    input[type=text], select {
+    input[type=text] {
         width: 100%;
+        height: 40px;
+        background: white;
         padding: 12px 20px;
         margin: 8px 0;
         display: inline-block;
-        border: 1px solid #ccc;
+        border: 1px solid #ff0000;
+        border-radius: 4px;
+        box-sizing: border-box;
+        color: black;
+    }
+
+    .floatleft {
+        float: left
+    }
+
+    input[type=number] {
+        width: 100%;
+        height: 40px;
+        background: black;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ff0000;
         border-radius: 4px;
         box-sizing: border-box;
     }
 
     input[type=submit] {
         width: 100%;
-        background-color: #4CAF50;
-        color: white;
+        background-color: #2a9fd6;
+        color: black;
         padding: 14px 20px;
         margin: 8px 0;
         border: none;
@@ -34,74 +47,93 @@
         cursor: pointer;
     }
 
-    label {
-        color: var(--text-black);
-    }
-
-    input[type=submit]:hover {
-        background-color: #45a049;
-    }
-
-    div {
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px;
-    }
-
-    .mrc {
-        margin: auto;
-    }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
 </style>
+@using (Html.BeginForm("Create", "SanPhamAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
 
-<h3>Using CSS to style an HTML Form</h3>
+<h2>Chỉnh Sữa Sản Phẩm @Model.TenSanPham</h2>
+    <table style="width:80% ;margin:auto; background:black;">
+        <tr>
+            <td>Mã Sản Phẩm</td>
+            <td> <input style="width: 300px;float:left; " maxlength="11" type="text" name="MaSanPham" value="@Model.MaSanPham" /></td>
 
-<div>
-    @using (Html.BeginForm("Edit", "SanPhamAdmin", FormMethod.Post, new { @Style = "" }))
-    {
-        <label for="fname">Mã Sản Phẩm</label>
-        <input type="text" id="fname" name="MaSanPham" placeholder="Nhập mã sản phẩm" required value="@Model.MaSanPham">
+        </tr>
+        <tr>
+            <td>Mã Loại Sản Phẩm</td>
+            <td>
+                @if (ViewBag.MaloaiSanPham != null)
+                {
+                    @Html.DropDownList("MaLoaiSanPham", null, new { @style = "float:left; width: 300px; background:black;height:30px;" })
+                }
 
-        <label for="lname">Mã Loại Sản Phẩm</label>
-        <input type="text" id="lname" name="MaLoaiSanPham" placeholder="Mã loại sản phẩm" required value="@Model.MaLoaiSanPham">
+            </td>
+        </tr>
+        <tr>
+            <td>Tên Sản Phẩm</td>
+            <td> <input style="width: 300px;float:left;" type="text" name="TenSanPham" maxlength="50" value="@Model.TenSanPham" /></td>
 
-        <label for="fname">Mã Nhà Sản Xuất</label>
-        <input type="text" id="fname" name="MaNhaSanXuat" placeholder="Nhập mã nhà sản xuất " required value="@Model.MaNhaSanXuat">
+        </tr>
+        <tr>
+            <td>Hình Ảnh</td>
+            <td> <input id="file_Hinh" type="File" name="HinhChinh" onchange="previewFile()" /></td>
+            <td>
+                <img id="target" class="img" src="~/Asset/img/@Model.HinhChinh" alt="your img" style="max-height:100px; max-width:100px;" />
+            </td>
+        </tr>
+        <tr>
+            <td>Hình Ảnh 1</td>
+            <td> <input id="file_Hinh1" type="file" name="Hinh1" onchange="previewFile()" /></td>
+            <td>
+                <img id="target" class="img" src="#" alt="your img" style="max-height:100px; max-width:100px;" />
+            </td>
+        </tr>
+        <tr>
+            <td>Hình Ảnh 2</td>
+            <td> <input id="file_Hinh2" type="file" name="Hinh2" onchange="previewFile()" /></td>
+        </tr>
+        <tr>
+            <td>Hình Ảnh 3</td>
+            <td> <input id="file_Hinh3" type="file" name="Hinh3" onchange="previewFile()" /></td>
+        </tr>
+        <tr>
+            <td>Hình Ảnh 4</td>
+            <td> <input id="file_Hinh4" type="file" name="Hinh4" onchange="previewFile()" /></td>
+        </tr>
+        <tr>
+            <td>Giá</td>
+            <td> <input style="width: 300px; float:left; background:white; color:black" type="number" name="Gia" value="@Model.Gia" /></td>
+        </tr>
+        <tr>
+            <td>Ghi Chú</td>
+            <td> <input style="width: 300px;float:left;" type="text" name="GhiChu" value="@Model.GhiChu" /></td>
+        </tr>
+        <tr>
+            <td>Nhà Sản Xuất</td>
+            <td>
+                @if (ViewBag.MaNhaSanXuat != null)
+                {
+                    @Html.DropDownList("MaNhaSanXuat", null, new { @style = "float:left; width: 300px; background:black;height:30px;" })
+                }
 
-        <label for="lname">Tên sản phẩm</label>
-        <input type="text" id="lname" name="TenSanPham" placeholder="Nhập tên sản phẩm" required value="@Model.TenSanPham">
+            </td>
+        </tr>
+        <tr>
 
-        <label for="fname">Cấu hình</label>
-        <input type="text" id="fname" name="CauHinh" placeholder="Nhap ma nha san xuat" required value="@Model.CauHinh">
-
-        <label for="lname">Hình chính</label>
-        <input type="file" id="lname" name="HinhChinh" placeholder="Your last name.."  value="@Model.HinhChinh">
-
-        <label for="lname">Hình 1</label>
-        <input type="file" id="lname" name="Hinh1" placeholder="Your last name.."  value="@Model.Hinh1">
-
-        <label for="fname">Hình 2</label>
-        <input type="file" id="fname" name="Hinh2" placeholder="Nhap ma nha san xuat"  value="@Model.Hinh2">
-
-        <label for="lname">Hình 3</label>
-        <input type="file" id="lname" name="Hinh3" placeholder="Your last name.."  value="@Model.Hinh3">
-
-        <label for="fname">Hình 4</label>
-        <input type="file" id="fname" name="Hinh4" placeholder="Nhap ma nha san xuat"  value="@Model.Hinh4">
-
-        <label for="lname">Giá</label>
-        <input type="number" id="lname" name="Gia" placeholder="Your last name.." required value="@Model.Gia">
-
-        <label for="country">Tình Trạng</label>
-        <select id="country" name="TinhTrang" required value="@Model.TinhTrang">
-            <option value="0" selected>0</option>
-            <option value="1">1</option>
-        </select>
-
-        <input type="submit" value="Xác Nhận Chỉnh S">
-    }
-</div>
-
-
+            <td style="width: 300px;">Cấu Hình</td>
+            <td colspan="2"><textarea class="ckeditor" name="CauHinh" style="width: 300px; color:black; height: 150px; max-width: 100px; max-height: 600px; background:white;" rows="4" cols="30"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input style="height: 40px; width: 300px;   margin-left:32%;
+	 background:#016ABC;color: #fff;border: 1px solid #eee;border-radius: 20px;box-shadow: 5px 5px 5px #eee;"
+                       type="submit" name="btn_ThemDienThoai" value="chỉnh sữa điện thoại" />
+            </td>
+        </tr>
+    </table>
+}
 
 
 

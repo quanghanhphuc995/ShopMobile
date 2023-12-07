@@ -2,6 +2,7 @@
 using ShopConnection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -42,16 +43,35 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         {
             try
             {
-                var hpf = HttpContext.Request.Files[0];
-                if (hpf.ContentLength>0)
-                {
-                    string fileName = sp.MaSanPham;
-                    string savelinkImg = "~Asset/images/" + fileName + ".png, .jpg";
-                    hpf.SaveAs(Server.MapPath(savelinkImg));
-                    sp.HinhChinh = sp.MaSanPham + ".png, .jpg";
-                }
-                sp.TinhTrang = "0";
-                sp.SoLuongDaBan = 0;
+                
+                    if (HttpContext.Request.Files.Count > 0 && HttpContext.Request.Files[0] != null)
+                    {
+                        var hpf = HttpContext.Request.Files[0];
+
+                        if (hpf.ContentLength > 0)
+                        {
+                        string fileName = MakeValidFileName(sp.TenSanPham);
+                            string directoryPath = Server.MapPath("~/Asset/img/");
+
+                            // Đảm bảo thư mục lưu trữ tồn tại, nếu không tạo mới
+                            if (!Directory.Exists(directoryPath))
+                            {
+                                Directory.CreateDirectory(directoryPath);
+                            }
+
+                            string fullNameImage = Path.Combine(directoryPath, fileName + ".png");
+
+                            // Lưu tệp tin
+                            hpf.SaveAs(fullNameImage);
+
+                            // Cập nhật thuộc tính HinhChinh
+                            sp.HinhChinh = fileName + ".png";
+                        }
+                    }
+
+                    sp.TinhTrang = "0";
+                    sp.SoLuongDaBan = 0;
+              
 
 
                 var loaiSanPhamList = LoaiSanPhamBUS.DanhSachAdmin();
@@ -69,16 +89,42 @@ namespace Shop_Mobile.Areas.Admin.Controllers
 
                 
             }
-            catch
+            catch(Exception ex)
             {
                 Console.WriteLine("lỗi");
+                // Xử lý ngoại lệ nếu có
+                // Ví dụ: log lỗi, thông báo người dùng, ...
+                Console.WriteLine("Lỗi xử lý tệp tin: " + ex.Message);
             }
             return View(sp);
+        }
+        // hàm loại bỏ các kí tự đặc biệt
+        private string MakeValidFileName(string name)
+        {
+            // Loại bỏ các ký tự không hợp lệ
+            char[] invalidChars = Path.GetInvalidFileNameChars();
+            foreach (char invalidChar in invalidChars)
+            {
+                name = name.Replace(invalidChar.ToString(), "");
+            }
+
+            // Thay thế khoảng trắng bằng dấu gạch dưới
+            name = name.Replace(" ", "_");
+
+            return name;
         }
 
         // GET: Admin/SanPham/Edit/5
         public ActionResult Edit(string id)
         {
+            var loaiSanPhamList = LoaiSanPhamBUS.DanhSachAdmin();
+            var maLoaiSanPham = ShopOnlineBUS.ChiTietSP(id).MaLoaiSanPham;
+            ViewBag.MaLoaiSanPham = new SelectList(loaiSanPhamList, "MaLoaiSanPham", maLoaiSanPham);
+
+            var nhaSanXuatList = NhaSanXuatBUS.DanhSachAdmin();
+            var maNhaSanXuat = ShopOnlineBUS.ChiTietSP(id).MaNhaSanXuat;
+            ViewBag.MaNhaSanXuat = new SelectList(nhaSanXuatList, "MaNhaSanXuat", maNhaSanXuat);
+
             var db = ShopOnlineBUS.ChitietSPAdmin(id);
             return View(db);
         }
@@ -110,16 +156,25 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
-            {
-                // TODO: Add delete logic here
-                var db = new ShopConnectionDB();
-                db.Delete("SanPham", "MaSanPham", null, id);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+    {
+        var db = new ShopConnectionDB();
+
+        // Kiểm tra tồn tại của đối tượng
+        var existingItem = db.FindSanPhamById(id);
+        if (existingItem == null)
+        {
+            return HttpNotFound(); // Hoặc trả về ActionResult khác tùy thuộc vào yêu cầu của bạn
+        }
+
+        // Tiến hành xóa
+        db.Delete("SanPham", "MaSanPham", null, id);
+
+        return RedirectToAction("Index");
+    }
+    catch
+    {
+        return View();
+    }
         }
     }
 }

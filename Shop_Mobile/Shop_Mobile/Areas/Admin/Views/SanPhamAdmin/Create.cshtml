@@ -62,7 +62,7 @@
         <td>Mã Loại Sản Phẩm</td>
         <td>
             @if (ViewBag.MaloaiSanPham != null) {
-                 @Html.DropDownList("MaLoaiSanPham", ViewBag.MaLoaiSanPham as SelectList, new { @style = "float:left; width: 300px; background:black;height:30px;" })
+                 @Html.DropDownList("MaLoaiSanPham", ViewBag.MaLoaiSanPham as SelectList, "chọn nhà sản xuất", new { @style = "float:left; width: 300px; background:black;height:30px;" })
             }
 
         </td>
@@ -74,7 +74,7 @@
     </tr>
     <tr>
         <td>Hình Ảnh</td>
-        <td> <input id="file_Hinh" type="File" name="HinhChinh" onchange="previewFile()" required /></td>
+        <td> <input id="file_Hinh" type="File" name="HinhChinh" onchange="previewFile()"  /></td>
         <td>
             <img id="target" class="img" src="#" alt="your img" style="max-height:100px; max-width:100px;" />
         </td>

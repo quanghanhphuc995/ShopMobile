@@ -40,6 +40,8 @@ namespace ShopConnection
 		}
 		
 		public static IFactory Factory { get; set; }
+        public object SanPham { get; internal set; }
+
         public static ShopConnectionDB GetInstance()
         {
 			if (_instance!=null)
@@ -102,7 +104,12 @@ namespace ShopConnection
 			public static IEnumerable<T> Query(string sql, params object[] args) { return repo.Query<T>(sql, args); }
 			public static IEnumerable<T> Query(Sql sql) { return repo.Query<T>(sql); }
 		}
-	}
+
+        internal object FindSanPhamById(int id)
+        {
+            throw new NotImplementedException();
+        }
+    }
 	
 
     
