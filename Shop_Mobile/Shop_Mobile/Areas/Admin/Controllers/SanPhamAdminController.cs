@@ -39,36 +39,53 @@ namespace Shop_Mobile.Areas.Admin.Controllers
 
         // POST: Admin/SanPham/Create
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(SanPham sp)
         {
             try
             {
-                
-                    if (HttpContext.Request.Files.Count > 0 && HttpContext.Request.Files[0] != null)
+                for (int i = 0; i <= 5; i++)
+                {
+                    //kiem tra request da co file gui len chua
+                    if (HttpContext.Request.Files.Count > i)
                     {
-                        var hpf = HttpContext.Request.Files[0];
-
+                        var hpf = HttpContext.Request.Files[i];
+                        //kiem tra requst > 0 hay khong
                         if (hpf.ContentLength > 0)
                         {
-                        string fileName = MakeValidFileName(sp.TenSanPham);
+                            string fileName = MakeValidFileName(sp.TenSanPham) + "_Images" + (i + 1);
                             string directoryPath = Server.MapPath("~/Asset/img/");
 
-                            // Đảm bảo thư mục lưu trữ tồn tại, nếu không tạo mới
+                            // kiem tra xem thu muc co ton tai khong neu khong tao moi
+
                             if (!Directory.Exists(directoryPath))
                             {
                                 Directory.CreateDirectory(directoryPath);
                             }
 
-                            string fullNameImage = Path.Combine(directoryPath, fileName + ".png");
+                            string fullName = Path.Combine(directoryPath, fileName + ".png");
 
-                            // Lưu tệp tin
-                            hpf.SaveAs(fullNameImage);
+                            hpf.SaveAs(fullName);
 
-                            // Cập nhật thuộc tính HinhChinh
-                            sp.HinhChinh = fileName + ".png";
+                            switch (i)
+                            {
+                                case 0:sp.HinhChinh = fileName + ".png";
+                                    break;
+
+                                case 1:sp.Hinh1 = fileName + ".png";
+                                    break;
+                                case 2: sp.Hinh2 = fileName + ".png";
+                                    break;
+                                case 3: sp.Hinh3 = fileName + ".png";
+                                    break;
+                                case 4: sp.Hinh4 = fileName + ".png";
+                                    break;
+                                    
+                            }
+                            
                         }
                     }
-
+                }
                     sp.TinhTrang = "0";
                     sp.SoLuongDaBan = 0;
               
@@ -91,7 +108,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
             }
             catch(Exception ex)
             {
-                Console.WriteLine("lỗi");
+                Console.WriteLine("lỗi"+ex.ToString());
                 // Xử lý ngoại lệ nếu có
                 // Ví dụ: log lỗi, thông báo người dùng, ...
                 Console.WriteLine("Lỗi xử lý tệp tin: " + ex.Message);
@@ -131,6 +148,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
 
         // POST: Admin/SanPham/Edit/5
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(string id, SanPham sp)
         {
             try

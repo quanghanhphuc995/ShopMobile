@@ -1,6 +1,8 @@
-﻿function previewFile() {
-    var preview = document.querySelector(".img");
-    var file = document.querySelector('input[type=file]').files[0];
+﻿function previewFile(inputId, imgId) {
+    console.log("Calling previewFile for", imgId);
+    var preview = document.getElementById(imgId);
+    var fileInput = document.getElementById(inputId);
+    var file = fileInput.files[0];
     var reader = new FileReader();
 
     reader.onloadend = function () {

@@ -55,84 +55,119 @@
 {
 
 <h2>Chỉnh Sữa Sản Phẩm @Model.TenSanPham</h2>
-    <table style="width:80% ;margin:auto; background:black;">
-        <tr>
-            <td>Mã Sản Phẩm</td>
-            <td> <input style="width: 300px;float:left; " maxlength="11" type="text" name="MaSanPham" value="@Model.MaSanPham" /></td>
+<table style="width:80% ;margin:auto; background:black;">
+    <tr>
+        <td>Mã Sản Phẩm</td>
+        <td> <input style="width: 300px;float:left; " maxlength="11" type="text" name="MaSanPham" value="@Model.MaSanPham" /></td>
 
-        </tr>
-        <tr>
-            <td>Mã Loại Sản Phẩm</td>
-            <td>
-                @if (ViewBag.MaloaiSanPham != null)
+    </tr>
+    <tr>
+        <td>Mã Loại Sản Phẩm</td>
+        <td>
+            @if (ViewBag.MaLoaiSanPham != null)
+            {
+                // Kiểm tra xem có ở chế độ chỉnh sửa không
+                bool isEditMode = ViewBag.IsEditMode != null ? (bool)ViewBag.IsEditMode : false;
+
+                // Nếu ở chế độ chỉnh sửa, hiển thị DropDownList với giá trị đã chọn
+                if (isEditMode)
                 {
                     @Html.DropDownList("MaLoaiSanPham", null, new { @style = "float:left; width: 300px; background:black;height:30px;" })
                 }
+                else
+                {
+                    // Nếu không ở chế độ chỉnh sửa, bạn có thể hiển thị dữ liệu không thể chỉnh sửa (ví dụ: text)
+                    <span>@ViewBag.MaLoaiSanPham</span>
+                }
+            }
 
-            </td>
-        </tr>
-        <tr>
-            <td>Tên Sản Phẩm</td>
-            <td> <input style="width: 300px;float:left;" type="text" name="TenSanPham" maxlength="50" value="@Model.TenSanPham" /></td>
 
-        </tr>
-        <tr>
-            <td>Hình Ảnh</td>
-            <td> <input id="file_Hinh" type="File" name="HinhChinh" onchange="previewFile()" /></td>
-            <td>
-                <img id="target" class="img" src="~/Asset/img/@Model.HinhChinh" alt="your img" style="max-height:100px; max-width:100px;" />
-            </td>
-        </tr>
-        <tr>
-            <td>Hình Ảnh 1</td>
-            <td> <input id="file_Hinh1" type="file" name="Hinh1" onchange="previewFile()" /></td>
-            <td>
-                <img id="target" class="img" src="#" alt="your img" style="max-height:100px; max-width:100px;" />
-            </td>
-        </tr>
-        <tr>
-            <td>Hình Ảnh 2</td>
-            <td> <input id="file_Hinh2" type="file" name="Hinh2" onchange="previewFile()" /></td>
-        </tr>
-        <tr>
-            <td>Hình Ảnh 3</td>
-            <td> <input id="file_Hinh3" type="file" name="Hinh3" onchange="previewFile()" /></td>
-        </tr>
-        <tr>
-            <td>Hình Ảnh 4</td>
-            <td> <input id="file_Hinh4" type="file" name="Hinh4" onchange="previewFile()" /></td>
-        </tr>
-        <tr>
-            <td>Giá</td>
-            <td> <input style="width: 300px; float:left; background:white; color:black" type="number" name="Gia" value="@Model.Gia" /></td>
-        </tr>
-        <tr>
-            <td>Ghi Chú</td>
-            <td> <input style="width: 300px;float:left;" type="text" name="GhiChu" value="@Model.GhiChu" /></td>
-        </tr>
-        <tr>
-            <td>Nhà Sản Xuất</td>
-            <td>
-                @if (ViewBag.MaNhaSanXuat != null)
+        </td>
+    </tr>
+    <tr>
+        <td>Tên Sản Phẩm</td>
+        <td> <input style="width: 300px;float:left;" type="text" name="TenSanPham" maxlength="50" value="@Model.TenSanPham" /></td>
+
+    </tr>
+    <tr>
+        <td>Hình Ảnh</td>
+        <td> <input id="file_Hinh" type="file" name="HinhChinh" onchange="previewFile('file_Hinh','target')" /></td>
+        <td>
+            <img id="target" class="img" src="~/Asset/img/@Model.HinhChinh" alt="your img" style="max-height:100px; max-width:100px;" />
+        </td>
+    </tr>
+    <tr>
+        <td>Hình Ảnh 1</td>
+        <td> <input id="file_Hinh1" type="file" name="Hinh1" onchange="previewFile('file_Hinh1','target1')" /></td>
+        <td>
+            <img id="target1" class="img" src="~/Asset/img/@Model.Hinh1" alt="your img" style="max-height:100px; max-width:100px;" />
+        </td>
+    </tr>
+    <tr>
+        <td>Hình Ảnh 2</td>
+        <td> <input id="file_Hinh2" type="file" name="Hinh2" onchange="previewFile('file_Hinh2','target2')" /></td>
+        <td>
+            <img id="target2" class="img" src="~/Asset/img/@Model.Hinh2" alt="your img" style="max-height:100px; max-width:100px;" />
+        </td>
+    </tr>
+    <tr>
+        <td>Hình Ảnh 3</td>
+        <td> <input id="file_Hinh3" type="file" name="Hinh3" onchange="previewFile('file_Hinh3','target3')" /></td>
+        <td>
+            <img id="target3" class="img" src="~/Asset/img/@Model.Hinh3" alt="your img" style="max-height:100px; max-width:100px;" />
+        </td>
+    </tr>
+    <tr>
+        <td>Hình Ảnh 4</td>
+        <td> <input id="file_Hinh4" type="file" name="Hinh4" onchange="previewFile('file_Hinh4','target4')" /></td>
+        <td>
+            <img id="target4" class="img" src="~/Asset/img/@Model.Hinh4" alt="your img" style="max-height:100px; max-width:100px;" />
+        </td>
+    </tr>
+    <tr>
+        <td>Giá</td>
+        <td> <input style="width: 300px; float:left; background:white; color:black" type="number" name="Gia" value="@Model.Gia" /></td>
+    </tr>
+    <tr>
+        <td>Ghi Chú</td>
+        <td> <input style="width: 300px;float:left;" type="text" name="GhiChu" value="@Model.GhiChu" /></td>
+    </tr>
+    <tr>
+        <td>Nhà Sản Xuất</td>
+        <td>
+            @if (ViewBag.MaNhaSanXuat != null)
+            {
+                // Kiểm tra xem có ở chế độ chỉnh sửa không
+                bool isEditMode = ViewBag.IsEditMode != null ? (bool)ViewBag.IsEditMode : false;
+
+                // Nếu ở chế độ chỉnh sửa, hiển thị DropDownList với giá trị đã chọn
+                if (isEditMode)
                 {
                     @Html.DropDownList("MaNhaSanXuat", null, new { @style = "float:left; width: 300px; background:black;height:30px;" })
                 }
+                else
+                {
+                    // Nếu không ở chế độ chỉnh sửa, bạn có thể hiển thị dữ liệu không thể chỉnh sửa (ví dụ: text)
+                    <span>@ViewBag.MaNhaSanXuat</span>
+                }
+            }
 
-            </td>
-        </tr>
-        <tr>
 
-            <td style="width: 300px;">Cấu Hình</td>
-            <td colspan="2"><textarea class="ckeditor" name="CauHinh" style="width: 300px; color:black; height: 150px; max-width: 100px; max-height: 600px; background:white;" rows="4" cols="30"></textarea></td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <input style="height: 40px; width: 300px;   margin-left:32%;
+        </td>
+    </tr>
+    <tr>
+
+        <td style="width: 300px;">Cấu Hình</td>
+        <td colspan="2"><textarea class="ckeditor" name="CauHinh" style="width: 300px; color:black; height: 150px; max-width: 100px; max-height: 600px; background:white;" rows="4" cols="30">@Model.CauHinh</textarea></td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <input style="height: 40px; width: 300px;   margin-left:32%;
 	 background:#016ABC;color: #fff;border: 1px solid #eee;border-radius: 20px;box-shadow: 5px 5px 5px #eee;"
-                       type="submit" name="btn_ThemDienThoai" value="chỉnh sữa điện thoại" />
-            </td>
-        </tr>
-    </table>
+                   type="submit" name="btn_ThemDienThoai" value="chỉnh sữa điện thoại" />
+        </td>
+    </tr>
+</table>
 }
 
 

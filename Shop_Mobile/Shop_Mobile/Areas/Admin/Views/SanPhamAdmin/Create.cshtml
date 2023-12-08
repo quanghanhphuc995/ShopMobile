@@ -3,7 +3,7 @@
     ViewBag.Title = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
 }
-<script src="~/Areas/Admin/AssetAdmin/js/PreviewFile.js"></script>
+<script src="~/Areas/AssetAdmin/js/product/previewFile.js"></script>
 
 <style>
     input[type=text] {
@@ -56,13 +56,14 @@
     <tr>
         <td>Mã Sản Phẩm</td>
         <td> <input style="width: 300px;float:left; " maxlength="11" type="text" name="MaSanPham" required /></td>
-        
+
     </tr>
     <tr>
         <td>Mã Loại Sản Phẩm</td>
         <td>
-            @if (ViewBag.MaloaiSanPham != null) {
-                 @Html.DropDownList("MaLoaiSanPham", ViewBag.MaLoaiSanPham as SelectList, "chọn nhà sản xuất", new { @style = "float:left; width: 300px; background:black;height:30px;" })
+            @if (ViewBag.MaloaiSanPham != null)
+            {
+                @Html.DropDownList("MaLoaiSanPham", ViewBag.MaLoaiSanPham as SelectList, "chọn nhà sản xuất", new { @style = "float:left; width: 300px; background:black;height:30px;" })
             }
 
         </td>
@@ -70,34 +71,44 @@
     <tr>
         <td>Tên Sản Phẩm</td>
         <td> <input style="width: 300px;float:left;" type="text" name="TenSanPham" maxlength="50" required /></td>
-        
+
     </tr>
     <tr>
         <td>Hình Ảnh</td>
-        <td> <input id="file_Hinh" type="File" name="HinhChinh" onchange="previewFile()"  /></td>
+        <td> <input id="file_Hinh" type="file" name="HinhChinh" onchange="previewFile('file_Hinh','target')" /></td>
         <td>
             <img id="target" class="img" src="#" alt="your img" style="max-height:100px; max-width:100px;" />
         </td>
     </tr>
     <tr>
         <td>Hình Ảnh 1</td>
-        <td> <input id="file_Hinh1" type="file" name="Hinh1" onchange="previewFile()" /></td>
+        <td> <input id="file_Hinh1" type="file" name="Hinh1" onchange="previewFile('file_Hinh1','target1')" /></td>
         <td>
-            <img id="target" class="img" src="#" alt="your img" style="max-height:100px; max-width:100px;" />
+            <img id="target1" class="img" src="#" alt="your img" style="max-height:100px; max-width:100px;" />
         </td>
     </tr>
     <tr>
         <td>Hình Ảnh 2</td>
-        <td> <input id="file_Hinh2" type="file" name="Hinh2" onchange="previewFile()"  /></td>
+        <td> <input id="file_Hinh2" type="file" name="Hinh2" onchange="previewFile('file_Hinh2','target2')" /></td>
+        <td>
+            <img id="target2" class="img" src="#" alt="your img" style="max-height:100px; max-width:100px;" />
+        </td>
     </tr>
     <tr>
         <td>Hình Ảnh 3</td>
-        <td> <input id="file_Hinh3" type="file" name="Hinh3" onchange="previewFile()"  /></td>
+        <td> <input id="file_Hinh3" type="file" name="Hinh3" onchange="previewFile('file_Hinh3','target3')" /></td>
+        <td>
+            <img id="target3" class="img" src="#" alt="your img" style="max-height:100px; max-width:100px;" />
+        </td>
     </tr>
     <tr>
         <td>Hình Ảnh 4</td>
-        <td> <input id="file_Hinh4" type="file" name="Hinh4" onchange="previewFile()"  /></td>
+        <td> <input id="file_Hinh4" type="file" name="Hinh4" onchange="previewFile('file_Hinh4','target4')" /></td>
+        <td>
+            <img id="target4" class="img" src="#" alt="your img" style="max-height:100px; max-width:100px;" />
+        </td>
     </tr>
+
     <tr>
         <td>Giá</td>
         <td> <input style="width: 300px; float:left; background:white; color:black" type="number" name="Gia" required /></td>
@@ -119,7 +130,7 @@
     <tr>
 
         <td style="width: 300px;">Cấu Hình</td>
-        <td colspan="2"><textarea class="ckeditor" name="CauHinh" style="width: 300px; color:black; height: 150px; max-width: 100px; max-height: 600px; background:white;" rows="4" cols="30"></textarea></td>
+         <td colspan="2"><textarea class="ckeditor" name="CauHinh" style="width: 300px; color:black; height: 150px; max-width: 100px; max-height: 600px; background:white;" rows="4" cols="30"></textarea></td>
     </tr>
     <tr>
         <td colspan="3">

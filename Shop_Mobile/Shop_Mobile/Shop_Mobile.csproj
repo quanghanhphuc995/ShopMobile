@@ -205,7 +205,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\AssetAdmin\js\PreviewFile.js" />
     <Content Include="Areas\AssetAdmin\bootstrap\css\bootstrap.css" />
     <Content Include="Areas\AssetAdmin\bootstrap\css\bootstrap.min.css" />
     <Content Include="Areas\AssetAdmin\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -648,9 +647,27 @@
     <Content Include="Asset\images\sub-banner4.jpg" />
     <Content Include="Asset\images\sub-banner5.png" />
     <Content Include="Asset\images\visa-curved-32px.png" />
-    <Content Include="Asset\img\Samsung a72.png" />
-    <Content Include="Asset\img\samsung galaxy a21.png" />
-    <Content Include="Asset\img\SP09999.png" />
+    <Content Include="Asset\img\2121211111_Images4.png" />
+    <Content Include="Asset\img\Oppo_A3_Images4.png" />
+    <Content Include="Asset\img\Samsung_a72_Images1.png" />
+    <Content Include="Asset\img\Samsung_a72_Images2.png" />
+    <Content Include="Asset\img\Samsung_a72_Images3.png" />
+    <Content Include="Asset\img\Samsung_a72_Images4.png" />
+    <Content Include="Asset\img\Samsung_a72_Images5.png" />
+    <Content Include="Asset\img\SamSung_Galaxy_S221_Ultrall_Images1.png" />
+    <Content Include="Asset\img\SamSung_Galaxy_S221_Ultrall_Images2.png" />
+    <Content Include="Asset\img\SamSung_Galaxy_S221_Ultrall_Images3.png" />
+    <Content Include="Asset\img\SamSung_Galaxy_S221_Ultrall_Images4.png" />
+    <Content Include="Asset\img\SamSung_Galaxy_S221_Ultrall_Images5.png" />
+    <Content Include="Asset\img\vio21_Images1.png" />
+    <Content Include="Asset\img\vio21_Images2.png" />
+    <Content Include="Asset\img\vio21_Images3.png" />
+    <Content Include="Asset\img\vio21_Images4.png" />
+    <Content Include="Asset\img\Vivo_O99_Images1.png" />
+    <Content Include="Asset\img\Vivo_O99_Images2.png" />
+    <Content Include="Asset\img\Vivo_O99_Images3.png" />
+    <Content Include="Asset\img\Vivo_O99_Images4.png" />
+    <Content Include="Asset\img\Vivo_O99_Images5.png" />
     <Content Include="Asset\js\bootstrap.min.js" />
     <Content Include="Asset\js\html5shiv.js" />
     <Content Include="Asset\js\jquery-2.1.1.js" />
