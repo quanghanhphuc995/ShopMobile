@@ -48,7 +48,7 @@ namespace Shop_Mobile.Models.BUS
         public static SanPham ChitietSPAdmin(string id)
         {
             var db = new ShopConnectionDB();
-            return db.SingleOrDefault<SanPham>("select * from SanPham where MaSanPham ='"+id+"'");
+            return db.SingleOrDefault<SanPham>("select * from SanPham where MaSanPham = @0", id);
         }
 
         public static void UpdateSP(string id, SanPham sp)
@@ -57,10 +57,10 @@ namespace Shop_Mobile.Models.BUS
             db.Update(sp, id);
         }
 
-        public static void XoaSP(string id)
-        {
-            var db = new ShopConnectionDB();
-            db.Delete(id);
-        }
+            public static int XoaSP(string id)
+            {
+                var db = new ShopConnectionDB();
+                return db.Execute("delete from SanPham where MaSanPham = @0", id);
+            }
     }
 }

@@ -4,8 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
 }
 
-<script src="~/Areas/Admin/AssetAdmin/js/PreviewFile.js"></script>
-
+<script src="~/Areas/AssetAdmin/js/product/previewFile.js"></script>
 <style>
     input[type=text] {
         width: 100%;
@@ -51,7 +50,7 @@
             background-color: #45a049;
         }
 </style>
-@using (Html.BeginForm("Create", "SanPhamAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "SanPhamAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 
 <h2>Chỉnh Sữa Sản Phẩm @Model.TenSanPham</h2>
@@ -64,23 +63,8 @@
     <tr>
         <td>Mã Loại Sản Phẩm</td>
         <td>
-            @if (ViewBag.MaLoaiSanPham != null)
-            {
-                // Kiểm tra xem có ở chế độ chỉnh sửa không
-                bool isEditMode = ViewBag.IsEditMode != null ? (bool)ViewBag.IsEditMode : false;
 
-                // Nếu ở chế độ chỉnh sửa, hiển thị DropDownList với giá trị đã chọn
-                if (isEditMode)
-                {
-                    @Html.DropDownList("MaLoaiSanPham", null, new { @style = "float:left; width: 300px; background:black;height:30px;" })
-                }
-                else
-                {
-                    // Nếu không ở chế độ chỉnh sửa, bạn có thể hiển thị dữ liệu không thể chỉnh sửa (ví dụ: text)
-                    <span>@ViewBag.MaLoaiSanPham</span>
-                }
-            }
-
+            @Html.DropDownList("MaLoaiSanPham", null, new { @style = "float:left; width: 300px; background:black;height:30px;" })
 
         </td>
     </tr>
@@ -135,22 +119,8 @@
     <tr>
         <td>Nhà Sản Xuất</td>
         <td>
-            @if (ViewBag.MaNhaSanXuat != null)
-            {
-                // Kiểm tra xem có ở chế độ chỉnh sửa không
-                bool isEditMode = ViewBag.IsEditMode != null ? (bool)ViewBag.IsEditMode : false;
 
-                // Nếu ở chế độ chỉnh sửa, hiển thị DropDownList với giá trị đã chọn
-                if (isEditMode)
-                {
-                    @Html.DropDownList("MaNhaSanXuat", null, new { @style = "float:left; width: 300px; background:black;height:30px;" })
-                }
-                else
-                {
-                    // Nếu không ở chế độ chỉnh sửa, bạn có thể hiển thị dữ liệu không thể chỉnh sửa (ví dụ: text)
-                    <span>@ViewBag.MaNhaSanXuat</span>
-                }
-            }
+            @Html.DropDownList("MaNhaSanXuat", null, new { @style = "float:left; width: 300px; background:black;height:30px;" })
 
 
         </td>

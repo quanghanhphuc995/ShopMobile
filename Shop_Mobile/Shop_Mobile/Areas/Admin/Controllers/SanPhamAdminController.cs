@@ -69,26 +69,31 @@ namespace Shop_Mobile.Areas.Admin.Controllers
 
                             switch (i)
                             {
-                                case 0:sp.HinhChinh = fileName + ".png";
+                                case 0:
+                                    sp.HinhChinh = fileName + ".png";
                                     break;
 
-                                case 1:sp.Hinh1 = fileName + ".png";
+                                case 1:
+                                    sp.Hinh1 = fileName + ".png";
                                     break;
-                                case 2: sp.Hinh2 = fileName + ".png";
+                                case 2:
+                                    sp.Hinh2 = fileName + ".png";
                                     break;
-                                case 3: sp.Hinh3 = fileName + ".png";
+                                case 3:
+                                    sp.Hinh3 = fileName + ".png";
                                     break;
-                                case 4: sp.Hinh4 = fileName + ".png";
+                                case 4:
+                                    sp.Hinh4 = fileName + ".png";
                                     break;
-                                    
+
                             }
-                            
+
                         }
                     }
                 }
-                    sp.TinhTrang = "0";
-                    sp.SoLuongDaBan = 0;
-              
+                sp.TinhTrang = "0";
+                sp.SoLuongDaBan = 0;
+
 
 
                 var loaiSanPhamList = LoaiSanPhamBUS.DanhSachAdmin();
@@ -104,13 +109,11 @@ namespace Shop_Mobile.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
 
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine("lỗi"+ex.ToString());
-                // Xử lý ngoại lệ nếu có
-                // Ví dụ: log lỗi, thông báo người dùng, ...
+                Console.WriteLine("lỗi" + ex.ToString());
                 Console.WriteLine("Lỗi xử lý tệp tin: " + ex.Message);
             }
             return View(sp);
@@ -135,12 +138,12 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         public ActionResult Edit(string id)
         {
             var loaiSanPhamList = LoaiSanPhamBUS.DanhSachAdmin();
-            var maLoaiSanPham = ShopOnlineBUS.ChiTietSP(id).MaLoaiSanPham;
-            ViewBag.MaLoaiSanPham = new SelectList(loaiSanPhamList, "MaLoaiSanPham", maLoaiSanPham);
+            var maLoaiSanPham = ShopOnlineBUS.ChitietSPAdmin(id).MaLoaiSanPham;
+            ViewBag.MaLoaiSanPham = new SelectList(loaiSanPhamList, "MaLoaiSanPham", "TenLoaiSanPham", maLoaiSanPham);
 
             var nhaSanXuatList = NhaSanXuatBUS.DanhSachAdmin();
-            var maNhaSanXuat = ShopOnlineBUS.ChiTietSP(id).MaNhaSanXuat;
-            ViewBag.MaNhaSanXuat = new SelectList(nhaSanXuatList, "MaNhaSanXuat", maNhaSanXuat);
+            var maNhaSanXuat = ShopOnlineBUS.ChitietSPAdmin(id).MaNhaSanXuat;
+            ViewBag.MaNhaSanXuat = new SelectList(nhaSanXuatList, "MaNhaSanXuat", "TenNhaSanXuat", maNhaSanXuat);
 
             var db = ShopOnlineBUS.ChitietSPAdmin(id);
             return View(db);
@@ -153,6 +156,47 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         {
             try
             {
+                for (int i = 0; i <= 5; i++)
+                {
+                    //kiểm tra có file được gửi lên Request ko
+                    if (HttpContext.Request.Files.Count > i)
+                    {
+                        //lấy file về
+                        var hpf = HttpContext.Request.Files[i];
+
+                        //kiểm tra xem request có nội dung hay không
+                        if (hpf.ContentLength > 0)
+                        {
+                            string fileName = MakeValidFileName(sp.TenSanPham) + "_img" + (i + 1);
+                            string directoryPath = Server.MapPath("~/Asset/img");
+
+                            string fullName = Path.Combine(directoryPath, fileName + ".png");
+
+                            hpf.SaveAs(fullName);
+
+                            switch (i)
+                            {
+                                case 0:
+                                    sp.HinhChinh = fileName + ".png";
+                                    break;
+
+                                case 1:
+                                    sp.Hinh1 = fileName + ".png";
+                                    break;
+                                case 2:
+                                    sp.Hinh2 = fileName + ".png";
+                                    break;
+                                case 3:
+                                    sp.Hinh3 = fileName + ".png";
+                                    break;
+                                case 4:
+                                    sp.Hinh4 = fileName + ".png";
+                                    break;
+                            }
+                        }
+                    }
+                }
+
                 // TODO: Add update logic here
                 ShopOnlineBUS.UpdateSP(id, sp);
                 return RedirectToAction("Index");
@@ -166,33 +210,31 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         // GET: Admin/SanPham/Delete/5
         public ActionResult Delete(string id)
         {
-            return View();
+            var sanPham = ShopOnlineBUS.XoaSP(id);
+            return View(sanPham);
         }
 
         // POST: Admin/SanPham/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+       
+        public ActionResult Delete(string id, FormCollection collection)
         {
             try
-    {
-        var db = new ShopConnectionDB();
+            {
+                var db = new ShopConnectionDB();
+                var affectedRows = ShopOnlineBUS.XoaSP(id);
 
-        // Kiểm tra tồn tại của đối tượng
-        var existingItem = db.FindSanPhamById(id);
-        if (existingItem == null)
-        {
-            return HttpNotFound(); // Hoặc trả về ActionResult khác tùy thuộc vào yêu cầu của bạn
-        }
+               
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi xóa sản phẩm" + ex.Message);
+                TempData["XoaSPMessage"] = "Đã xảy ra lỗi trong quá trình xóa sản phẩm.";
+            }
 
-        // Tiến hành xóa
-        db.Delete("SanPham", "MaSanPham", null, id);
-
-        return RedirectToAction("Index");
-    }
-    catch
-    {
-        return View();
-    }
+            return RedirectToAction("Index");
         }
     }
+    
+    
 }
