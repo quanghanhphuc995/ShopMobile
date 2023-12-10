@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Shop_Mobile.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SanPhamAdminController : Controller
     {
         // GET: Admin/SanPham
@@ -222,14 +223,11 @@ namespace Shop_Mobile.Areas.Admin.Controllers
             try
             {
                 var db = new ShopConnectionDB();
-                var affectedRows = ShopOnlineBUS.XoaSP(id);
-
-               
+                ShopOnlineBUS.XoaSP(id);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Lỗi xóa sản phẩm" + ex.Message);
-                TempData["XoaSPMessage"] = "Đã xảy ra lỗi trong quá trình xóa sản phẩm.";
             }
 
             return RedirectToAction("Index");

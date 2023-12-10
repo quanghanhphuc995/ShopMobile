@@ -58,15 +58,14 @@
                 </div>
                 <div class="col-xs-6">
                     <ul class="top-link">
-                        <li><a href="account.html"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-                        <li><a href="contact.html"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+                        @Html.Partial("_LoginPartial")
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
     <!--Header-->
-    @{ 
+    @{
         Html.RenderPartial("_Header");
     }
     <!--Navigation-->
@@ -90,7 +89,8 @@
     <!--//////////////////////////////////////////////////-->
     <!--///////////////////HomePage///////////////////////-->
     <!--//////////////////////////////////////////////////-->
-   @RenderBody()
+    @RenderBody()
     @{ Html.RenderPartial("_Footer");}
+    @RenderSection("scripts", required: false)
 </body>
 </html>

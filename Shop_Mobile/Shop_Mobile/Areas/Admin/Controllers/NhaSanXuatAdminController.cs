@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Shop_Mobile.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class NhaSanXuatAdminController : Controller
     {
         // GET: Admin/NhaSanXuat

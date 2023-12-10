@@ -57,10 +57,31 @@ namespace Shop_Mobile.Models.BUS
             db.Update(sp, id);
         }
 
-            public static int XoaSP(string id)
+        public static SanPham XoaSP(string id)
+        {
+            var db = new ShopConnectionDB();
+            if (string.IsNullOrEmpty(id))
             {
-                var db = new ShopConnectionDB();
-                return db.Execute("delete from SanPham where MaSanPham = @0", id);
+                // Xử lý khi id không hợp lệ (ví dụ: trả về lỗi hoặc chuyển hướng đến trang lỗi)
+                Console.WriteLine("có nó đâu đòi xóa cha");
+                //...
+                return null;
             }
+
+
+            // Xóa sản phẩm khỏi cơ sở dữ liệu
+            int rowsAffected = db.Execute("DELETE FROM SanPham WHERE MaSanPham = @0", id);
+
+            // Nếu có ít nhất một hàng bị ảnh hưởng, thực hiện câu truy vấn SELECT
+            if (rowsAffected > 0)
+            {
+                return db.SingleOrDefault<SanPham>("SELECT * FROM SanPham WHERE MaSanPham = @0", id);
+            }
+
+            
+            return null; // hoặc có thể trả về một đối tượng SanPham mặc định, hoặc thông tin khác tùy thuộc vào trường hợp của bạn.
+        }
+
+        
     }
 }

@@ -10,6 +10,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
 {
     public class LoaiSanPhamAdminController : Controller
     {
+        [Authorize(Roles ="Admin")]
         // GET: Admin/LoaiSanPham
         public ActionResult Index()
         {
