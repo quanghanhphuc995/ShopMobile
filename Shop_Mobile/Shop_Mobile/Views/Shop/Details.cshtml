@@ -58,7 +58,7 @@
                                 </select>
                             </div>
                             <div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-                            <div class="well"><label>Qty: </label> <input class="form-inline quantity" type="text" value="1"><a href="#" class="btn btn-2 ">ADD</a></div>
+                            <div class="well"><label>Qty: </label> <input class="form-inline quantity" type="number" value="1" min="1" max="100"><a href="@Url.Action("HienThiThongTinSanPham","GioHang", new { maSanPham =Model.MaSanPham })" class="btn btn-2 ">ADD</a></div>
                             <div class="share well">
                                 <strong style="margin-right: 13px;">Share :</strong>
                                 <a href="#" class="share-btn" target="_blank">

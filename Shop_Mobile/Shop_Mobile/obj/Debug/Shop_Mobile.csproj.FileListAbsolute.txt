@@ -550,3 +550,7 @@ C:\Users\quang\OneDrive\Desktop\git\ShopMobile\Shop_Mobile\Shop_Mobile\obj\Debug
 C:\Users\quang\OneDrive\Desktop\git\ShopMobile\Shop_Mobile\Shop_Mobile\obj\Debug\Shop_Mobile.csproj.CopyComplete
 C:\Users\quang\OneDrive\Desktop\git\ShopMobile\Shop_Mobile\Shop_Mobile\obj\Debug\Shop_Mobile.dll
 C:\Users\quang\OneDrive\Desktop\git\ShopMobile\Shop_Mobile\Shop_Mobile\obj\Debug\Shop_Mobile.pdb
+C:\Users\quang\OneDrive\Desktop\Shop\ShopMobile\Shop_Mobile\Shop_Mobile\bin\PagedList.dll
+C:\Users\quang\OneDrive\Desktop\Shop\ShopMobile\Shop_Mobile\Shop_Mobile\bin\PagedList.Mvc.dll
+C:\Users\quang\OneDrive\Desktop\Shop\ShopMobile\Shop_Mobile\Shop_Mobile\bin\PagedList.xml
+C:\Users\quang\OneDrive\Desktop\Shop\ShopMobile\Shop_Mobile\Shop_Mobile\bin\PagedList.Mvc.xml
