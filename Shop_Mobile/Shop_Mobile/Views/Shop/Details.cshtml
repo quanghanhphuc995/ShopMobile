@@ -58,7 +58,16 @@
                                 </select>
                             </div>
                             <div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-                            <div class="well"><label>Qty: </label> <input class="form-inline quantity" type="number" value="1" min="1" max="100"><a href="@Url.Action("HienThiThongTinSanPham","GioHang", new { maSanPham =Model.MaSanPham })" class="btn btn-2 ">ADD</a></div>
+                            <form action="@Url.Action("HienThiThongTinSanPham", "GioHang", new { maSanPham = Model.MaSanPham })" method="POST">
+                                <!-- Trường input số lượng -->
+                                <label>Qty: </label>
+                                <input class="form-inline quantity" name="SoLuong" type="number" value="1" min="1" max="100">
+
+                                <!-- Nút submit để gửi form -->
+                                <input type="submit" value="ADD" class="btn btn-2">
+                            </form>
+
+
                             <div class="share well">
                                 <strong style="margin-right: 13px;">Share :</strong>
                                 <a href="#" class="share-btn" target="_blank">

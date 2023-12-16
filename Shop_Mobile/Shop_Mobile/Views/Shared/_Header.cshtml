@@ -1,4 +1,6 @@
-﻿<header class="container">
+﻿
+
+<header class="container">
     <div class="row">
         <div class="col-md-4">
             <div id="logo"><img src="~/Asset/images/logo.png" /></div>
@@ -10,7 +12,10 @@
             </form>
         </div>
         <div class="col-md-4">
-            <div id="cart"><a class="btn btn-1" href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span>CART : 0 ITEM</a></div>
-        </div>
+            <div id="cart">
+                <a class="btn btn-1" href="@Url.Action("HienThiThongTinSanPham","GioHang")">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>CART : @ViewBag.TongSoLuong
+                </a>
+            </div>
     </div>
 </header>

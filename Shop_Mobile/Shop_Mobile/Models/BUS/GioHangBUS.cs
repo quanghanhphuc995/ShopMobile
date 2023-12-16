@@ -1,6 +1,7 @@
 ﻿using ShopConnection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -27,6 +28,7 @@ namespace Shop_Mobile.Models.BUS
         public int? LuotView { get; set; }
         public string TinhTrang { get; set; }
         public string GhiChu { get; set; }
+        public int TongSoLuong { get; set; }
     }
     public class GioHangBUS
     {
@@ -36,6 +38,8 @@ namespace Shop_Mobile.Models.BUS
             return db.SingleOrDefault<GioHang>("SELECT * FROM GioHang WHERE MaSanPham = @0", maSanPham);
         }
 
+
+        //hàm add cart
         public static void AddOrUpdateCartItem(GioHang gioHangItem)
         {
             var db = new ShopConnectionDB(); 
@@ -44,6 +48,7 @@ namespace Shop_Mobile.Models.BUS
 
             if (existingCartItem != null)
             {
+                
                 // Nếu sản phẩm đã tồn tại, cập nhật thông tin
                 existingCartItem.SoLuong += gioHangItem.SoLuong;
                 var giaSanPham = db.ExecuteScalar<int>("SELECT Gia FROM SanPham WHERE MaSanPham = @0", existingCartItem.MaSanPham);
@@ -67,7 +72,52 @@ namespace Shop_Mobile.Models.BUS
                     db.Insert(gioHangItemToAdd);
                 }
             }
+            var tongSoTienCanThanhToan = db.ExecuteScalar<int>("select sum(TongTien) from GioHang");
         }
+
+
+        //hàm Update
+        public static void CapNhat(GioHang gioHangItem)
+        {
+            var db = new ShopConnectionDB();
+
+            var existingCartItem = GetCartItem(gioHangItem.MaSanPham);
+
+            if (existingCartItem != null)
+            {
+
+                // Nếu sản phẩm đã tồn tại, cập nhật thông tin
+               
+                var giaSanPham = db.ExecuteScalar<int>("SELECT Gia FROM SanPham WHERE MaSanPham = @0", existingCartItem.MaSanPham);
+               //Trừ đi số lượng cũ để cập nhật giá trị mới 
+                existingCartItem.TongTien -= existingCartItem.SoLuong * giaSanPham;
+
+                //cập nhật số lượng mới
+                existingCartItem.SoLuong = gioHangItem.SoLuong;
+                existingCartItem.TongTien += existingCartItem.SoLuong * giaSanPham;
+
+                db.Update(existingCartItem);
+            }
+        }
+
+        // lấy tổng số lượng đang có hiện thị ra view
+
+
+
+
+        public static int TinhTongSoLuongGioHang()
+        {
+            var db = new ShopConnectionDB();
+            int tongSoLuong = db.ExecuteScalar<int>("SELECT SUM(SoLuong) FROM GioHang");
+
+            Debug.WriteLine($"Tong so luong: {tongSoLuong}"); // Sử dụng Debug.WriteLine để hiển thị giá trị trong Output window
+
+            return tongSoLuong;
+        }
+
+
+
+
         public static IEnumerable<GioHangViewModel> GetGioHangDetails()
         {
             var db = new ShopConnectionDB();
