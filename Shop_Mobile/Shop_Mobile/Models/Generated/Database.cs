@@ -181,10 +181,11 @@ namespace ShopConnection
     public partial class GioHang : ShopConnectionDB.Record<GioHang>  
     {
 		[Column] public int IdGH { get; set; }
-		[Column] public string Id { get; set; }
+		[Column] public string UserID { get; set; }
 		[Column] public string MaSanPham { get; set; }
 		[Column] public int? SoLuong { get; set; }
 		[Column] public int? TongTien { get; set; }
+		[Column] public int? TongSoTienCanThanhToan { get; set; }
 	}
     
 	[TableName("dbo.LoaiSanPham")]
