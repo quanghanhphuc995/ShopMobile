@@ -39,6 +39,7 @@ namespace Shop_Mobile.Models.BUS
             var db = new ShopConnectionDB();
 
             // Sử dụng tham số hóa trong câu truy vấn SQL
+            
             var query = "SELECT * FROM GioHang WHERE MaSanPham = @MaSanPham AND UserID = @UserID";
 
             // Tạo đối tượng tham số và thêm giá trị cho mỗi tham số
@@ -107,7 +108,7 @@ namespace Shop_Mobile.Models.BUS
             var db = new ShopConnectionDB();
 
             var existingCartItem = GetCartItem(gioHangItem.MaSanPham, userId);
-
+            Debug.WriteLine($"AddOrUpdateCartItem - UserID: {userId}");
             if (existingCartItem != null)
             {
 
@@ -151,7 +152,7 @@ namespace Shop_Mobile.Models.BUS
             CapNhat(gioHangItem,userId);
         }
 
-        public static IEnumerable<GioHangViewModel> GetGioHangDetails()
+        public static IEnumerable<GioHangViewModel> GetGioHangDetails(string userId)
         {
             var db = new ShopConnectionDB();
 
@@ -180,10 +181,12 @@ namespace Shop_Mobile.Models.BUS
             GioHang GH
         JOIN
             SanPham SP ON GH.MaSanPham = SP.MaSanPham
+        WHERE 
+            GH.UserID = @UserID
     ";
-
-            var result = db.Query<GioHangViewModel>(sql).ToList();
-            // Do something with the result, or return it as needed
+            var parameters = new { UserID = userId };
+            var result = db.Query<GioHangViewModel>(sql,parameters).ToList();
+           
             return result;
         }
     }

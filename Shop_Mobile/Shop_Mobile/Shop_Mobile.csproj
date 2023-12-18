@@ -848,9 +848,9 @@
     <Content Include="Views\LoaiSanPham\Index.cshtml" />
     <Content Include="Views\Shared\_TopNew.cshtml" />
     <Content Include="Views\Shared\_TopBanNhieuNhat.cshtml" />
-    <Content Include="Views\GioHang\HienThiThongTinSanPham.cshtml" />
-    <Content Include="Views\GioHang\Index.cshtml" />
     <Content Include="Views\ThanhToan\Index.cshtml" />
+    <Content Include="Views\GioHang\Index.cshtml" />
+    <Content Include="Views\GioHang\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
