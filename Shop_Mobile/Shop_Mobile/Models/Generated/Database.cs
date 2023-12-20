@@ -214,6 +214,7 @@ namespace ShopConnection
     public partial class SanPham : ShopConnectionDB.Record<SanPham>  
     {
 		[Column] public string MaSanPham { get; set; }
+		[Column] public int? IdGH { get; set; }
 		[Column] public string MaLoaiSanPham { get; set; }
 		[Column] public string MaNhaSanXuat { get; set; }
 		[Column] public string TenSanPham { get; set; }

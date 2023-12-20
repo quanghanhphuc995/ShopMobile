@@ -16,51 +16,29 @@ namespace Shop_Mobile.Controllers
         // GET: GioHang
         public ActionResult Index()
         {
-            
-            return View();
+            string userId = User.Identity.GetUserId();
+            IEnumerable<GioHangViewModel> gioHangDetails = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                gioHangDetails = GioHangBUS.ChiTietGioHang(userId);
+               
+            }
+            return View(gioHangDetails);
         }
         [HttpPost]
-        public ActionResult HienThiThongTinSanPham(string maSanPham, GioHang gioHangItem)
+        public ActionResult ThemVaoGioHang(string maSanPham, GioHang gioHangItem)
         {
             if (User.Identity.IsAuthenticated)
             {
                 string userId = User.Identity.GetUserId();
-                var dbGetCart = GioHangBUS.GetCartItem(maSanPham, userId);
-                int tongSoLuong = GioHangBUS.TinhTongSoLuongGioHang(userId);
-                ViewBag.TongSoLuong = tongSoLuong;
-                if (dbGetCart == null)
+                GioHangBUS.TaoMoiVaThemVaoGioHang(userId, maSanPham, gioHangItem);
+                var GioHangDetails = GioHangBUS.ChiTietGioHang(userId);
+                
+                if (GioHangDetails.Any())
                 {
-                    GioHangBUS.AddOrUpdateCartItem(gioHangItem, userId);
-                }
-
-                var gioHangDetails = GioHangBUS.GetGioHangDetails(userId);
-                if (gioHangDetails!=null)
-                {
-                    var gioHangViewModels = gioHangDetails.Select(g => new GioHangViewModel
-                    {
-                        IdGH = g.IdGH,
-                        UserID = g.UserID,
-                        MaSanPham = g.MaSanPham,
-                        SoLuong = g.SoLuong,
-                        TongTien = g.TongTien,
-                        MaLoaiSanPham = g.MaLoaiSanPham,
-                        MaNhaSanXuat = g.MaNhaSanXuat,
-                        TenSanPham = g.TenSanPham,
-                        CauHinh = g.CauHinh,
-                        HinhChinh = g.HinhChinh,
-                        Hinh1 = g.Hinh1,
-                        Hinh2 = g.Hinh2,
-                        Hinh3 = g.Hinh3,
-                        Hinh4 = g.Hinh4,
-                        Gia = g.Gia,
-                        SoLuongDaBan = g.SoLuongDaBan,
-                        LuotView = g.LuotView,
-                        TinhTrang = g.TinhTrang,
-                        GhiChu = g.GhiChu
-                    });
-
+                    
                     ViewBag.UserId = userId;
-                    return View(gioHangViewModels); // Chuyển hướng đến action Index của controller GioHang
+                    return View("Index",GioHangDetails); // Chuyển hướng đến action Index của controller GioHang
 
                 }
                 else
@@ -80,29 +58,18 @@ namespace Shop_Mobile.Controllers
         public ActionResult CapNhat(GioHang gioHangItem)
         {
             string userId = User.Identity.GetUserId();
-            Debug.WriteLine($"AddOrUpdateCartItem - UserID: {userId}");
-            // Gọi phương thức CapNhat từ GioHangBUS
-            GioHangBUS.CapNhat(gioHangItem, userId);
-           
-
-            // Tính tổng số lượng sau khi cập nhật
-            int tongSoLuong = GioHangBUS.TinhTongSoLuongGioHang(userId);
-
-            // Gán giá trị cho ViewBag để truyền vào view
-            ViewBag.TongSoLuong = tongSoLuong;
-           
-
-            // Chuyển hướng đến action "HienThiThongTinSanPham" trong controller "GioHang"
+            GioHangBUS.SanPhamUpdate(userId, gioHangItem);
             return RedirectToAction("Index", "GioHang");
         }
         [HttpPost]
-        public ActionResult XoaGioHang(string maSanPham, string userId)
+        public JsonResult XoaGioHang(string maSanPham)
         {
-            GioHang gioHangItem = new GioHang { MaSanPham = maSanPham };
+            string userId = User.Identity.GetUserId();
+            GioHangBUS.XoaSanPhamGH(userId, new GioHang { MaSanPham = maSanPham });
 
-            GioHangBUS.XoaGioHang(gioHangItem, userId);
-
-            return RedirectToAction("Index", "GioHang");
+            return Json(new { success = true });
+           
         }
+
     }
 }
