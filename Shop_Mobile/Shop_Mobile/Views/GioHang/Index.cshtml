@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
-<script src="~/Asset/js/DeleteGH.js"></script>
+
 
 <div id="page-content" class="single-page">
     <div class="container">
@@ -47,7 +47,7 @@
                                 </span>
                                 <hr>
 
-                                <button class="btn-xoa" data-idgh="1" data-maSanPham="@item.MaSanPham" data-userId="@item.UserID">Xóa</button>
+                                <button class="btn-xoa" data-masanpham="@item.MaSanPham" >Xóa</button>
 
                             </div>
                         </div>
@@ -84,11 +84,11 @@
                         </tr>
                         <tr style="border-top: 1px solid #333">
                             <td><h5>THÀNH TIỀN</h5></td>
-                            <td>@*@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C}", Model.Sum(item => item.TongTien))*@</td>
+                            <td>@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C}", Model.Sum(item => item.TongTien))</td>
 
                         </tr>
                     </table>
-                    <center><a href="@Url.Action("index","ThanhToan")" class="btn btn-1">Thanh Toán</a></center>
+                    <center><a href="@Url.Action("Order","ThanhToan")" class="btn btn-1">Thanh Toán</a></center>
                 </div>
             </div>
         </div>
@@ -96,7 +96,38 @@
 </div>
 
 
+<script>
+    $(".btn-xoa").click(function () {
+        console.log("Nút Xóa đã được click!");
 
+        var button = $(this);  // Lưu lại đối tượng button để sử dụng sau này
+        var idGH = button.data("idgh");
+        var maSanPham = button.data("masanpham");
+        var userId = button.data("userId");
+
+        $.ajax({
+            url: '/GioHang/XoaGioHang',
+            type: 'POST',
+            data: { maSanPham: maSanPham, userId: userId },
+            success: function (result) {
+                // Xử lý kết quả trả về (nếu cần)
+                if (result.success) {
+                    console.log("xóa thành công!");
+
+                    // Cập nhật giao diện người dùng mà không làm tải lại trang
+                    // Đặt lại dữ liệu giỏ hàng với danh sách mới
+                    window.location.href = '/GioHang';
+                   
+                }
+            },
+            error: function () {
+                console.log("thất bại");
+                // Xử lý lỗi (nếu cần)
+            }
+        });
+    });
+
+</script>
 
 
 

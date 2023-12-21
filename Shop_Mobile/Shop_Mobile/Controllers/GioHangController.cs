@@ -62,11 +62,11 @@ namespace Shop_Mobile.Controllers
             return RedirectToAction("Index", "GioHang");
         }
         [HttpPost]
-        public JsonResult XoaGioHang(string maSanPham)
+        public JsonResult XoaGioHang(GioHang gioHangItem)
         {
             string userId = User.Identity.GetUserId();
-            GioHangBUS.XoaSanPhamGH(userId, new GioHang { MaSanPham = maSanPham });
-
+            GioHangBUS.XoaSanPhamGH(userId, gioHangItem);
+            var GioHangDetails = GioHangBUS.ChiTietGioHang(userId);
             return Json(new { success = true });
            
         }

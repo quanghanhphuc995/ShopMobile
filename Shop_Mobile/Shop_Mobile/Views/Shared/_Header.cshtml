@@ -13,12 +13,11 @@
         </div>
         <div class="col-md-4">
             <div id="cart">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a class="btn btn-1" href="@Url.Action("Index","GioHang")">
-                        <span class="glyphicon glyphicon-shopping-cart"></span>CART :@ViewBag.TongSoLuong
-                    </a>
-                }
+               
+                <a class="btn btn-1" href="@Url.Action("Index","GioHang")">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>CART : @ViewBag.TongSoLuong
+                </a>
+                
             </div>
         </div>
     </div>

@@ -674,7 +674,6 @@
     <Content Include="Asset\img\Vivo_O99_Images4.png" />
     <Content Include="Asset\img\Vivo_O99_Images5.png" />
     <Content Include="Asset\js\bootstrap.min.js" />
-    <Content Include="Asset\js\DeleteGH.js" />
     <Content Include="Asset\js\html5shiv.js" />
     <Content Include="Asset\js\jquery-2.1.1.js" />
     <Content Include="Asset\js\photo-gallery.js" />
@@ -849,9 +848,9 @@
     <Content Include="Views\LoaiSanPham\Index.cshtml" />
     <Content Include="Views\Shared\_TopNew.cshtml" />
     <Content Include="Views\Shared\_TopBanNhieuNhat.cshtml" />
-    <Content Include="Views\ThanhToan\Index.cshtml" />
     <Content Include="Views\GioHang\Error.cshtml" />
     <Content Include="Views\GioHang\Index.cshtml" />
+    <Content Include="Views\ThanhToan\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

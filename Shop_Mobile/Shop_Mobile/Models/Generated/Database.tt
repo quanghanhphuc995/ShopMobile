@@ -5,7 +5,7 @@
     Namespace = "";
     RepoName = "";
     GenerateOperations = true;
-	GeneratePocos = true; 
+	GeneratePocos = true;
 	GenerateCommon = true;
 	ClassPrefix = "";
 	ClassSuffix = ""; 

@@ -13,5 +13,31 @@ namespace Shop_Mobile.Controllers
         {
             return View();
         }
+
+        
+
+        // GET: ThanhToan/Create
+        public ActionResult Order()
+        {
+            return View();
+        }
+
+        // POST: ThanhToan/Create
+        [HttpPost]
+        public ActionResult Order(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+       
     }
 }

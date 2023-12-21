@@ -24,49 +24,16 @@ namespace Shop_Mobile.Models.BUS
     }
     public class GioHangBUS
     {
-        //public static GioHang GetCartItem(string maSanPham, string userId)
-        //{
-        //    var db = new ShopConnectionDB();
-
-        //    // Sử dụng tham số hóa trong câu truy vấn SQL
-
-        //    var query = "SELECT * FROM GioHang WHERE MaSanPham = @MaSanPham AND UserID = @UserID";
-
-        //    // Tạo đối tượng tham số và thêm giá trị cho mỗi tham số
-        //    var parameters = new { MaSanPham = maSanPham, UserID = userId };
-
-        //    // Sử dụng Query<T> với tham số
-        //    return db.SingleOrDefault<GioHang>(query, parameters);
-        //}
-
-
-
        
-
- 
-        //public static int TinhTongSoLuongGioHang(string userId)
-        //{
-        //    var db = new ShopConnectionDB();
-        //    int tongSoLuong = db.ExecuteScalar<int>("SELECT COALESCE(SUM(SoLuong), 0) FROM GioHang WHERE UserID = @0", userId);
-
-
-        //    Debug.WriteLine($"Tong so luong: {tongSoLuong}"); // Sử dụng Debug.WriteLine để hiển thị giá trị trong Output window
-
-        //    return tongSoLuong;
-        //}
-
-
-        
 
         public static GioHang LaySanPhamGH(string userId, GioHang gioHangItem)
         {
             var db = new ShopConnectionDB();
 
-            var query = "SELECT * FROM GioHang WHERE MaSanPham = @MaSanPham";
-            var parameters = new { MaSanPham = gioHangItem.MaSanPham};
+            var query = "SELECT * FROM GioHang WHERE MaSanPham = @MaSanPham AND UserID = @UserID";
+            var parameters = new { MaSanPham = gioHangItem.MaSanPham, UserID = userId};
             var result = db.FirstOrDefault<GioHang>(query, parameters);
-            Debug.WriteLine($"IdGH la: {result}");
-            Debug.WriteLine($"IdGH la: {parameters.MaSanPham}");
+           
             return result;
         }
          
@@ -84,7 +51,7 @@ namespace Shop_Mobile.Models.BUS
                 {
 
                     // Nếu sản phẩm chưa tồn tại, thêm mới vào giỏ hàng
-                    var newProduct = db.FirstOrDefault<SanPham>("SELECT * FROM SanPham WHERE MaSanPham = @MaSanPham", new { MaSanPham = gioHangItem.MaSanPham });
+                    var newProduct = db.FirstOrDefault<SanPham>("SELECT * FROM SanPham WHERE MaSanPham = @MaSanPham ", new { MaSanPham = gioHangItem.MaSanPham });
                     var gioHangItemToAdd = new GioHang
                     {
                         MaSanPham = newProduct.MaSanPham,
@@ -92,9 +59,6 @@ namespace Shop_Mobile.Models.BUS
                         SoLuong = gioHangItem.SoLuong,
                         TongTien = newProduct.Gia * gioHangItem.SoLuong
                     };
-                    Debug.WriteLine($"Gia: {newProduct.Gia}");
-                    Debug.WriteLine($"Soluog: {gioHangItem.SoLuong}");
-                    Debug.WriteLine($"TongTien: {gioHangItemToAdd.TongTien}");
                     db.Insert(gioHangItemToAdd);
                 }
                 else
@@ -103,7 +67,6 @@ namespace Shop_Mobile.Models.BUS
                     existingCartItem.SoLuong += gioHangItem.SoLuong;
                     var giaSanPham = db.ExecuteScalar<int>("SELECT Gia FROM SanPham WHERE MaSanPham = @0", existingCartItem.MaSanPham);
                     existingCartItem.TongTien = giaSanPham * existingCartItem.SoLuong;
-                    Debug.WriteLine($"TongTien: {existingCartItem.TongTien}");
                     db.Update(existingCartItem);
                 }
             }
@@ -133,8 +96,11 @@ namespace Shop_Mobile.Models.BUS
         {
             var db = new ShopConnectionDB();
 
-            db.Delete<GioHang>("where MaSanPham = @MaSanPham",new {MaSanPham=gioHangItem.MaSanPham });
-            SanPhamUpdate(userId, gioHangItem);
+            var query = "DELETE FROM GioHang WHERE MaSanPham = @MaSanPham";
+            var parameters = new { MaSanPham = gioHangItem.MaSanPham };
+            db.Execute(query, parameters);
+           
+            
         }
         public static IEnumerable<GioHangViewModel> ChiTietGioHang(string userId)
         {
