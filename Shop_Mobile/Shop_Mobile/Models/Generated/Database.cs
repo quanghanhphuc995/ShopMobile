@@ -175,17 +175,29 @@ namespace ShopConnection
 		[Column] public string UserName { get; set; }
 	}
     
+	[TableName("dbo.ChiTietHoaDon")]
+	[PrimaryKey("ChiTietID")]
+	[ExplicitColumns]
+    public partial class ChiTietHoaDon : ShopConnectionDB.Record<ChiTietHoaDon>  
+    {
+		[Column] public int ChiTietID { get; set; }
+		[Column] public int? HoaDonID { get; set; }
+		[Column] public string MaSanPham { get; set; }
+		[Column] public int? SoLuong { get; set; }
+		[Column] public int? Gia { get; set; }
+	}
+    
 	[TableName("dbo.GioHang")]
 	[PrimaryKey("IdGH")]
 	[ExplicitColumns]
     public partial class GioHang : ShopConnectionDB.Record<GioHang>  
     {
 		[Column] public int IdGH { get; set; }
+		[Column] public int? HoaDonID { get; set; }
 		[Column] public string UserID { get; set; }
 		[Column] public string MaSanPham { get; set; }
 		[Column] public int? SoLuong { get; set; }
 		[Column] public int? TongTien { get; set; }
-		[Column] public int? TongSoTienCanThanhToan { get; set; }
 	}
     
 	[TableName("dbo.HoaDon")]
@@ -193,15 +205,10 @@ namespace ShopConnection
 	[ExplicitColumns]
     public partial class HoaDon : ShopConnectionDB.Record<HoaDon>  
     {
-		[Column] public long HoaDonID { get; set; }
-		[Column] public int? IdGH { get; set; }
-		[Column] public DateTime? NgayTao { get; set; }
-		[Column] public string NguoiDat { get; set; }
-		[Column] public string NguoiNhan { get; set; }
-		[Column] public string SDT { get; set; }
-		[Column] public string DiaChi { get; set; }
-		[Column] public long? TongTien { get; set; }
-		[Column] public int? TrangThai { get; set; }
+		[Column] public int HoaDonID { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public DateTime NgayTao { get; set; }
+		[Column] public int TongTien { get; set; }
 	}
     
 	[TableName("dbo.LoaiSanPham")]

@@ -1,15 +1,15 @@
 ﻿
 @{
-    ViewBag.Title = "Order";
+    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
 <h4>Thông tin người mua hàng</h4>
-@using (Html.BeginForm("Order", "ThanhToan"))
+@using (Html.BeginForm("Create", "ThanhToan"))
 {
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input id="email" type="text" class="form-control" name="Name" placeholder="Name">
+        <input id="email" type="text" class="form-control" name="NguoiDat" placeholder="Name">
     </div>
     <br>
     <div class="input-group">
@@ -24,17 +24,18 @@
     <br>
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-        <input id="email" type="text" class="form-control" name="SoDT" placeholder="Số Điện Thoại">
+        <input id="email" type="number" class="form-control" name="SDT" placeholder="Số Điện Thoại">
     </div>
 
     <br>
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-        <textarea rows="5" class="form-control" style="resize: none;" name="content"></textarea>
+        <textarea rows="5" class="form-control" style="resize: none;" name="Content"></textarea>
     </div>
 
     <br>
 
     <input type="submit" class="btn btn-success" value="Thanh toán">
 }
+
 
