@@ -9,10 +9,12 @@ using Microsoft.AspNet.Identity;
 
 namespace Shop_Mobile.Models.BUS
 {
+    
+
     public class GioHangViewModel
     {
-        public int IdGH { get; set; }
         public string UserID { get; set; }
+        public int IdGH { get; set; }
         public string MaSanPham { get; set; }
         public int? SoLuong { get; set; }
         public int? TongTien { get; set; }
@@ -99,9 +101,20 @@ namespace Shop_Mobile.Models.BUS
             var query = "DELETE FROM GioHang WHERE MaSanPham = @MaSanPham";
             var parameters = new { MaSanPham = gioHangItem.MaSanPham };
             db.Execute(query, parameters);
-           
-            
         }
+        public static decimal TinhTongTienGH(string UserId)
+        {
+            var db = new ShopConnectionDB();
+
+            var tongTien = db.ExecuteScalar<decimal>(
+                "SELECT SUM(TongTien) FROM GioHang WHERE UserID = @UserId",
+                new { UserId }
+            );
+
+            return tongTien;
+        }
+
+
         public static IEnumerable<GioHangViewModel> ChiTietGioHang(string userId)
         {
             var db = new ShopConnectionDB();

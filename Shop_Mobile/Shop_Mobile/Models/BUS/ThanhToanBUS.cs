@@ -6,14 +6,15 @@ using System.Web;
 
 namespace Shop_Mobile.Models.BUS
 {
-    public class HoaDonDeitails
+    public class HoaDonProduct
     {
         public int IdGH { get; set; }
         public string UserID { get; set; }
         public int HoaDonID { get; set; }
         public string NguoiDat { get; set; }
-        public int SDT { get; set; }
+        public double? SDT { get; set; }
         public string DiaChi { get; set; }
+        public string Content { get; set; }
         public string MaSanPham { get; set; }
         public int? SoLuong { get; set; }
         public int? TongTien { get; set; }
@@ -25,9 +26,30 @@ namespace Shop_Mobile.Models.BUS
     
     public class ThanhToanBUS
     {
-        
-       
-        public static IEnumerable<GioHang> HoaDonDeitails(GioHang gioHangItem)
+
+        public static bool HasThongTinKhachHang(string userId)
+        {
+            var db = new ShopConnectionDB();
+
+            // Kiểm tra xem có dòng dữ liệu nào với UserID tương ứng hay không
+            var sql = "SELECT COUNT(*) FROM ThongTinKhachHang WHERE UserID = @UserID";
+            var parameters = new { UserID = userId };
+            var count = db.ExecuteScalar<int>(sql, parameters);
+
+            // Trả về true nếu có ít nhất một dòng dữ liệu, ngược lại là false
+            return count > 0;
+        }
+
+        public static ThongTinKhachHang GetThongTinKH(string userId)
+        {
+            var db = new ShopConnectionDB();
+            var query = "select * from ThongTinKhachHang where UserID = @UserID";
+            var parameter = new { UserID = userId };
+            var result = db.FirstOrDefault<ThongTinKhachHang>(query, parameter);
+            return result;
+        }
+
+        public static IEnumerable<GioHang> HoaDonProduct( GioHang gioHangItem)
         {
             var db = new ShopConnectionDB();
             var query = "select * from GioHang where MaSanPham = @MaSanPham and UserID = @UserID";
@@ -35,13 +57,35 @@ namespace Shop_Mobile.Models.BUS
             var result = db.Query<GioHang>(query, paramerters);
             return result ;
         }
-        public static void AddThongTinKhachHang(ChiTietHoaDon HD)
+        public static void AddThongTinKhachHang(ThongTinKhachHang KH)
         {
             var db = new ShopConnectionDB();
-            db.Insert(HD);
+            try
+            {
+                db.Insert( KH);  
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inserting data: {ex.Message}");
+                throw;
+            }
         }
 
-        public static IEnumerable<HoaDonDeitails> ChiTietHoaDon(string userId)
+        public static void UpdateThongTinKhachHang(ThongTinKhachHang KH)
+        {
+            try
+            {
+                var db = new ShopConnectionDB();
+                db.Update(KH);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inserting data: {ex.Message}");
+                throw;
+            }
+           
+        }
+        public static IEnumerable<HoaDonProduct> ChiTietHoaDon(string userId)
         {
             var db = new ShopConnectionDB();
 
@@ -50,12 +94,11 @@ namespace Shop_Mobile.Models.BUS
                 var sql = @"
        SELECT
             GH.IdGH,
-            GH.UserID,
+            GH.UserID AS GioHangUserID,
             GH.MaSanPham,
             GH.SoLuong,
             GH.TongTien,
             SP.*,
-            CTHD.SoLuong,
             CTHD.Gia
         FROM
             GioHang GH
@@ -64,10 +107,10 @@ namespace Shop_Mobile.Models.BUS
         LEFT JOIN
             ChiTietHoaDon CTHD ON GH.MaSanPham = CTHD.MaSanPham
         WHERE
-            UserID = @UserID
+            GH.UserID = @UserID
         ";
                 var parameters = new { UserID = userId };
-                var result = db.Query<HoaDonDeitails>(sql,parameters).ToList();
+                var result = db.Query<HoaDonProduct>(sql,parameters).ToList();
 
                 return result;
             }

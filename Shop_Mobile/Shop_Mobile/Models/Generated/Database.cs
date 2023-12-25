@@ -181,6 +181,7 @@ namespace ShopConnection
     public partial class ChiTietHoaDon : ShopConnectionDB.Record<ChiTietHoaDon>  
     {
 		[Column] public int ChiTietID { get; set; }
+		[Column] public string UserID { get; set; }
 		[Column] public int? HoaDonID { get; set; }
 		[Column] public string MaSanPham { get; set; }
 		[Column] public int? SoLuong { get; set; }
@@ -198,17 +199,6 @@ namespace ShopConnection
 		[Column] public string MaSanPham { get; set; }
 		[Column] public int? SoLuong { get; set; }
 		[Column] public int? TongTien { get; set; }
-	}
-    
-	[TableName("dbo.HoaDon")]
-	[PrimaryKey("HoaDonID")]
-	[ExplicitColumns]
-    public partial class HoaDon : ShopConnectionDB.Record<HoaDon>  
-    {
-		[Column] public int HoaDonID { get; set; }
-		[Column] public string UserID { get; set; }
-		[Column] public DateTime NgayTao { get; set; }
-		[Column] public int TongTien { get; set; }
 	}
     
 	[TableName("dbo.LoaiSanPham")]
@@ -264,5 +254,17 @@ namespace ShopConnection
 		[Column] public int diagram_id { get; set; }
 		[Column] public int? version { get; set; }
 		[Column] public byte[] definition { get; set; }
+	}
+    
+	[TableName("dbo.ThongTinKhachHang")]
+	[PrimaryKey("ThongTinKHID")]
+	[ExplicitColumns]
+    public partial class ThongTinKhachHang : ShopConnectionDB.Record<ThongTinKhachHang>  
+    {
+		[Column] public int ThongTinKHID { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public string NguoiDat { get; set; }
+		[Column] public string DiaChi { get; set; }
+		[Column] public decimal? SDT { get; set; }
 	}
 }

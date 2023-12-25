@@ -15,20 +15,33 @@ namespace Shop_Mobile.Controllers
         public ActionResult Index()
         {
             string userId = User.Identity.GetUserId();
-            IEnumerable<HoaDonDeitails> hoaDonDeitails = null;
+            var tongTien = GioHangBUS.TinhTongTienGH(userId);
+            ViewBag.TongTien = tongTien;
+            ViewBag.UserID = userId;
+            IEnumerable<HoaDonProduct> hoaDonProduct = null;
             if (User.Identity.IsAuthenticated)
             {
-                hoaDonDeitails = ThanhToanBUS.ChiTietHoaDon(userId);
+                hoaDonProduct = ThanhToanBUS.ChiTietHoaDon(userId);
             }
            
 
-            return View(hoaDonDeitails);
+            return View(hoaDonProduct);
         }
 
-        // GET: ThanhToan/Details/5
-        public ActionResult Details(int id)
+       [HttpGet]
+        public JsonResult HasThongTinKhachHang()
         {
-            return View();
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                bool hasThongTin = ThanhToanBUS.HasThongTinKhachHang(userId);
+               return Json(hasThongTin, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in HasThongTinKhachHang: {ex.Message}");
+                return Json(false);
+            }
         }
 
         // GET: ThanhToan/Create
@@ -39,12 +52,16 @@ namespace Shop_Mobile.Controllers
 
         // POST: ThanhToan/Create
         [HttpPost]
-        public ActionResult Create(ChiTietHoaDon HD)
+        public ActionResult Create(ThongTinKhachHang KH)
         {
+            var userId = User.Identity.GetUserId();
             try
             {
-                // TODO: Add insert logic here
-                ThanhToanBUS.AddThongTinKhachHang(HD);
+                if (KH!=null)
+                {
+                    KH.UserID = userId;
+                    ThanhToanBUS.AddThongTinKhachHang(KH);
+                }
                 return RedirectToAction("Index");
             }
             catch
@@ -54,19 +71,23 @@ namespace Shop_Mobile.Controllers
         }
 
         // GET: ThanhToan/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+            var db = ThanhToanBUS.GetThongTinKH(userId);
+            return View(db);
         }
 
         // POST: ThanhToan/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ThongTinKhachHang KH)
         {
+            var userId = User.Identity.GetUserId();
             try
             {
-                // TODO: Add update logic here
-
+                KH.UserID = userId;
+                ThanhToanBUS.UpdateThongTinKhachHang(KH);
+                
                 return RedirectToAction("Index");
             }
             catch

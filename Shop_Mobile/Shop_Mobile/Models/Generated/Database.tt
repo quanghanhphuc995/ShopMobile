@@ -2,12 +2,12 @@
 <#
 	// Settings 
     ConnectionStringName = "ShopConnection";			// Uses last connection string in config if not specified
-    Namespace = "";
-    RepoName = "";  
+    Namespace = ""; 
+    RepoName = "";
     GenerateOperations = true;
 	GeneratePocos = true;
-	GenerateCommon = true;
-	ClassPrefix = "";
+	GenerateCommon = true; 
+	ClassPrefix = ""; 
 	ClassSuffix = ""; 
 	TrackModifiedColumns = false;
 	ExplicitColumns = true;

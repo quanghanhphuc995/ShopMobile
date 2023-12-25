@@ -852,6 +852,8 @@
     <Content Include="Views\GioHang\Index.cshtml" />
     <Content Include="Views\ThanhToan\Create.cshtml" />
     <Content Include="Views\ThanhToan\Index.cshtml" />
+    <Content Include="Views\ThanhToan\Edit.cshtml" />
+    <Content Include="Views\Shared\_DiaChiThanhToan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

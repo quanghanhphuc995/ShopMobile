@@ -1,30 +1,30 @@
-﻿
+﻿@model ShopConnection.ThongTinKhachHang
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
 <h4>Thông tin người mua hàng</h4>
-@using (Html.BeginForm("Create", "ThanhToan"))
+@using (Html.BeginForm("Edit", "ThanhToan"))
 {
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input id="email" type="text" class="form-control" name="NguoiDat" placeholder="Name">
+        <input id="email" type="text" class="form-control" name="NguoiDat" placeholder="Name" value="@Model.NguoiDat">
     </div>
     <br>
-    @*<div class="input-group">
+    <div class="input-group" style="display:none;">
         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        <input id="email" type="email" class="form-control" name="Email" placeholder="Email">
-    </div>*@
+        <input class="form-control" name="ThongTinKHID" value="@Model.ThongTinKHID">
+    </div>
     <br>
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-        <input id="email" type="text" class="form-control" name="DiaChi" placeholder="Địa Chỉ">
+        <input id="email" type="text" class="form-control" name="DiaChi" placeholder="Địa Chỉ" value="@Model.DiaChi">
     </div>
     <br>
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-        <input id="email" type="number" class="form-control" name="SDT" placeholder="Số Điện Thoại">
+        <input id="email" type="number" class="form-control" name="SDT" placeholder="Số Điện Thoại" value="@Model.SDT">
     </div>
 
     <br>
@@ -35,7 +35,7 @@
 
     <br>
 
-    <input type="submit" class="btn btn-success" value="Thanh toán">
+    <input type="submit" class="btn btn-success" value="Chỉnh sửa thông tin giao hàng">
 }
 
 

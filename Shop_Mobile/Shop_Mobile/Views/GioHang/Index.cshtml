@@ -16,45 +16,45 @@
                 </ul>
             </div>
         </div>
-       
-            @foreach (var item in Model)
-            {
 
-                <div class="row">
-                    <div class="product well">
-                        <div class="col-md-3">
-                            <a href="@Url.Action("Details","Shop",new {id = item.MaSanPham })">
-                                <div class="image">
-                                    <img src="~/Asset/img/@item.HinhChinh" alt="Alternate Text" />
-                                </div>
-                            </a>
+        @foreach (var item in Model)
+        {
 
-                        </div>
-                        <div class="col-md-9">
-                            <div class="caption">
-
-                                <div>Tên Sản Phẩm: @item.TenSanPham</div>
-                                <div>Mã Sản Phẩm: @item.MaSanPham</div>
-                                <div>Giá Sản Phẩm: @item.Gia</div>
-                                <form action="@Url.Action("CapNhat", "GioHang")" method="post">
-                                    <label>Số lượng : </label>
-                                    <input class="form-inline quantity" min="1" max="1000" type="number" value="@item.SoLuong" name="soluong">
-                                    <input type="hidden" name="masanpham" value="@item.MaSanPham" />
-                                    <input type="submit" class="btn btn-2" value="Update" />
-                                </form>
-                                <span>
-                                    Tổng tiền: @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C}", item.TongTien)
-                                </span>
-                                <hr>
-
-                                <button class="btn-xoa" data-masanpham="@item.MaSanPham" >Xóa</button>
-
+            <div class="row">
+                <div class="product well">
+                    <div class="col-md-3">
+                        <a href="@Url.Action("Details","Shop",new {id = item.MaSanPham })">
+                            <div class="image">
+                                <img src="~/Asset/img/@item.HinhChinh" alt="Alternate Text" />
                             </div>
-                        </div>
-                        <div class="clear"></div>
+                        </a>
+
                     </div>
+                    <div class="col-md-9">
+                        <div class="caption">
+
+                            <div>Tên Sản Phẩm: @item.TenSanPham</div>
+                            <div>Mã Sản Phẩm: @item.MaSanPham</div>
+                            <div>Giá Sản Phẩm: @item.Gia</div>
+                            <form action="@Url.Action("CapNhat", "GioHang")" method="post">
+                                <label>Số lượng : </label>
+                                <input class="form-inline quantity" min="1" max="1000" type="number" value="@item.SoLuong" name="soluong">
+                                <input type="hidden" name="masanpham" value="@item.MaSanPham" />
+                                <input type="submit" class="btn btn-2" value="Update" />
+                            </form>
+                            <span>
+                                Tổng tiền: @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C}", item.TongTien)
+                            </span>
+                            <hr>
+
+                            <button class="btn-xoa" data-masanpham="@item.MaSanPham">Xóa</button>
+
+                        </div>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-            }
+            </div>
+        }
 
 
 
@@ -88,7 +88,7 @@
 
                         </tr>
                     </table>
-                    <center><a href="@Url.Action("Create","ThanhToan")" class="btn btn-1">Thanh Toán</a></center>
+                    <center><a id="btnThanhToan"data-userid='@(Model.FirstOrDefault()?.UserID??"")' class="btn btn-1">Thanh Toán</a></center>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
                     // Cập nhật giao diện người dùng mà không làm tải lại trang
                     // Đặt lại dữ liệu giỏ hàng với danh sách mới
                     window.location.href = '/GioHang';
-                   
+
                 }
             },
             error: function () {
@@ -126,6 +126,38 @@
             }
         });
     });
+
+
+    document.getElementById("btnThanhToan").addEventListener("click", function (event) {
+        console.log("Nút Thanh Toán đã được click!");
+
+        // Lấy giá trị userId từ thuộc tính data
+        var userId = $(this).data("userid");
+        console.log("Nút Thanh Toán đã được click!"+ userId);
+        $.ajax({
+            url: "/ThanhToan/HasThongTinKhachHang",
+            type: "GET",
+            data: { userId: userId },
+            success: function (result) {
+                if (result) {
+                    // Nếu đã có dữ liệu khách hàng, chuyển hướng đến trang Index
+                    console.log("Đã có thông tin khách hàng.");
+                    window.location.href = "@Url.Action("Index","ThanhToan")";
+                } else {
+                    // Nếu chưa có dữ liệu khách hàng, chuyển hướng đến trang Create
+                    console.log("Chưa có thông tin khách hàng.");
+                    window.location.href = "@Url.Action("Create","ThanhToan")";
+                }
+            },
+            error: function (error) {
+                console.error("Error checking ThongTinKhachHang:", error);
+            }
+        });
+
+        // Ngăn chặn hành động mặc định của nút thanh toán
+        event.preventDefault();
+    });
+
 
 </script>
 
