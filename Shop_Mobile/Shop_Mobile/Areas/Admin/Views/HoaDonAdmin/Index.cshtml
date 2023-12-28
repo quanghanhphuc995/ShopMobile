@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ShopConnection.HoaDon>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    #invoice {
+        width: 80%;
+        margin: auto;
+        border: 1px solid #ccc;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        #invoice h2 {
+            color: #333;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    #total {
+        margin-top: 20px;
+        text-align: right;
+    }
+</style>
+
+<body>
+
+    <div id="invoice">
+        <h2>Đơn Hàng</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Khách Hàng</th>
+                    <th>Số Điện Thoại Liên Lạc</th>
+                    <th>Địa Chỉ</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Thay đổi dữ liệu theo chi tiết hóa đơn của bạn -->
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.NguoiDat</td>
+                    <td>@item.SDT</td>
+                    <td>@item.DiaChi</td>
+                    <td><a href="#">Chi Tiết Hóa Đơn</a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+
+

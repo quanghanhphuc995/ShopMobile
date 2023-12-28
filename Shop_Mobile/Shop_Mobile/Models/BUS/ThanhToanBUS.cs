@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Shop_Mobile.Models.BUS
 {
-    public class HoaDonProduct
+    public class HoaDonViewModel
     {
         public int IdGH { get; set; }
         public string UserID { get; set; }
@@ -23,7 +23,22 @@ namespace Shop_Mobile.Models.BUS
         public int? Gia { get; set; }
     }
 
-    
+    public class HoaDonViewModelAdmin
+    {
+        public string UserID { get; set; }
+        public DateTime NgayTao { get; set; }
+        public DateTime NgayCapNhatCuoiCung { get; set; }
+        public string NguoiDat { get; set; }
+        public string DiaChi { get; set; }
+        public double? SDT { get; set; }
+        public string TenSanPham { get; set; }
+        public string MaSanPham { get; set; }
+        public int? Gia { get; set; }
+        public int? SoLuong { get; set; }
+        public int? TongTien { get; set; }
+        public string HinhChinh { get; set; }
+    }
+
     public class ThanhToanBUS
     {
 
@@ -49,14 +64,14 @@ namespace Shop_Mobile.Models.BUS
             return result;
         }
 
-        public static IEnumerable<GioHang> HoaDonProduct( GioHang gioHangItem)
-        {
-            var db = new ShopConnectionDB();
-            var query = "select * from GioHang where MaSanPham = @MaSanPham and UserID = @UserID";
-            var paramerters = new { MaSanPham = gioHangItem.MaSanPham, UserID = gioHangItem.UserID };
-            var result = db.Query<GioHang>(query, paramerters);
-            return result ;
-        }
+        //public static IEnumerable<GioHang> HoaDonProduct( GioHang gioHangItem)
+        //{
+        //    var db = new ShopConnectionDB();
+        //    var query = "select * from GioHang where MaSanPham = @MaSanPham and UserID = @UserID";
+        //    var paramerters = new { MaSanPham = gioHangItem.MaSanPham, UserID = gioHangItem.UserID };
+        //    var result = db.Query<GioHang>(query, paramerters);
+        //    return result ;
+        //}
         public static void AddThongTinKhachHang(ThongTinKhachHang KH)
         {
             var db = new ShopConnectionDB();
@@ -85,7 +100,7 @@ namespace Shop_Mobile.Models.BUS
             }
            
         }
-        public static IEnumerable<HoaDonProduct> ChiTietHoaDon(string userId)
+        public static IEnumerable<HoaDonViewModel> HoaDon(string userId)
         {
             var db = new ShopConnectionDB();
 
@@ -98,19 +113,19 @@ namespace Shop_Mobile.Models.BUS
             GH.MaSanPham,
             GH.SoLuong,
             GH.TongTien,
-            SP.*,
-            CTHD.Gia
+            SP.TenSanPham,
+            SP.Gia,
+            SP.HinhChinh
         FROM
             GioHang GH
         JOIN
             SanPham SP ON GH.MaSanPham = SP.MaSanPham
-        LEFT JOIN
-            ChiTietHoaDon CTHD ON GH.MaSanPham = CTHD.MaSanPham
+       
         WHERE
             GH.UserID = @UserID
         ";
                 var parameters = new { UserID = userId };
-                var result = db.Query<HoaDonProduct>(sql,parameters).ToList();
+                var result = db.Query<HoaDonViewModel>(sql, parameters).ToList();
 
                 return result;
             }
@@ -120,8 +135,7 @@ namespace Shop_Mobile.Models.BUS
                 Console.WriteLine($"Error executing query: {ex.Message}");
                 throw; // Re-throw ngoại lệ để giữ nguyên thông báo lỗi
             }
-           
-        }
 
+        }
     }
 }

@@ -177,12 +177,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HoaDonAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoaiSanPhamAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\MainAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhaSanXuatAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\SanPhamAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
+    <Compile Include="Controllers\HoaDonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoaiSanPhamController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -194,6 +196,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BUS\GioHangBUS.cs" />
+    <Compile Include="Models\BUS\HoaDonBUS.cs" />
     <Compile Include="Models\BUS\LoaiSanPhamBUS.cs" />
     <Compile Include="Models\BUS\NhaSanXuatBUS.cs" />
     <Compile Include="Models\BUS\ShopOnlineBUS.cs" />
@@ -792,6 +795,8 @@
     <Content Include="Areas\AssetAdmin\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Areas\AssetAdmin\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Areas\AssetAdmin\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Areas\Admin\Views\ThanhToanAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\HoaDonAdmin\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -854,6 +859,8 @@
     <Content Include="Views\ThanhToan\Index.cshtml" />
     <Content Include="Views\ThanhToan\Edit.cshtml" />
     <Content Include="Views\Shared\_DiaChiThanhToan.cshtml" />
+    <Content Include="Views\HoaDon\Index.cshtml" />
+    <Content Include="Views\Shared\_ChiTietDCTT.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

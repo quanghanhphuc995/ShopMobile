@@ -18,10 +18,10 @@ namespace Shop_Mobile.Controllers
             var tongTien = GioHangBUS.TinhTongTienGH(userId);
             ViewBag.TongTien = tongTien;
             ViewBag.UserID = userId;
-            IEnumerable<HoaDonProduct> hoaDonProduct = null;
+            IEnumerable<HoaDonViewModel> hoaDonProduct = null;
             if (User.Identity.IsAuthenticated)
             {
-                hoaDonProduct = ThanhToanBUS.ChiTietHoaDon(userId);
+                hoaDonProduct = ThanhToanBUS.HoaDon(userId);
             }
            
 
@@ -119,3 +119,5 @@ namespace Shop_Mobile.Controllers
         }
     }
 }
+
+

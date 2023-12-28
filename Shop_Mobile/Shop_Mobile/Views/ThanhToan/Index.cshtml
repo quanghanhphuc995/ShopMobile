@@ -1,4 +1,4 @@
-﻿@model List<Shop_Mobile.Models.BUS.HoaDonProduct>
+﻿@model List<Shop_Mobile.Models.BUS.HoaDonViewModel>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayout.cshtml";
@@ -47,7 +47,7 @@
     text-align: right;
         }
     </style>
-</head>
+
 <body>
 
     <div id="invoice">
@@ -87,9 +87,12 @@
             <p><strong>Tổng cộng:@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C}", tongTien) </strong></p>
         </div>
         <h1>@Html.Partial("_DiaChiThanhToan", Shop_Mobile.Models.BUS.ThanhToanBUS.GetThongTinKH(userID))</h1>
+        <h1>
+            <a href="@Url.Action("Index","HoaDon", new {UserID = userID })">Xuất Hóa đơn</a>
+        </h1>
     </div>
 
 </body>
-</html>
+
 
 

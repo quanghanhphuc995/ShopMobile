@@ -175,30 +175,36 @@ namespace ShopConnection
 		[Column] public string UserName { get; set; }
 	}
     
-	[TableName("dbo.ChiTietHoaDon")]
-	[PrimaryKey("ChiTietID")]
-	[ExplicitColumns]
-    public partial class ChiTietHoaDon : ShopConnectionDB.Record<ChiTietHoaDon>  
-    {
-		[Column] public int ChiTietID { get; set; }
-		[Column] public string UserID { get; set; }
-		[Column] public int? HoaDonID { get; set; }
-		[Column] public string MaSanPham { get; set; }
-		[Column] public int? SoLuong { get; set; }
-		[Column] public int? Gia { get; set; }
-	}
-    
 	[TableName("dbo.GioHang")]
 	[PrimaryKey("IdGH")]
 	[ExplicitColumns]
     public partial class GioHang : ShopConnectionDB.Record<GioHang>  
     {
 		[Column] public int IdGH { get; set; }
-		[Column] public int? HoaDonID { get; set; }
 		[Column] public string UserID { get; set; }
+		[Column] public string ThongTinKHID { get; set; }
 		[Column] public string MaSanPham { get; set; }
 		[Column] public int? SoLuong { get; set; }
 		[Column] public int? TongTien { get; set; }
+	}
+    
+	[TableName("dbo.HoaDon")]
+	[PrimaryKey("HoaDonID")]
+	[ExplicitColumns]
+    public partial class HoaDon : ShopConnectionDB.Record<HoaDon>  
+    {
+		[Column] public int HoaDonID { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public string ThongTinKHID { get; set; }
+		[Column] public string NguoiDat { get; set; }
+		[Column] public string DiaChi { get; set; }
+		[Column] public decimal? SDT { get; set; }
+		[Column] public string MaSanPham { get; set; }
+		[Column] public int? SoLuong { get; set; }
+		[Column] public int? TongTien { get; set; }
+		[Column] public int? Gia { get; set; }
+		[Column] public string TenSanPham { get; set; }
+		[Column] public string HinhChinh { get; set; }
 	}
     
 	[TableName("dbo.LoaiSanPham")]
@@ -257,11 +263,11 @@ namespace ShopConnection
 	}
     
 	[TableName("dbo.ThongTinKhachHang")]
-	[PrimaryKey("ThongTinKHID")]
+	[PrimaryKey("ThongTinKHID", AutoIncrement=false)]
 	[ExplicitColumns]
     public partial class ThongTinKhachHang : ShopConnectionDB.Record<ThongTinKhachHang>  
     {
-		[Column] public int ThongTinKHID { get; set; }
+		[Column] public string ThongTinKHID { get; set; }
 		[Column] public string UserID { get; set; }
 		[Column] public string NguoiDat { get; set; }
 		[Column] public string DiaChi { get; set; }
