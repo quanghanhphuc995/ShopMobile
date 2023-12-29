@@ -191,6 +191,7 @@
     <Compile Include="Controllers\NhaSanXuatController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\ThanhToanController.cs" />
+    <Compile Include="Controllers\TimKiemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -797,6 +798,8 @@
     <Content Include="Areas\AssetAdmin\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Areas\Admin\Views\ThanhToanAdmin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\HoaDonAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\HoaDonAdmin\ChiTieHoaDonAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPhamAdmin\Details.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -861,6 +864,7 @@
     <Content Include="Views\Shared\_DiaChiThanhToan.cshtml" />
     <Content Include="Views\HoaDon\Index.cshtml" />
     <Content Include="Views\Shared\_ChiTietDCTT.cshtml" />
+    <Content Include="Views\TimKiem\TimKiemSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

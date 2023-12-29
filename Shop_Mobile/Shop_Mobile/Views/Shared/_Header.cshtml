@@ -6,10 +6,12 @@
             <div id="logo"><img src="~/Asset/images/logo.png" /></div>
         </div>
         <div class="col-md-4">
-            <form class="form-search">
-                <input type="text" class="input-medium search-query">
-                <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
-            </form>
+            @using (Html.BeginForm("TimKiemSP", "TimKiem", FormMethod.Get))
+            {
+                <input type="text" name="tuKhoa" class="input-medium search-query">
+                <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span>Tìm Kiếm</button>
+            }
+
         </div>
         <div class="col-md-4">
             <div id="cart">

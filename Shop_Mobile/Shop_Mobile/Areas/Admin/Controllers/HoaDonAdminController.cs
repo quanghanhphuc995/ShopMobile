@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Shop_Mobile.Models.BUS;
+using ShopConnection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,13 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         // GET: Admin/HoaDonAdmin
         public ActionResult Index()
         {
-            string userId = User.Identity.GetUserId();
+            
             var db = HoaDonBUS.GetHoaDonAdmin();
+            return View(db);
+        }
+        public ActionResult ChiTieHoaDonAdmin(HoaDon hD)
+        {
+            var db = HoaDonBUS.DanhSachGH(hD);
             return View(db);
         }
     }

@@ -1,6 +1,6 @@
 <#@ include file="PetaPoco.Core.ttinclude" #>
 <#
-	// Settings  
+	// Settings
     ConnectionStringName = "ShopConnection";			// Uses last connection string in config if not specified
     Namespace = "";
     RepoName = "";

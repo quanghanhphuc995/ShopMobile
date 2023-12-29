@@ -19,9 +19,11 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         }
 
         // GET: Admin/SanPham/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var db = ShopOnlineBUS.ChitietSPAdmin(id);
+            return View(db);
+           
         }
 
         // GET: Admin/SanPham/Create

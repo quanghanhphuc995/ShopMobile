@@ -10,9 +10,12 @@ namespace Shop_Mobile.Models.BUS
     {
         
         //Phần Khách hàng
-        public static void AddHoaDon( string userId)
+        public static void AddHoaDon(string userId)
         {
             var db = new ShopConnectionDB();
+            var existingHoaDons = GetHoaDon(userId);
+            if (!existingHoaDons.Any())
+            {
                 var sql = @"
                 INSERT INTO HoaDon (UserID, ThongTinKHID, NguoiDat, DiaChi, SDT, MaSanPham, SoLuong, TongTien, Gia, TenSanPham, HinhChinh)
             SELECT 
@@ -34,6 +37,15 @@ namespace Shop_Mobile.Models.BUS
 
             ";
                 db.Execute(sql, new object[] { userId });
+                var query = "Delete From GioHang Where UserID = @UserID";
+                var parameters = new { UserID = userId };
+                db.Execute(query, parameters);
+            }
+            else
+            {
+               
+            }
+                
         }
 
         public static IEnumerable<HoaDon> GetHoaDon(string userId)
@@ -56,13 +68,24 @@ namespace Shop_Mobile.Models.BUS
                             ThongTinKHID, 
                             NguoiDat, 
                             DiaChi, 
-                            SDT
+                            SDT,
+                            Sum(SoLuong),
+                            Sum(TongTien)
                         FROM
                             HoaDon
                         GROUP BY
                             UserID, ThongTinKHID, NguoiDat, DiaChi, SDT";
             
             var result = db.Query<HoaDon>(query);
+            return result;
+        }
+
+        public static IEnumerable<HoaDon> DanhSachGH(HoaDon hD)
+        {
+            var db = new ShopConnectionDB();
+            var query = "Select * From HoaDon Where UserID = @UserID";
+            var parameters = new { UserID = hD.UserID };
+            var result = db.Query<HoaDon>(query, parameters);
             return result;
         }
     }

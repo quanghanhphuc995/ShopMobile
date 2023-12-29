@@ -102,14 +102,15 @@ namespace Shop_Mobile.Models.BUS
             var parameters = new { MaSanPham = gioHangItem.MaSanPham };
             db.Execute(query, parameters);
         }
-        public static decimal TinhTongTienGH(string UserId)
+        public static decimal TinhTongTienGH(string userId)
         {
             var db = new ShopConnectionDB();
 
-            var tongTien = db.ExecuteScalar<decimal>(
+            var parameters = new { UserId = userId };
+            var tongTien = db.FirstOrDefault<decimal>(
                 "SELECT SUM(TongTien) FROM GioHang WHERE UserID = @UserId",
-                new { UserId }
-            );
+                parameters);
+            
 
             return tongTien;
         }

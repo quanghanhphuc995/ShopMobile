@@ -1,9 +1,8 @@
 ﻿@model IEnumerable<ShopConnection.HoaDon>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ChiTieHoaDonAdmin";
     Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
 }
-
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -47,31 +46,38 @@
 <body>
 
     <div id="invoice">
-        <h2>Đơn Hàng</h2>
+        <h2>Chi Tiết Hóa Đơn Khách Hàng</h2>
 
         <table>
             <thead>
                 <tr>
-                    <th>Khách Hàng</th>
-                    <th>Số Điện Thoại Liên Lạc</th>
-                    <th>Địa Chỉ</th>
-                    <th></th>
+                    <th>Mã Sản Phẩm</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Hình Ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+
                 </tr>
             </thead>
             <tbody>
                 <!-- Thay đổi dữ liệu theo chi tiết hóa đơn của bạn -->
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>@item.NguoiDat</td>
-                    <td>@item.SDT</td>
-                    <td>@item.DiaChi</td>
-                    <td><a href="@Url.Action("ChiTieHoaDonAdmin","HoaDonAdmin", new {UserId = item.UserID })">Chi Tiết Hóa Đơn</a></td>
-                </tr>
+                    <tr>
+                        <td> <a href="@Url.Action("Details","SanPhamAdmin", new {id = item.MaSanPham })">@item.MaSanPham</a></td>
+                        <td><a href="@Url.Action("Details","SanPhamAdmin", new {id = item.MaSanPham })"><img src="~/Asset/img/@item.HinhChinh" /></a></td>
+                        <td>@item.SoLuong</td>
+                        <td>@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C}", item.Gia)</td>
+                        <td>@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C}", item.TongTien)</td>
+
+                    </tr>
                 }
             </tbody>
         </table>
+
+
+        
     </div>
+
 </body>
-
-
