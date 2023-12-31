@@ -1,5 +1,5 @@
 <#@ include file="PetaPoco.Core.ttinclude" #>
-<#
+<# 
 	// Settings
     ConnectionStringName = "ShopConnection";			// Uses last connection string in config if not specified
     Namespace = "";

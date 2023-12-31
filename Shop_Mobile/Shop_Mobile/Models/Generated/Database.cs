@@ -175,6 +175,20 @@ namespace ShopConnection
 		[Column] public string UserName { get; set; }
 	}
     
+	[TableName("dbo.BinhLuan")]
+	[PrimaryKey("BinhLuanID")]
+	[ExplicitColumns]
+    public partial class BinhLuan : ShopConnectionDB.Record<BinhLuan>  
+    {
+		[Column] public int BinhLuanID { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public string MaSanPham { get; set; }
+		[Column] public string NoiDung { get; set; }
+		[Column] public DateTime? Ngay { get; set; }
+		[Column] public int? PhanHoiID { get; set; }
+		[Column] public int? LuotLike { get; set; }
+	}
+    
 	[TableName("dbo.GioHang")]
 	[PrimaryKey("IdGH")]
 	[ExplicitColumns]
@@ -225,6 +239,18 @@ namespace ShopConnection
 		[Column] public string MaNhaSanXuat { get; set; }
 		[Column] public string TenNhaSanXuat { get; set; }
 		[Column] public string TinhTrang { get; set; }
+	}
+    
+	[TableName("dbo.PhanHoiBL")]
+	[PrimaryKey("PhanHoiID")]
+	[ExplicitColumns]
+    public partial class PhanHoiBL : ShopConnectionDB.Record<PhanHoiBL>  
+    {
+		[Column] public int PhanHoiID { get; set; }
+		[Column] public int? BinhLuanID { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public string NoiDungPhanHoi { get; set; }
+		[Column] public DateTime? Ngay { get; set; }
 	}
     
 	[TableName("dbo.SanPham")]

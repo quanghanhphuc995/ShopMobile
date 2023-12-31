@@ -4,12 +4,56 @@
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
+@{
+    var userId = ViewBag.userID;
+}
+<style>
+    .comment-box-container {
+        width: 100%;
+        max-width: 600px; /* chiều rộng tối đa */
+        margin: auto;
+        padding: 15px;
+    }
+
+        .comment-box-container textarea {
+            width: 100%; /* chiếm toàn bộ chiều rộng của container */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical; /* cho phép thay đổi kích thước dọc */
+            min-height: 100px; /* chiều cao tối thiểu */
+        }
+
+        .comment-box-container button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .comment-box-container button:hover {
+                background-color: #0056b3;
+            }
+
+    /* Responsive cho các màn hình nhỏ hơn */
+    media (max-width: 600px) {
+        .comment-box-container
+
+    {
+        width: 90%;
+    }
+    }
+</style>
+
 <div id="page-content" class="single-page">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <ul class="breadcrumb">
-                    <li>@Html.ActionLink("Home","Index","Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li><a href="category.html">Category</a></li>
                     <li><a href="#">@Model.TenSanPham</a></li>
                 </ul>
@@ -86,36 +130,27 @@
                 </div>
                 <div class="product-desc">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#description">Cấu Hình</a></li>
-                        <li><a href="#review">Đánh Giá Sản Phẩm</a></li>
+                        <li class="active"><a href="#description" data-target="#description" class="tab-link">Cấu Hình</a></li>
+                        <li><a href="#review" data-target="#review" class="tab-link">Đánh Giá Sản Phẩm</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div id="description" class="tab-pane fade in active">
+                        <div id="description" class="tab-content">
                             <h4>Sample Lorem Ipsum Text</h4>
                             <p>@Model.CauHinh</p>
                             <h4>Sample Lorem Ipsum Text</h4>
                             <p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque aliquet lacus vitae pede. Nullam mollis dolor ac nisi. Phasellus sit amet urna. Praesent pellentesque sapien sed lacus. Donec lacinia odio in odio. In sit amet elit. Maecenas gravida interdum urna. Integer pretium, arcu vitae imperdiet facilisis, elit tellus tempor nisi, vel feugiat ante velit sit amet mauris. Vivamus arcu. Integer pharetra magna ac lacus. Aliquam vitae sapien in nibh vehicula auctor. Suspendisse leo mauris, pulvinar sed, tempor et, consequat ac, lacus. Proin velit. Nulla semper lobortis mauris. Duis urna erat, ornare et, imperdiet eu, suscipit sit amet, massa. Nulla nulla nisi, pellentesque at, egestas quis, fringilla eu, diam.</p>
                         </div>
-                        <div id="review" class="tab-pane fade">
-                            <div class="review-text">
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <div id="review" class="tab-content" style="display:none;">
+                            <div class="comment-box-container">
+                                @using (Html.BeginForm("Create", "BinhLuan", FormMethod.Post, new { id = "comment-form" }))
+                                {
+                                    <textarea id="comment" name="NoiDung" placeholder="Nhập bình luận của bạn..." required></textarea>
+                                    <input type="hidden" name="MaSanPham" value="@Model.MaSanPham" />
+                                    <button type="submit">Gửi Bình Luận</button>
+                                }
                             </div>
-                            <div class="review-form">
-                                <h4>Write a review</h4>
-                                <form name="form1" id="ff" method="post" action="review.php">
-                                    <label>
-                                        <span>Enter your name:</span>
-                                        <input type="text" name="name" id="name" required>
-                                    </label>
-                                    <label>
-                                        <span>Your message here:</span>
-                                        <textarea name="message" id="message"></textarea>
-                                    </label>
-                                    <div class="text-right">
-                                        <input class="btn btn-default" type="reset" name="reset" value="Reset">
-                                        <input class="btn btn-default" type="submit" name="Submit" value="Submit">
-                                    </div>
-                                </form>
+                            <div id="comment-section">
+                                @Html.Action("GetAllBinhLuan", "BinhLuan")
                             </div>
                         </div>
                     </div>
@@ -252,3 +287,27 @@
     </div>
 </div>
 
+<script src="~/Asset/js/tab_link.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#comment-form").submit(function (event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: '@Url.Action("Create", "BinhLuan")',
+                type: 'POST',
+                data: formData,
+                success: function (result) {
+                    // Cập nhật kết quả bình luận vào DOM
+                    $("#comment-section").append(result);
+                    
+                },
+                
+                error: function () {
+                    // Xử lý lỗi
+                }
+            });
+        });
+});
+</script>

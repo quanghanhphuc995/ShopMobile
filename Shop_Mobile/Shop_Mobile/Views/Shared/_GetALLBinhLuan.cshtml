@@ -1,0 +1,71 @@
+﻿@model List<ShopConnection.BinhLuan>
+
+
+@foreach (var item in Model)
+{
+    <h1>Khách Hàng: @item.UserID</h1>
+    <h1> @item.NoiDung</h1>
+    <button class="like-btn" data-binhluan-id="@item.BinhLuanID">Like</button>
+    <button class="reply-btn" data-binhluan-id="@item.BinhLuanID">Trả lời</button>
+    <div id="reply-input-@item.BinhLuanID" class="reply-input" style="display:none;">
+        <input type="text" placeholder="Nhập trả lời của bạn..." />
+        <button class="send-reply-btn" data-binhluan-id="@item.BinhLuanID">Gửi</button>
+    </div>
+    <!-- Khu vực hiển thị số lượng like và trả lời (nếu cần) -->
+    <div id="like-count-@item.BinhLuanID">Số lượt like: @item.LuotLike</div>
+    <div id="replies-@item.BinhLuanID"></div>
+}
+
+<script>
+     $(document).ready(function() {
+        $('.like-btn').click(function() {
+            var binhLuanID = $(this).data('binhluan-id');
+            $.ajax({
+                url: '@Url.Action("LuotLike", "BinhLuan")',
+                type: 'POST',
+                data: { binhLuanID: binhLuanID },
+                success: function(response) {
+                    if (response.success) {
+
+                        $('#like-count-' + binhLuanID).text('Số Lượt like: ' + response.newLikeCount);
+                    } else {
+                        // Xử lý trường hợp không thành công
+                    }
+                }
+            });
+        });
+
+         $('.reply-btn').click(function () {
+             var binhluanID = $(this).data('binhluan-id');
+             $('#reply-input-' + binhluanID).toggle();
+         });
+
+         $('.send-reply-btn').click(function () {
+             var binhluanID = $(this).data('binhluan-id');
+             var phanHoiBL = $('#reply-input-' + binhluanID + ' input').val();
+
+             $.ajax({
+                 url: '@Url.Action("PhanHoiBL","BinhLuan")',
+                 type: 'POST',
+                 data: {
+                     binhLuanID: binhluanID,
+                     noidungPhanHoi:phanHoiBL
+                 },
+                 success: function (response) {
+                     if (response.success) {
+                         var themvaohienthi = $('#replies-' + binhluanID);
+                         themvaohienthi.append('<p>' + phanHoiBL + '</p>');
+                         $('#reply-input-' + binhluanID + ' input').val('');
+
+                         $('#reply-input-' + binhluanID + ' input').val('');
+                         $('#reply-input-' + binhluanID).hide();
+                     }
+                 }
+             });
+         });
+
+         
+
+    });
+</script>
+

@@ -19,7 +19,7 @@ namespace Shop_Mobile.Models.BUS
             var db = new ShopConnectionDB();
             return db.SingleOrDefault<SanPham>("select * from SanPham where MaSanPham=@0",a);
         }
-
+        //Lấy Top 4 san phẩm mới nhất
         public static IEnumerable<SanPham> TopNew()
         {
             var db = new ShopConnectionDB();
@@ -32,6 +32,7 @@ namespace Shop_Mobile.Models.BUS
             return db.Query<SanPham>("select Top 4 * from SanPham where SoLuongDaBan = 0");
         }
 
+       
         //----------------------- Admin Sản phẩm-------------------------------------
         public static IEnumerable<SanPham> DanhSachSPAdmin()
         {
