@@ -26,16 +26,17 @@ namespace Shop_Mobile.Models.BUS
         {
             var db = new ShopConnectionDB();
             var query = "SELECT TOP 1 * FROM BinhLuan WHERE UserID = @UserID ORDER BY Ngay DESC";
-            var parameters = new { UserID = userId };
+            var parameters = new { UserID = userId};
             var resul = db.FirstOrDefault<BinhLuan>(query, parameters);
             return resul;
 
         }
-        public static List<BinhLuan> GetTatCaBinhLuan()
+        public static List<BinhLuan> GetTatCaBinhLuan(string maSanPham)
         {
             var db = new ShopConnectionDB();
-            var query = "SELECT * FROM BinhLuan ORDER BY Ngay DESC";
-            var result = db.Query<BinhLuan>(query).ToList();
+            var query = "SELECT * FROM BinhLuan WHERE MaSanPham = @MaSanPham ORDER BY Ngay DESC";
+            var parameters = new { MaSanPham = maSanPham };
+            var result = db.Query<BinhLuan>(query,parameters).ToList();
             return result;
         }
         public static BinhLuan FindById(int binhluanID)
@@ -61,19 +62,28 @@ namespace Shop_Mobile.Models.BUS
             }
             return false;
         }
-        public static void AddPhanHoiBL(int binhLuanID, string noidungPhanHoi, string userId)
+        public static void AddPhanHoiBL(int binhLuanID, string noiDungPhanHoi, string userId)
         {
             var db = new ShopConnectionDB();
             var phanhoiBL = new PhanHoiBL
             {
                 
                 BinhLuanID = binhLuanID,
-                NoiDungPhanHoi = noidungPhanHoi,
+                NoiDungPhanHoi = noiDungPhanHoi,
                 UserID = userId,
                 Ngay = DateTime.Now
             };
             db.Insert(phanhoiBL);
             
+        }
+
+        public static List<PhanHoiBL> GetTatCaPhanHoiBL(int binhLuanID)
+        {
+            var db = new ShopConnectionDB();
+            var query = "Select * From PhanHoiBL Where BinhLuanID = @BinhLuanID ORDER BY Ngay DESC";
+            var parameters = new { BinhLuanID = binhLuanID };
+            var result = db.Query<PhanHoiBL>(query, parameters).ToList();
+            return result;
         }
     }
 }

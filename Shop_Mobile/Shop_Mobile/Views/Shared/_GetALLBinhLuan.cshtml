@@ -4,6 +4,8 @@
 @foreach (var item in Model)
 {
     <h1>Khách Hàng: @item.UserID</h1>
+    <h1>binhLuanID: @item.BinhLuanID</h1>
+   
     <h1> @item.NoiDung</h1>
     <button class="like-btn" data-binhluan-id="@item.BinhLuanID">Like</button>
     <button class="reply-btn" data-binhluan-id="@item.BinhLuanID">Trả lời</button>
@@ -13,7 +15,11 @@
     </div>
     <!-- Khu vực hiển thị số lượng like và trả lời (nếu cần) -->
     <div id="like-count-@item.BinhLuanID">Số lượt like: @item.LuotLike</div>
-    <div id="replies-@item.BinhLuanID"></div>
+    <div>
+    <a href="#" class="load-replies" data-binhluan-id="@item.BinhLuanID">xem câu trả lời</a>
+    </div>
+    
+    <div id="replies-@item.BinhLuanID" style="display:none;"></div>
 }
 
 <script>
@@ -49,7 +55,7 @@
                  type: 'POST',
                  data: {
                      binhLuanID: binhluanID,
-                     noidungPhanHoi:phanHoiBL
+                     noiDungPhanHoi: phanHoiBL
                  },
                  success: function (response) {
                      if (response.success) {
@@ -60,11 +66,33 @@
                          $('#reply-input-' + binhluanID + ' input').val('');
                          $('#reply-input-' + binhluanID).hide();
                      }
+                     else {
+                         if (response.redirectTo) {
+                             window.location.assign(response.redirectTo);
+                         }
+                     }
                  }
              });
          });
 
-         
+         $('.load-replies').click(function (e) {
+             e.preventDefault();
+             var binhluanID = $(this).data('binhluan-id');
+             var targetDiv = $('#replies-' + binhluanID);
+             if (!targetDiv.is(':visible')) {
+                 $.ajax({
+                     url: '@Url.Action("GetAllPhanHoiBL", "BinhLuan")',
+                     type: 'Get',
+                     data: { binhLuanID: binhluanID },
+                     success: function (response) {
+                         targetDiv.html(response).slideDown();
+                     }
+                 });
+             } else {
+                 targetDiv.slideUp();
+             }
+         });
+
 
     });
 </script>

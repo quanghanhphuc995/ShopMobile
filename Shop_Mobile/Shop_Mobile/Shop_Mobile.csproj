@@ -679,7 +679,6 @@
     <Content Include="Asset\img\Vivo_O99_Images3.png" />
     <Content Include="Asset\img\Vivo_O99_Images4.png" />
     <Content Include="Asset\img\Vivo_O99_Images5.png" />
-    <Content Include="Asset\js\BinhLuant.js" />
     <Content Include="Asset\js\bootstrap.min.js" />
     <Content Include="Asset\js\html5shiv.js" />
     <Content Include="Asset\js\jquery-2.1.1.js" />
@@ -872,6 +871,7 @@
     <Content Include="Views\BInhLuan\Index.cshtml" />
     <Content Include="Views\Shared\_BinhLuan.cshtml" />
     <Content Include="Views\Shared\_GetALLBinhLuan.cshtml" />
+    <Content Include="Views\Shared\_GetAllPhanHoiBL.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

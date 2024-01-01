@@ -36,11 +36,12 @@ namespace Shop_Mobile.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllBinhLuan()
+        public ActionResult GetAllBinhLuan(string maSanPham)
         {
-            var db = BinhLuanBUS.GetTatCaBinhLuan();
+            var db = BinhLuanBUS.GetTatCaBinhLuan(maSanPham);
             return PartialView("_GetAllBinhLuan", db);
         }
+        
 
         [HttpPost]
         public ActionResult LuotLike(int binhluanID)
@@ -57,10 +58,27 @@ namespace Shop_Mobile.Controllers
             }
         }
         [HttpPost]
-        public ActionResult PhanHoiBL(int binhLuanID, string noidungPhanHoi, string userId)
+        public ActionResult PhanHoiBL(int binhLuanID, string noiDungPhanHoi)
         {
-            BinhLuanBUS.AddPhanHoiBL(binhLuanID,noidungPhanHoi, userId);
-            return Json(new { success = true, message = "Phản hồi đã được gửi thành công." });
+            string userId = User.Identity.GetUserId();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Json(new { success = false, redirectTo = Url.Action("Login", "Account") });
+            }
+            else
+            {
+                BinhLuanBUS.AddPhanHoiBL(binhLuanID, noiDungPhanHoi, userId);
+                return Json(new { success = true, message = "Phản hồi đã được gửi thành công." });
+               
+            }
+            
+        }
+
+        [HttpGet]
+        public ActionResult GetAllPhanHoiBL(int binhLuanID)
+        {
+            var db = BinhLuanBUS.GetTatCaPhanHoiBL(binhLuanID);
+            return PartialView("_GetAllPhanHoiBL", db);
         }
     }
 }
