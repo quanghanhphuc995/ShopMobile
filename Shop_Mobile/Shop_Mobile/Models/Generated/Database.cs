@@ -189,6 +189,34 @@ namespace ShopConnection
 		[Column] public int? LuotLike { get; set; }
 	}
     
+	[TableName("dbo.BoNhoTrong")]
+	[PrimaryKey("MaBoNhoTrong", AutoIncrement=false)]
+	[ExplicitColumns]
+    public partial class BoNhoTrong : ShopConnectionDB.Record<BoNhoTrong>  
+    {
+		[Column] public string MaBoNhoTrong { get; set; }
+		[Column] public string DungLuongBoNho { get; set; }
+	}
+    
+	[TableName("dbo.CauHinh")]
+	[PrimaryKey("CauHinhID")]
+	[ExplicitColumns]
+    public partial class CauHinh : ShopConnectionDB.Record<CauHinh>  
+    {
+		[Column] public int CauHinhID { get; set; }
+		[Column] public string MaSanPham { get; set; }
+		[Column] public string ManHinh { get; set; }
+		[Column] public string MaHeDieuHanh { get; set; }
+		[Column] public string CameraSau { get; set; }
+		[Column] public string CameraTruoc { get; set; }
+		[Column] public string CPU { get; set; }
+		[Column] public string MaRam { get; set; }
+		[Column] public string MaBoNhoTrong { get; set; }
+		[Column] public string TheSim { get; set; }
+		[Column] public string DungLuongPin { get; set; }
+		[Column] public string ThietKe { get; set; }
+	}
+    
 	[TableName("dbo.GioHang")]
 	[PrimaryKey("IdGH")]
 	[ExplicitColumns]
@@ -200,6 +228,15 @@ namespace ShopConnection
 		[Column] public string MaSanPham { get; set; }
 		[Column] public int? SoLuong { get; set; }
 		[Column] public int? TongTien { get; set; }
+	}
+    
+	[TableName("dbo.HeDieuHanh")]
+	[PrimaryKey("MaHeDieuHanh", AutoIncrement=false)]
+	[ExplicitColumns]
+    public partial class HeDieuHanh : ShopConnectionDB.Record<HeDieuHanh>  
+    {
+		[Column] public string MaHeDieuHanh { get; set; }
+		[Column] public string TenHeDieuHanh { get; set; }
 	}
     
 	[TableName("dbo.HoaDon")]
@@ -253,6 +290,15 @@ namespace ShopConnection
 		[Column] public DateTime? Ngay { get; set; }
 	}
     
+	[TableName("dbo.Ram")]
+	[PrimaryKey("MaRam", AutoIncrement=false)]
+	[ExplicitColumns]
+    public partial class Ram : ShopConnectionDB.Record<Ram>  
+    {
+		[Column] public string MaRam { get; set; }
+		[Column] public string DungLuongRam { get; set; }
+	}
+    
 	[TableName("dbo.SanPham")]
 	[PrimaryKey("MaSanPham", AutoIncrement=false)]
 	[ExplicitColumns]
@@ -270,7 +316,9 @@ namespace ShopConnection
 		[Column] public string Hinh3 { get; set; }
 		[Column] public string Hinh4 { get; set; }
 		[Column] public int? Gia { get; set; }
+		[Column] public int? SoLuong { get; set; }
 		[Column] public int? SoLuongDaBan { get; set; }
+		[Column] public string VideoSP { get; set; }
 		[Column] public int? LuotView { get; set; }
 		[Column] public string TinhTrang { get; set; }
 		[Column] public string GhiChu { get; set; }

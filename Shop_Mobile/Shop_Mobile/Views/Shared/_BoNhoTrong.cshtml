@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ShopConnection.BoNhoTrong>
+
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin: auto;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .imgpx {
+        max-width: 15px;
+        max-height: 15px;
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+    }
+
+    img {
+        max-width: 15px;
+        max-height: 15px;
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+    }
+</style>
+
+
+<h2>Quang li nha san xuat</h2>
+<p>Add the border-bottom property to th and td for horizontal dividers:</p>
+
+<table>
+    <tr>
+        <th>Mã Bộ Nhớ Trong</th>
+        <th>Dung Lượng Bộ Nhớ</th>
+        <th><a href="@Url.Action("CreateBNT","RamHDHBNT")"><img src="~/Asset/images/add.png.png" style="margin-left:auto" /></a></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MaBoNhoTrong</td>
+            <td>@item.DungLuongBoNho</td>
+            <td><a href="@Url.Action("EditBNT","RamHDHBNT", new { maBoNhoTrong = item.MaBoNhoTrong })"><img src="~/Asset/images/edit.png.png" /></a></td>
+            <td>
+                @using (Html.BeginForm("DeleteBNT", "RamHDHBNT", new { maBoNhoTrong = item.MaBoNhoTrong }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa?');" }))
+                {
+                    <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
+                }
+            </td>
+        </tr>
+    }
+</table>

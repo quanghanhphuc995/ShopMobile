@@ -19,9 +19,9 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         }
 
         // GET: Admin/SanPham/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string maSanPham)
         {
-            var db = ShopOnlineBUS.ChitietSPAdmin(id);
+            var db =  ShopOnlineBUS.ChiTietSanPham(maSanPham);
             return View(db);
            
         }
@@ -36,14 +36,26 @@ namespace Shop_Mobile.Areas.Admin.Controllers
             var nhaSanXuatList = NhaSanXuatBUS.DanhSachAdmin();
             var listMaNhaSanXuat = new SelectList(nhaSanXuatList, "MaNhaSanXuat", "TenNhaSanXuat");
             ViewBag.MaNhaSanXuat = listMaNhaSanXuat;
-            //ViewBag.MaNhaSanXuat = new SelectList(NhaSanXuatBUS.DanhSachAdmin(), "MaNhaSanXuat", "TenNhaSanXuat");
+
+            var DanhSachRamList = ShopOnlineBUS.DanhSachRam();
+            var ListDanhSachRam = new SelectList(DanhSachRamList, "MaRam", "DungLuongRam");
+            ViewBag.MaRam = ListDanhSachRam;
+
+            var DanhSachBNTList = ShopOnlineBUS.DanhSachBNT();
+            var ListDanhSachBNT = new SelectList(DanhSachBNTList, "MaBoNhoTrong", "DungLuongBoNho");
+            ViewBag.MaBoNhoTrong = ListDanhSachBNT;
+
+            var DanhSachHDHList = ShopOnlineBUS.DanhSachHDH();
+            var ListDanhSachHDH = new SelectList(DanhSachHDHList, "MaHeDieuHanh", "TenHeDieuHanh");
+            ViewBag.MaHeDieuHanh = ListDanhSachHDH;
+
             return View();
         }
 
         // POST: Admin/SanPham/Create
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(SanPham sp)
+        public ActionResult Create(ViewSanPhamChiTiet spChiTiet)
         {
             try
             {
@@ -56,7 +68,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
                         //kiem tra requst > 0 hay khong
                         if (hpf.ContentLength > 0)
                         {
-                            string fileName = MakeValidFileName(sp.TenSanPham) + "_Images" + (i + 1);
+                            string fileName = MakeValidFileName(spChiTiet.TenSanPham) + "_Images" + (i + 1);
                             string directoryPath = Server.MapPath("~/Asset/img/");
 
                             // kiem tra xem thu muc co ton tai khong neu khong tao moi
@@ -73,42 +85,49 @@ namespace Shop_Mobile.Areas.Admin.Controllers
                             switch (i)
                             {
                                 case 0:
-                                    sp.HinhChinh = fileName + ".png";
+                                    spChiTiet.HinhChinh = fileName + ".png";
                                     break;
 
                                 case 1:
-                                    sp.Hinh1 = fileName + ".png";
+                                    spChiTiet.Hinh1 = fileName + ".png";
                                     break;
                                 case 2:
-                                    sp.Hinh2 = fileName + ".png";
+                                    spChiTiet.Hinh2 = fileName + ".png";
                                     break;
                                 case 3:
-                                    sp.Hinh3 = fileName + ".png";
+                                    spChiTiet.Hinh3 = fileName + ".png";
                                     break;
                                 case 4:
-                                    sp.Hinh4 = fileName + ".png";
+                                    spChiTiet.Hinh4 = fileName + ".png";
                                     break;
 
                             }
 
                         }
                     }
-                }
-                sp.TinhTrang = "0";
-                sp.SoLuongDaBan = 0;
-
-
-
+                }       
                 var loaiSanPhamList = LoaiSanPhamBUS.DanhSachAdmin();
                 ViewBag.MaLoaiSanPham = new SelectList(loaiSanPhamList, "MaLoaiSanPham", "TenLoaiSanPham");
 
                 var nhaSanXuatList = NhaSanXuatBUS.DanhSachAdmin();
                 ViewBag.MaNhaSanXuat = new SelectList(nhaSanXuatList, "MaNhaSanXuat", "TenNhaSanXuat");
 
+                var DanhSachRamList = ShopOnlineBUS.DanhSachRam();
+                var ListDanhSachRam = new SelectList(DanhSachRamList, "MaRam", "DungLuongRam");
+               
+
+                var DanhSachBNTList = ShopOnlineBUS.DanhSachBNT();
+                var ListDanhSachBNT = new SelectList(DanhSachBNTList, "MaBoNhoTrong", "DungLuongBoNho");
+                
+
+                var DanhSachHDHList = ShopOnlineBUS.DanhSachHDH();
+                var ListDanhSachHDH = new SelectList(DanhSachHDHList, "MaHeDieuHanh", "TenHeDieuHanh");
+               
+
                 if (ModelState.IsValid)
                 {
                     // Thêm sản phẩm vào cơ sở dữ liệu
-                    ShopOnlineBUS.ThemSP(sp);
+                    ShopOnlineBUS.ThemSP(spChiTiet);
                     return RedirectToAction("Index");
                 }
 
@@ -119,7 +138,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
                 Console.WriteLine("lỗi" + ex.ToString());
                 Console.WriteLine("Lỗi xử lý tệp tin: " + ex.Message);
             }
-            return View(sp);
+            return View(spChiTiet);
         }
         // hàm loại bỏ các kí tự đặc biệt
         private string MakeValidFileName(string name)

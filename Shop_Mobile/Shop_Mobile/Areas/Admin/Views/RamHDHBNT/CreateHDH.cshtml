@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "CreateHDH";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+<style>
+    :root {
+        --text-black: black;
+    }
+
+    h3 {
+        color: var(--text-black);
+    }
+
+    input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    label {
+        color: var(--text-black);
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    .mrc {
+        margin: auto;
+    }
+</style>
+<h3 > Hệ Điều Hành</h3>
+
+<div>
+
+    @using (Html.BeginForm("CreateHDH", "RamHDHBNT"))
+    {
+        <label for= "fname" > Hệ Điều Hành </label >
+        <input type = "text" id = "fname" name = "MaHeDieuHanh" placeholder = "Nhập Hệ Điều Hành" required >
+
+        <label for= "lname" > Tên Hệ Điều Hành </label >
+        <input type = "text" id = "lname" name = "TenHeDieuHanh" placeholder = "Nhập Tên Hệ Điều Hành" required >
+        <input type = "submit" value = "Submit" >
+     }
+ </div >
+

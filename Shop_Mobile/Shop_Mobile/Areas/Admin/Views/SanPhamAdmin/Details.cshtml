@@ -1,9 +1,70 @@
-﻿@model ShopConnection.SanPham
+﻿@model Shop_Mobile.Models.BUS.ViewSanPhamChiTiet
 @{
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
 }
 
-<h2>Ten san Pham @Model.TenSanPham</h2>
-<h2>Mã SP @Model.MaSanPham</h2>
+
+
+    <title>Thông Tin Sản Phẩm Điện Thoại</title>
+    <style>
+        .container {
+            width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .product-details {
+            margin-top: 20px;
+        }
+
+            .product-details h2 {
+                color: #333;
+            }
+
+            .product-details dt {
+                font-weight: bold;
+            }
+
+            .product-details dd {
+                margin: 0 0 10px 0;
+            }
+    </style>
+
+<body>
+    <div class="container">
+        <h1>Chi Tiết Sản Phẩm Điện Thoại</h1>
+        <div class="product-details">
+            <h2>Tên Điện Thoại @Model.TenSanPham</h2>
+            <dl>
+                <dt>Màn Hình:@Model.ManHinh</dt>
+                <dd>6.5 inch OLED, độ phân giải 1080 x 2400 pixels</dd>
+
+                <dt>Bộ Nhớ Trong:</dt>
+                <dd>@Model.MaBoNhoTrong</dd>
+
+                <dt>RAM:</dt>
+                <dd>@Model.MaRam</dd>
+
+                <dt>Camera Sau:</dt>
+                <dd>@Model.CameraSau</dd>
+
+                <dt>Camera Trước:</dt>
+                <dd>@Model.CameraTruoc</dd>
+
+                <dt>Hệ Điều Hành:</dt>
+                <dd>@Model.MaHeDieuHanh</dd>
+
+                <dt>Pin:</dt>
+                <dd>@Model.DungLuongPin</dd>
+            </dl>
+        </div>
+    </div>
+</body>
 

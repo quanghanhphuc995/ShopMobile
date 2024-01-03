@@ -122,21 +122,76 @@
         <td>
             @if (ViewBag.MaNhaSanXuat != null)
             {
-                @Html.DropDownList("MaNhaSanXuat", ViewBag.MaNhaSanXuat as SelectList, new { @style = "float:left; width: 300px; background:black;height:30px;" })
+                @Html.DropDownList("MaNhaSanXuat", ViewBag.MaNhaSanXuat as SelectList, "Chọn mã sản xuất", new { @style = "float:left; width: 300px; background:black;height:30px;" })
+            }
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>Màn Hình</td>
+        <td> <input style="width: 300px; float:left; background:white; color:black" type="text" name="ManHinh" /></td>
+    </tr>
+    <tr>
+        <td>Hệ Điều Hành</td>
+        <td>
+            @if (ViewBag.MaHeDieuHanh != null)
+            {
+                @Html.DropDownList("MaHeDieuHanh", ViewBag.MaHeDieuHanh as SelectList, "Chọn hệ điều hành", new { @style = "float:left; width: 300px; background:black;height:30px;" })
             }
 
         </td>
     </tr>
     <tr>
-
-        <td style="width: 300px;">Cấu Hình</td>
-         <td colspan="2"><textarea class="ckeditor" name="CauHinh" style="width: 300px; color:black; height: 150px; max-width: 100px; max-height: 600px; background:white;" rows="4" cols="30"></textarea></td>
+        <td>CameraSau</td>
+        <td> <input style="width: 300px; float:left; background:white; color:black" type="text" name="CameraSau" /></td>
     </tr>
+    <tr>
+        <td>CameraTruoc</td>
+        <td> <input style="width: 300px; float:left; background:white; color:black" type="text" name="CameraTruoc" /></td>
+    </tr>
+    <tr>
+        <td>CPU</td>
+        <td> <input style="width: 300px; float:left; background:white; color:black" type="text" name="CPU" /></td>
+    </tr>
+    <tr>
+        <td>Ram</td>
+        <td>
+            @if (ViewBag.MaRam != null)
+            {
+                @Html.DropDownList("MaRam", ViewBag.MaRam as SelectList, "Chọn dung lượng Ram", new { @style = "float:left; width: 300px; background:black;height:30px;" })
+            }
+
+        </td>
+    </tr>
+    <tr>
+        <td>Bộ Nhớ Trong</td>
+        <td>
+            @if (ViewBag.MaBoNhoTrong != null)
+            {
+                @Html.DropDownList("MaBoNhoTrong", ViewBag.MaBoNhoTrong as SelectList, "Chọn bộ nhớ trong", new { @style = "float:left; width: 300px; background:black;height:30px;" })
+            }
+
+        </td>
+    </tr>
+    <tr>
+        <td>Thẻ Sim</td>
+        <td> <input style="width: 300px; float:left; background:white; color:black" type="text" name="TheSim" /></td>
+    </tr>
+    <tr>
+        <td>Dung Lượng Pin</td>
+        <td> <input style="width: 300px; float:left; background:white; color:black" type="text" name="DungLuongPin" /></td>
+    </tr>
+    <tr>
+        <td>Thiết Kế</td>
+        <td> <input style="width: 300px; float:left; background:white; color:black" type="text" name="ThietKe" /></td>
+    </tr>
+
     <tr>
         <td colspan="3">
             <input style="height: 40px; width: 300px;   margin-left:32%;
 	 background:#016ABC;color: #fff;border: 1px solid #eee;border-radius: 20px;box-shadow: 5px 5px 5px #eee;"
-                   type="submit" name="btn_ThemDienThoai" value="Hoàn tất thêm điện thoại" />
+                   type="submit" name="btn_ThemDienThoai" value="Thềm Sản Phẩm" />
         </td>
     </tr>
 </table>

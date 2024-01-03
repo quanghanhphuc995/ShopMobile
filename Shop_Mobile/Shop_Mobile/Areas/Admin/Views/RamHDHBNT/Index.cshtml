@@ -1,0 +1,106 @@
+﻿@model Shop_Mobile.Areas.Admin.Controllers.RamHDHBNTController.ViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin: auto;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+    .imgpx {
+        max-width: 15px;
+        max-height: 15px;
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+    }
+    img {
+        max-width: 15px;
+        max-height: 15px;
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+    }
+    .table-spacingBot {
+        margin-bottom: 50px;
+    }
+</style>
+
+
+<h2>Quang li nha san xuat</h2>
+<p>Add the border-bottom property to th and td for horizontal dividers:</p>
+
+<table class="table-spacingBot">
+    <tr>
+        <th>Hệ Điều Hành</th>
+        <th>Tên Hệ Điều Hành</th>
+        <th><a href="@Url.Action("CreateHDH","RamHDHBNT")"><img src="~/Asset/images/add.png.png" style="margin-left:auto" /></a></th>
+    </tr>
+    @foreach (var hdh in Model.DanhSachHDH)
+    {
+        <tr>
+            <td>@hdh.MaHeDieuHanh</td>
+            <td>@hdh.TenHeDieuHanh</td>
+            <td><a href="@Url.Action("EditHDH","RamHDHBNT", new { id = hdh.MaHeDieuHanh })"><img src="~/Asset/images/edit.png.png" /></a></td>
+            <td>
+                @using (Html.BeginForm("DeleteHDH", "RamHDHBNT", new { maHeDieuHanh = hdh.MaHeDieuHanh }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa hệ điều hành này?');" }))
+                {
+                    <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<table class="table-spacingBot">
+    <tr>
+        <th>Mã Bộ Nhớ Trong</th>
+        <th>Dung Lượng Bộ Nhớ</th>
+        <th><a href="@Url.Action("CreateBNT","RamHDHBNT")"><img src="~/Asset/images/add.png.png" style="margin-left:auto" /></a></th>
+    </tr>
+    @foreach (var bnt in Model.DanhSachBNT)
+    {
+        <tr>
+            <td>@bnt.MaBoNhoTrong</td>
+            <td>@bnt.DungLuongBoNho</td>
+            <td><a href="@Url.Action("EditBNT","RamHDHBNT", new { maBoNhoTrong = bnt.MaBoNhoTrong })"><img src="~/Asset/images/edit.png.png" /></a></td>
+            <td>
+                @using (Html.BeginForm("DeleteBNT", "RamHDHBNT", new { maBoNhoTrong = bnt.MaBoNhoTrong }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa?');" }))
+                {
+                    <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<table class="table-spacingBot">
+    <tr>
+        <th>Mã Ram</th>
+        <th>Dung Lượng Ram</th>
+        <th><a href="@Url.Action("CreateRam","RamHDHBNT")"><img src="~/Asset/images/add.png.png" style="margin-left:auto" /></a></th>
+    </tr>
+    @foreach (var ram in Model.DanhSachRam)
+    {
+        <tr>
+            <td>@ram.MaRam</td>
+            <td>@ram.DungLuongRam</td>
+            <td><a href="@Url.Action("EditRam","RamHDHBNT", new { maRam = ram.MaRam })"><img src="~/Asset/images/edit.png.png" /></a></td>
+            <td>
+                @using (Html.BeginForm("DeleteRam", "RamHDHBNT", new { maRam = ram.MaRam }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa?');" }))
+                {
+                    <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+
