@@ -20,6 +20,7 @@ namespace Shop_Mobile.Models.BUS
         public int? Gia { get; set; }
         public string GhiChu { get; set; }
         public int? SoLuong { get; set; }
+        public int? SoLuongDaBan { get; set; }
         public string VideoSP { get; set; }
         public string ManHinh { get; set; }
         public string MaHeDieuHanh { get; set; }
@@ -31,12 +32,15 @@ namespace Shop_Mobile.Models.BUS
         public string TheSim { get; set; }
         public string DungLuongPin { get; set; }
         public string ThietKe { get; set; }
+        public string DungLuongBoNho { get; set; }
+        public string TenHeDieuHanh { get; set; }
+        public string DungLuongRam { get; set; }
     }
 
     public class ShopOnlineBUS
     {
 
-       
+
         public static ViewSanPhamChiTiet ChiTietSanPham(string maSanPham)
         {
             var db = new ShopConnectionDB();
@@ -51,6 +55,8 @@ sp.Hinh3,
 sp.Hinh4,
 sp.Gia,
 sp.SoLuong,
+sp.SoLuongDaBan,
+sp.SoLuong,
 sp.VideoSP,
 ch.ManHinh,
 ch.MaHeDieuHanh,
@@ -61,9 +67,15 @@ ch.MaRam,
 ch.MaBoNhoTrong,
 ch.TheSim,
 ch.DungLuongPin,
-ch.ThietKe
+ch.ThietKe,
+hdh.TenHeDieuHanh,
+ram.DungLuongRam,
+bnt.DungLuongBoNho
 From SanPham sp
 INNER JOIN CauHinh ch ON sp.MaSanPham = ch.MaSanPham
+LEFT JOIN HeDieuHanh hdh ON ch.MaHeDieuHanh = hdh.MaHeDieuHanh
+LEFT JOIN Ram ram ON ch.MaRam = ram.MaRam
+LEFT JOIN BoNhoTrong bnt ON ch.MaBoNhoTrong = bnt.MaBoNhoTrong
 WHERE sp.MaSanPham =@0
     ";
             return db.SingleOrDefault<ViewSanPhamChiTiet>(query, maSanPham);
@@ -77,7 +89,7 @@ WHERE sp.MaSanPham =@0
         public static SanPham ChiTietSP(String a)
         {
             var db = new ShopConnectionDB();
-            return db.SingleOrDefault<SanPham>("select * from SanPham where MaSanPham=@0",a);
+            return db.SingleOrDefault<SanPham>("select * from SanPham where MaSanPham=@0", a);
         }
         //Lấy Top 4 san phẩm mới nhất
         public static IEnumerable<SanPham> TopNew()
@@ -92,7 +104,7 @@ WHERE sp.MaSanPham =@0
             return db.Query<SanPham>("select Top 4 * from SanPham where SoLuongDaBan = 0");
         }
 
-       
+
         //----------------------- Admin Sản phẩm-------------------------------------
         public static IEnumerable<SanPham> DanhSachSPAdmin()
         {
@@ -103,13 +115,19 @@ WHERE sp.MaSanPham =@0
         public static void ThemSP(ViewSanPhamChiTiet spChiTiet)
         {
             var db = new ShopConnectionDB();
-            db.Execute("INSERT INTO SanPham (MaSanPham, MaLoaiSanPham, MaNhaSanXuat, TenSanPham, HinhChinh, Hinh1, Hinh2, Hinh3, Hinh4, Gia, GhiChu, VideoSP) VALUES (@MaSanPham, @MaLoaiSanPham, @MaNhaSanXuat, @TenSanPham, @HinhChinh, @Hinh1, @Hinh2, @Hinh3, @Hinh4, @Gia, @GhiChu,@VideoSP)",
-                 new { spChiTiet.MaSanPham, spChiTiet.MaLoaiSanPham, spChiTiet.MaNhaSanXuat, spChiTiet.TenSanPham, spChiTiet.HinhChinh, spChiTiet.Hinh1, spChiTiet.Hinh2, spChiTiet.Hinh3, spChiTiet.Hinh4, spChiTiet.Gia, spChiTiet.GhiChu,spChiTiet.VideoSP });
+            db.Execute("INSERT INTO SanPham (MaSanPham, MaLoaiSanPham, MaNhaSanXuat, TenSanPham, HinhChinh, Hinh1, Hinh2, Hinh3, Hinh4, Gia,SoLuong, GhiChu, VideoSP) VALUES (@MaSanPham, @MaLoaiSanPham, @MaNhaSanXuat, @TenSanPham, @HinhChinh, @Hinh1, @Hinh2, @Hinh3, @Hinh4, @Gia,@SoLuong, @GhiChu,@VideoSP)",
+                 new { spChiTiet.MaSanPham, spChiTiet.MaLoaiSanPham, spChiTiet.MaNhaSanXuat, spChiTiet.TenSanPham, spChiTiet.HinhChinh, spChiTiet.Hinh1, spChiTiet.Hinh2, spChiTiet.Hinh3, spChiTiet.Hinh4, spChiTiet.Gia,spChiTiet.SoLuong, spChiTiet.GhiChu, spChiTiet.VideoSP });
 
-            db.Execute("INSERT INTO CauHinh (MaSanPham,ManHinh, MaHeDieuHanh, CameraSau, CameraTruoc, CPU, MaRam, MaBoNhoTrong, TheSim, DungLuongPin, ThietKe) VALUES (@MaSanPham, @ManHinh, @MaHeDieuHanh, @CameraSau, @CameraTruoc, @CPU, @MaRam, @MaBoNhoTrong, @TheSim, @DungLuongPin, @ThietKe)",
-             new { spChiTiet.MaSanPham, spChiTiet.ManHinh, spChiTiet.MaHeDieuHanh, spChiTiet.CameraSau, spChiTiet.CameraTruoc, spChiTiet.CPU, spChiTiet.MaRam, spChiTiet.MaBoNhoTrong, spChiTiet.TheSim, spChiTiet.DungLuongPin, spChiTiet.ThietKe });
+            db.Execute(@"
+        INSERT INTO CauHinh (MaSanPham, ManHinh, MaHeDieuHanh, CameraSau, CameraTruoc, CPU, MaRam, MaBoNhoTrong, TheSim, DungLuongPin, ThietKe, DungLuongBoNho, TenHeDieuHanh, DungLuongRam) 
+        VALUES (@MaSanPham, @ManHinh, @MaHeDieuHanh, @CameraSau, @CameraTruoc, @CPU, @MaRam, @MaBoNhoTrong, @TheSim, @DungLuongPin, @ThietKe,
+            (SELECT DungLuongBoNho FROM BoNhoTrong WHERE MaBoNhoTrong = @MaBoNhoTrong),            
+            (SELECT TenHeDieuHanh FROM HeDieuHanh WHERE MaHeDieuHanh = @MaHeDieuHanh),
+            (SELECT DungLuongRam FROM Ram WHERE MaRam = @MaRam),
+            )",
+              new { spChiTiet.MaSanPham, spChiTiet.ManHinh, spChiTiet.MaHeDieuHanh, spChiTiet.CameraSau, spChiTiet.CameraTruoc, spChiTiet.CPU, spChiTiet.MaRam, spChiTiet.MaBoNhoTrong, spChiTiet.TheSim, spChiTiet.DungLuongPin, spChiTiet.ThietKe });
         }
-        
+
         public static SanPham ChitietSPAdmin(string id)
         {
             var db = new ShopConnectionDB();
@@ -122,30 +140,13 @@ WHERE sp.MaSanPham =@0
             db.Update(sp, id);
         }
 
-        public static SanPham XoaSP(string id)
+        public static void XoaSP(string id)
         {
             var db = new ShopConnectionDB();
-            if (string.IsNullOrEmpty(id))
-            {
-                // Xử lý khi id không hợp lệ (ví dụ: trả về lỗi hoặc chuyển hướng đến trang lỗi)
-                Console.WriteLine("có nó đâu đòi xóa cha");
-                //...
-                return null;
-            }
+            db.Execute("Delete From CauHinh Where MaSanPham = @MaSanPham ", new { MaSanPham = id });
+            db.Execute("Delete From SanPham Where MaSanPham = @MaSanPham ", new { MaSanPham = id });
 
-
-            // Xóa sản phẩm khỏi cơ sở dữ liệu
-            int rowsAffected = db.Execute("DELETE FROM SanPham WHERE MaSanPham = @0", id);
-
-            // Nếu có ít nhất một hàng bị ảnh hưởng, thực hiện câu truy vấn SELECT
-            if (rowsAffected > 0)
-            {
-                return db.SingleOrDefault<SanPham>("SELECT * FROM SanPham WHERE MaSanPham = @0", id);
-            }
-
-            
-            return null; // hoặc có thể trả về một đối tượng SanPham mặc định, hoặc thông tin khác tùy thuộc vào trường hợp của bạn.
-        }
+        } 
 
 
         //------------------------Phần ad hệ điều hành------------------------

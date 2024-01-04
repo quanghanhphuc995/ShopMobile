@@ -215,6 +215,9 @@ namespace ShopConnection
 		[Column] public string TheSim { get; set; }
 		[Column] public string DungLuongPin { get; set; }
 		[Column] public string ThietKe { get; set; }
+		[Column] public string DungLuongBoNho { get; set; }
+		[Column] public string TenHeDieuHanh { get; set; }
+		[Column] public string DungLuongRam { get; set; }
 	}
     
 	[TableName("dbo.GioHang")]
@@ -309,7 +312,6 @@ namespace ShopConnection
 		[Column] public string MaLoaiSanPham { get; set; }
 		[Column] public string MaNhaSanXuat { get; set; }
 		[Column] public string TenSanPham { get; set; }
-		[Column] public string CauHinh { get; set; }
 		[Column] public string HinhChinh { get; set; }
 		[Column] public string Hinh1 { get; set; }
 		[Column] public string Hinh2 { get; set; }

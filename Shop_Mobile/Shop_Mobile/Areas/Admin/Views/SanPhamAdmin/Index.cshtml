@@ -18,7 +18,12 @@
         border-bottom: 1px solid #ddd;
         
     }
-
+    .imgpx {
+        max-width: 15px;
+        max-height: 15px;
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+    }
     img {
         max-width: 15px;
         max-height: 15px;
@@ -39,13 +44,12 @@
         <th>Mã nhà sản xuất</th>
         <th>Tên nhà sản phẩm</th>
         <th>Cấu hình</th>
-        <th>Hình chính</th>
         <th>Hình 1</th>
         <th>Hình 2</th>
         <th>Hình 3</th>
         <th>Hình 4</th>
         <th>Giá</th>
-        <th>Số lượng đã bán</th>
+        <th>Số lượng hiện tại</th>
         <th>Lượt view</th>
         <th>Tình trạng</th>
         <th>Ghi chú</th>
@@ -58,21 +62,26 @@
     <td>@item.MaSanPham</td>
     <td>@item.MaLoaiSanPham</td>
     <td>@item.MaNhaSanXuat</td>
-    <td>@item.TenSanPham</td>
-    <td>@item.CauHinh</td>
+    <td>@item.TenSanPham</td>>
     <td><img src="~/Asset/img/@item.HinhChinh" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
     <td><img src="~/Asset/img/@item.Hinh1" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter:none;" /></td>
     <td><img src="~/Asset/img/@item.Hinh2" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
     <td><img src="~/Asset/img/@item.Hinh3" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
     <td><img src="~/Asset/img/@item.Hinh4" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
     <td>@item.Gia</td>
-    <td>@item.SoLuongDaBan</td>
+    <td>@item.SoLuong</td>
     <td>@item.LuotView</td>
     <td>@item.TinhTrang</td>
     <td>@item.GhiChu</td>
+
     <td><a href="@Url.Action("Details","SanPhamAdmin", new {maSanPham = @item.MaSanPham })">Chi Tiết Sản Phẩm</a></td>
     <td><a href="@Url.Action("Edit","SanPhamAdmin",new {id=@item.MaSanPham })"><img src="~/Asset/images/edit.png.png" /></a></td>
-    <td><a href="@Url.Action("Delete","SanPhamAdmin",new {id=@item.MaSanPham})"><img src="~/Asset/images/delete.png.png" /></a></td>
+    <td>
+        @using (Html.BeginForm("Delete", "SanPhamAdmin", new { id = item.MaSanPham }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa hệ điều hành này?');" }))
+        {
+            <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
+        }
+    </td>
 </tr>
     }
 
