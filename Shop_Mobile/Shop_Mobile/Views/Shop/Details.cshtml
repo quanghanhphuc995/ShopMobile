@@ -1,4 +1,4 @@
-﻿@model ShopConnection.SanPham
+﻿@model Shop_Mobile.Models.BUS.ViewSanPhamChiTiet
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/MainLayout.cshtml";
@@ -38,14 +38,42 @@
                 background-color: #0056b3;
             }
 
-    /* Responsive cho các màn hình nhỏ hơn */
-    media (max-width: 600px) {
-        .comment-box-container
+    .product-details {
+        font-family: Arial, sans-serif;
+        max-width: 700px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
 
-    {
-        width: 90%;
+        .product-details h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .product-details img {
+            display: block;
+            margin: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+    .specification-table {
+        width: 100%;
+        border-collapse: collapse;
     }
-    }
+
+        .specification-table th,
+        .specification-table td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .specification-table th {
+            background-color: #f2f2f2;
+        }
 </style>
 
 <div id="page-content" class="single-page">
@@ -131,16 +159,57 @@
                 <div class="product-desc">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#description" data-target="#description" class="tab-link">Cấu Hình</a></li>
-                        <li><a href="#review" data-target="#review" class="tab-link">Đánh Giá Sản Phẩm</a></li>
+                        <li><a href="#review" data-target="#review-content" class="tab-link">Đánh Giá Sản Phẩm</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div id="description" class="tab-content">
-                            <h4>Sample Lorem Ipsum Text</h4>
-                            <p></p>
-                            <h4>Sample Lorem Ipsum Text</h4>
-                            <p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque aliquet lacus vitae pede. Nullam mollis dolor ac nisi. Phasellus sit amet urna. Praesent pellentesque sapien sed lacus. Donec lacinia odio in odio. In sit amet elit. Maecenas gravida interdum urna. Integer pretium, arcu vitae imperdiet facilisis, elit tellus tempor nisi, vel feugiat ante velit sit amet mauris. Vivamus arcu. Integer pharetra magna ac lacus. Aliquam vitae sapien in nibh vehicula auctor. Suspendisse leo mauris, pulvinar sed, tempor et, consequat ac, lacus. Proin velit. Nulla semper lobortis mauris. Duis urna erat, ornare et, imperdiet eu, suscipit sit amet, massa. Nulla nulla nisi, pellentesque at, egestas quis, fringilla eu, diam.</p>
+                        <div class="product-details tab-content" id="description">
+                            <h2>Tên Sản Phẩm</h2>
+                            <img src="link-to-image.jpg" alt="Hình Ảnh Sản Phẩm">
+                            <table class="specification-table">
+                                <tr>
+                                    <th>Màn Hình</th>
+                                    <td>@Model.ManHinh</td>
+                                </tr>
+                                <!-- Thêm các hàng khác tương tự cho từng thông số kỹ thuật -->
+                                <tr>
+                                    <th>Hệ Điều Hành</th>
+                                    <td>@Model.TenHeDieuHanh</td>
+                                </tr>
+                                <tr>
+                                    <th>Camera Sau</th>
+                                    <td>@Model.CameraSau</td>
+                                </tr>
+                                <tr>
+                                    <th>Camera Trước</th>
+                                    <td>@Model.CameraTruoc</td>
+                                </tr>
+                                <tr>
+                                    <th>CPU</th>
+                                    <td>@Model.CPU</td>
+                                </tr>
+                                <tr>
+                                    <th>Ram</th>
+                                    <td>@Model.DungLuongRam</td>
+                                </tr>
+                                <tr>
+                                    <th>Bộ Nhớ Trong</th>
+                                    <td>@Model.DungLuongBoNho</td>
+                                </tr>
+                                <tr>
+                                    <th>Thẻ Sim</th>
+                                    <td>@Model.TheSim</td>
+                                </tr>
+                                <tr>
+                                    <th>Dung Lượng Pin</th>
+                                    <td>@Model.DungLuongPin</td>
+                                </tr>
+                                <tr>
+                                    <th>Thiết Kế</th>
+                                    <td>@Model.ThietKe</td>
+                                </tr>
+                            </table>
                         </div>
-                        <div id="review" class="tab-content" style="display:none;">
+                        <div id="review-content" class="tab-content" style="display:none;">
                             <div class="comment-box-container">
                                 @using (Html.BeginForm("Create", "BinhLuan", FormMethod.Post, new { id = "comment-form" }))
                                 {
@@ -287,8 +356,29 @@
     </div>
 </div>
 
-<script src="~/Asset/js/tab_link.js"></script>
+
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var tabs = document.querySelectorAll('.tab-link');
+
+        tabs.forEach(function (tab) {
+            tab.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                var target = this.getAttribute('data-target');
+
+                // Xóa lớp active khỏi tất cả các tabs và tab contents
+                tabs.forEach(function (tab) {
+                    tab.parentNode.classList.remove('active');
+                    document.querySelector(tab.getAttribute('data-target')).style.display = 'none';
+                });
+
+                // Thêm lớp active vào tab được chọn và hiển thị nội dung tương ứng
+                this.parentNode.classList.add('active');
+                document.querySelector(target).style.display = 'block';
+            });
+        });
+    });
     $(document).ready(function() {
         $("#comment-form").submit(function (event) {
             event.preventDefault();

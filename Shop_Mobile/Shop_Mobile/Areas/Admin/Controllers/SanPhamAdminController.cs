@@ -22,8 +22,15 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         public ActionResult Details(string maSanPham)
         {
             var db =  ShopOnlineBUS.ChiTietSanPham(maSanPham);
-            return View(db);
-           
+            if (db!=null && db.GetType()==typeof(ViewSanPhamChiTiet))
+            {
+                return View(db);
+            }
+            else
+            {
+                // Nếu kiểu dữ liệu không đúng, xử lý theo ý bạn
+                return Content("Không tìm thấy thông tin sản phẩm.");
+            }
         }
 
         // GET: Admin/SanPham/Create

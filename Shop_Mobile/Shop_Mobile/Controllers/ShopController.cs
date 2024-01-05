@@ -18,9 +18,9 @@ namespace Shop_Mobile.Controllers
         }
 
         // GET: Shop/Details/5
-        public ActionResult Details(String id)
+        public ActionResult Details(String maSanPham)
         {
-            var db = ShopOnlineBUS.ChiTietSP(id);
+            var db = ShopOnlineBUS.ChiTietSanPham(maSanPham);
             return View(db);
         }
 

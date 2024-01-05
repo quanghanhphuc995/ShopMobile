@@ -13,13 +13,13 @@ namespace Shop_Mobile.Models.BUS
         public static IEnumerable<LoaiSanPham> DanhSach()
         {
             var db = new ShopConnectionDB();
-            return db.Query<LoaiSanPham>("select * from LoaiSanPham where TinhTrang = 0");
+            return db.Query<LoaiSanPham>("select * from LoaiSanPham");
         }
 
         public static IEnumerable<SanPham> LoaiSanPham(String id)
         {
             var db = new ShopConnectionDB();
-            return db.Query<SanPham>("select * from SanPham where MaLoaiSanPham ='"+id+"'");
+            return db.Query<SanPham>("select * from SanPham where MaLoaiSanPham = @0",id);
         }
 
         //-----------------------Admin-----------------------------
@@ -46,7 +46,7 @@ namespace Shop_Mobile.Models.BUS
         public static LoaiSanPham ChitietLSPAdmin(String id)
         {
             var db = new ShopConnectionDB();
-            return db.SingleOrDefault<LoaiSanPham>("select * from LoaiSanPham where MaLoaiSanPham = '" + id + "'");
+            return db.SingleOrDefault<LoaiSanPham>("select * from LoaiSanPham where MaLoaiSanPham = @0", id);
         }
 
        

@@ -84,12 +84,12 @@ WHERE sp.MaSanPham =@0
         public static IEnumerable<SanPham> DanhSach()
         {
             var db = new ShopConnectionDB();
-            return db.Query<SanPham>("select * from SanPham");
+            return db.Query<SanPham>("Select * From SanPham");
         }
         public static SanPham ChiTietSP(String a)
         {
             var db = new ShopConnectionDB();
-            return db.SingleOrDefault<SanPham>("select * from SanPham where MaSanPham=@0", a);
+            return db.SingleOrDefault<SanPham>("Select * From SanPham where MaSanPham = @0", a);
         }
         //Lấy Top 4 san phẩm mới nhất
         public static IEnumerable<SanPham> TopNew()
@@ -123,7 +123,7 @@ WHERE sp.MaSanPham =@0
         VALUES (@MaSanPham, @ManHinh, @MaHeDieuHanh, @CameraSau, @CameraTruoc, @CPU, @MaRam, @MaBoNhoTrong, @TheSim, @DungLuongPin, @ThietKe,
             (SELECT DungLuongBoNho FROM BoNhoTrong WHERE MaBoNhoTrong = @MaBoNhoTrong),            
             (SELECT TenHeDieuHanh FROM HeDieuHanh WHERE MaHeDieuHanh = @MaHeDieuHanh),
-            (SELECT DungLuongRam FROM Ram WHERE MaRam = @MaRam),
+            (SELECT DungLuongRam FROM Ram WHERE MaRam = @MaRam)
             )",
               new { spChiTiet.MaSanPham, spChiTiet.ManHinh, spChiTiet.MaHeDieuHanh, spChiTiet.CameraSau, spChiTiet.CameraTruoc, spChiTiet.CPU, spChiTiet.MaRam, spChiTiet.MaBoNhoTrong, spChiTiet.TheSim, spChiTiet.DungLuongPin, spChiTiet.ThietKe });
         }
