@@ -68,26 +68,14 @@ namespace Shop_Mobile.Areas.Admin.Controllers
             }
         }
 
-        // GET: Admin/NhaSanXuat/Delete/5
-        public ActionResult Delete(string id)
-        {
-            return View(NhaSanXuatBUS.ChitietSPAdmin(id));
-        }
-
-        // POST: Admin/NhaSanXuat/Delete/5
+        
         [HttpPost]
         public ActionResult Delete(string id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
+           
                 NhaSanXuatBUS.DeleteNSX( id);
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            
         }
     }
 }

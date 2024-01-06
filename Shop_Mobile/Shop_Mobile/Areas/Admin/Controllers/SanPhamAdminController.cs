@@ -236,14 +236,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
             }
         }
 
-        // GET: Admin/SanPham/Delete/5
-        //public ActionResult Delete(string id)
-        //{
-        //    ShopOnlineBUS.XoaSP(id);
-        //    return View();
-        //}
-
-        // POST: Admin/SanPham/Delete/5
+       
         [HttpPost, ActionName("Delete")]
        
         public ActionResult Delete(string id, FormCollection collection)

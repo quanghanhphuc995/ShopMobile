@@ -41,6 +41,11 @@ namespace Shop_Mobile.Models.BUS
             var db = new ShopConnectionDB();
             db.Update(lsp, id);
         }
+        public static void DeleteLSP(string id)
+        {
+            var db = new ShopConnectionDB();
+            db.Execute("Delete From LoaiSanPham Where MaLoaiSanPham = @0", id);
+        }
 
         //--------------- hiển thị trang chi tiết Edit------------------
         public static LoaiSanPham ChitietLSPAdmin(String id)

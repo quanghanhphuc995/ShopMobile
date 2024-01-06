@@ -45,16 +45,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-6">
-                    <select class="language">
-                        <option value="English" selected>English</option>
-                        <option value="France">France</option>
-                        <option value="Germany">Germany</option>
-                    </select>
-                    <select class="currency">
-                        <option value="USD" selected>USD</option>
-                        <option value="EUR">EUR</option>
-                        <option value="DDD">DDD</option>
-                    </select>
+                    
                 </div>
                 <div class="col-xs-6">
                     <ul class="top-link">
@@ -77,11 +68,11 @@
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Product", "Index", "Shop")</li>
+                    <li>@Html.ActionLink("Trang Chủ", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Sản Phẩm", "Index", "Shop")</li>
                     @Html.Partial("_NhaSanXuat", Shop_Mobile.Models.BUS.NhaSanXuatBUS.DanhSach())
                     @Html.Partial("_LoaiSanPham", Shop_Mobile.Models.BUS.LoaiSanPhamBUS.DanhSach())
-                    <li><a href="category.html">Software</a></li>
+                    
                 </ul>
             </div>
         </div>

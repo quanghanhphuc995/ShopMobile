@@ -16,6 +16,12 @@
         text-align: center;
         border-bottom: 1px solid #ddd;
     }
+    .imgpx {
+        max-width: 15px;
+        max-height: 15px;
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+    }
     img {
         max-width: 15px;
         max-height: 15px;
@@ -39,13 +45,18 @@
         </tr>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.MaNhaSanXuat</td>
-                <td>@item.TenNhaSanXuat</td>
-                <td>@item.TinhTrang</td>
-                <td><a href="@Url.Action("Edit","NhaSanXuatAdmin",new {id=@item.MaNhaSanXuat })"><img src="~/Asset/images/edit.png.png" /></a></td>
-                <td><a href="@Url.Action("Delete","NhaSanXuatAdmin",new {id=@item.MaNhaSanXuat})"><img src="~/Asset/images/delete.png.png" /></a></td>
-            </tr>
+    <tr>
+        <td>@item.MaNhaSanXuat</td>
+        <td>@item.TenNhaSanXuat</td>
+        <td>@item.TinhTrang</td>
+        <td><a href="@Url.Action("Edit","NhaSanXuatAdmin",new {id= item.MaNhaSanXuat })"><img src="~/Asset/images/edit.png.png" /></a></td>
+        <td>
+            @using (Html.BeginForm("Delete", "NhaSanXuatAdmin", new { id = item.MaNhaSanXuat }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa hệ điều hành này?');" }))
+            {
+                <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
+            }
+        </td>
+    </tr>
         }
 
 

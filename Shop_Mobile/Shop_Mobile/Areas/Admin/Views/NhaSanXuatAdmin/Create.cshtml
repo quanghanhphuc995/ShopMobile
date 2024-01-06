@@ -6,7 +6,7 @@
 
 <style>
     :root{
-        --text-black:black;
+        --text-black:#333;
     }
     h3{
         color: var(--text-black);
@@ -19,6 +19,7 @@
         border: 1px solid #ccc;
         border-radius: 4px;
         box-sizing: border-box;
+        color: var(--text-black);
     }
 
     input[type=submit] {
@@ -30,10 +31,9 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-    }
-    label{
         color: var(--text-black);
     }
+    
         input[type=submit]:hover {
             background-color: #45a049;
         }
@@ -55,10 +55,10 @@
         @using (Html.BeginForm("Create", "NhaSanXuatAdmin", FormMethod.Post, new { @Style = "" }))
         {
             <label for="fname">Ma Nha San Xuat</label>
-            <input type="text" id="fname" name="MaNhaSanXuat" placeholder="Nhap ma nha san xuat" required>
+            <input type="text" id="fname" name="MaNhaSanXuat" placeholder="Nhập mã sản xuất" required>
 
             <label for="lname">Ten Nha San Xuat</label>
-            <input type="text" id="lname" name="TenNhaSanXuat" placeholder="Your last name.." required>
+            <input type="text" id="lname" name="TenNhaSanXuat" placeholder="Nhập tên sản xuất" required>
 
             <label for="country">tinh Trang</label>
             <select id="country" name="TinhTrang" required>
@@ -66,7 +66,7 @@
                 <option value="1">1</option>   
             </select>
 
-            <input type="submit" value="Submit">
+            <input type="submit" value="Xác Nhận">
         }
     </div>
 

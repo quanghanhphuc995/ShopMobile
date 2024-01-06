@@ -24,7 +24,12 @@ namespace Shop_Mobile.Models.BUS
 
         //------------------------Admin------------------
 
-        //add
+       
+        public static IEnumerable<NhaSanXuat> DanhSachAdmin()
+        {
+            var db = new ShopConnectionDB();
+            return db.Query<NhaSanXuat>("Select * From NhaSanXuat");
+        }
         public static void ThemNSX(NhaSanXuat nsx)
         {
             var db = new ShopConnectionDB();
@@ -41,14 +46,10 @@ namespace Shop_Mobile.Models.BUS
         public static void DeleteNSX(string id)
         {
             var db = new ShopConnectionDB();
-            db.Delete("NhaSanXuat","id","null",id);
+            db.Execute("Delete From NhaSanXuat Where MaNhaSanXuat = @0", id);
         }
-        //----------------hien thi danh sach nsx tat ca tinh trang------------
-        public static IEnumerable<NhaSanXuat> DanhSachAdmin()
-        {
-            var db = new ShopConnectionDB();
-            return db.Query<NhaSanXuat>("select * from NhaSanXuat");
-        }
+        
+        
         //------------------- lay tat ca thong tin de truyen vao from input truyen cho view edit---------------
         public static NhaSanXuat ChitietSPAdmin( String id)
         {

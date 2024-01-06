@@ -96,16 +96,16 @@
                             <div class="image-more">
                                 <ul class="row">
                                     <li class="col-lg-3 col-sm-3 col-xs-4">
-                                        <a href="#"><img class="img-responsive" src="~/Asset/images/galaxy-note.jpg"></a>
+                                        <a href="#"><img class="img-responsive" src="~/Asset/img/@Model.Hinh1"></a>
                                     </li>
                                     <li class="col-lg-3 col-sm-3 col-xs-4">
-                                        <a href="#"><img class="img-responsive" src="~/Asset/images/galaxy-note-2.jpg"></a>
+                                        <a href="#"><img class="img-responsive" src="~/Asset/img/@Model.Hinh2"></a>
                                     </li>
                                     <li class="col-lg-3 col-sm-3 col-xs-4">
-                                        <a href="#"><img class="img-responsive" src="~/Asset/images/galaxy-note-3.jpg"></a>
+                                        <a href="#"><img class="img-responsive" src="~/Asset/img/@Model.Hinh3"></a>
                                     </li>
                                     <li class="col-lg-3 col-sm-3 col-xs-4">
-                                        <a href="#"><img class="img-responsive" src="~/Asset/images/galaxy-note-4.jpg"></a>
+                                        <a href="#"><img class="img-responsive" src="~/Asset/img/@Model.Hinh4"></a>
                                     </li>
                                 </ul>
                             </div>
@@ -116,11 +116,11 @@
                             <div class="name"><h3>@Model.TenSanPham</h3></div>
                             <div class="info">
                                 <ul>
-                                    <li>Brand: text</li>
-                                    <li>ID: 0122222</li>
+                                    
+                                    <li>ID: @Model.MaSanPham</li>
                                 </ul>
                             </div>
-                            <div class="price">@Model.Gia</div>
+                            <div class="price"><span>@Convert.ToDecimal(Model.Gia).ToString("N0") đ</span></div>
                             <div class="options">
                                 AVAILABLE OPTIONS
                                 <select>
@@ -132,26 +132,15 @@
                             <div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
                             <form action="@Url.Action("ThemVaoGioHang", "GioHang", new { maSanPham = Model.MaSanPham })" method="POST">
                                 <!-- Trường input số lượng -->
-                                <label>Qty: </label>
+                                <label>Số Lượng: </label>
                                 <input class="form-inline quantity" name="SoLuong" type="number" value="1" min="1" max="100">
 
                                 <!-- Nút submit để gửi form -->
-                                <input type="submit" value="ADD" class="btn btn-2">
+                                <input type="submit" value="Thêm Vào Giỏ Hàng" class="btn btn-2">
                             </form>
 
 
-                            <div class="share well">
-                                <strong style="margin-right: 13px;">Share :</strong>
-                                <a href="#" class="share-btn" target="_blank">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                                <a href="#" class="share-btn" target="_blank">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                                <a href="#" class="share-btn" target="_blank">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -163,8 +152,8 @@
                     </ul>
                     <div class="tab-content">
                         <div class="product-details tab-content" id="description">
-                            <h2>Tên Sản Phẩm</h2>
-                            <img src="link-to-image.jpg" alt="Hình Ảnh Sản Phẩm">
+                            <h2>Thông Số Kỹ Thuật</h2>
+                            
                             <table class="specification-table">
                                 <tr>
                                     <th>Màn Hình</th>
