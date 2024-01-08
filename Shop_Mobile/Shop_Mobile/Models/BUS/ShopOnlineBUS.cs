@@ -81,6 +81,7 @@ WHERE sp.MaSanPham =@0
             return db.SingleOrDefault<ViewSanPhamChiTiet>(query, maSanPham);
         }
         //--------------------- khách hàng-----------------------------
+        
         public static IEnumerable<SanPham> DanhSach()
         {
             var db = new ShopConnectionDB();

@@ -881,7 +881,6 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_NhaSanXuat.cshtml" />
-    <Content Include="Views\NhaSanXuat\Index.cshtml" />
     <Content Include="Views\Shared\_LoaiSanPham.cshtml" />
     <Content Include="Views\LoaiSanPham\Index.cshtml" />
     <Content Include="Views\Shared\_TopNew.cshtml" />
@@ -900,6 +899,7 @@
     <Content Include="Views\Shared\_GetALLBinhLuan.cshtml" />
     <Content Include="Views\Shared\_GetAllPhanHoiBL.cshtml" />
     <Content Include="Views\Shared\_BoNhoTrong.cshtml" />
+    <Content Include="Views\NhaSanXuat\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

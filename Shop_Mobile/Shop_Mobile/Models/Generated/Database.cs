@@ -183,6 +183,7 @@ namespace ShopConnection
 		[Column] public int BinhLuanID { get; set; }
 		[Column] public string UserID { get; set; }
 		[Column] public string MaSanPham { get; set; }
+		[Column] public string UserName { get; set; }
 		[Column] public string NoiDung { get; set; }
 		[Column] public DateTime? Ngay { get; set; }
 		[Column] public int? PhanHoiID { get; set; }
@@ -289,6 +290,7 @@ namespace ShopConnection
 		[Column] public int PhanHoiID { get; set; }
 		[Column] public int? BinhLuanID { get; set; }
 		[Column] public string UserID { get; set; }
+		[Column] public string UserName { get; set; }
 		[Column] public string NoiDungPhanHoi { get; set; }
 		[Column] public DateTime? Ngay { get; set; }
 	}

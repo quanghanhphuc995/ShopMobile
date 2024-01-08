@@ -1,7 +1,31 @@
 ﻿@model List<ShopConnection.PhanHoiBL>
+<style>
+    .pz {
+        font-size: 14px;
+        color: #222b45;
+        font-weight: bold;
+        margin: unset;
+    }
 
+    .cm {
+        font-size: 13px;
+        color: #20222b;
+        font-weight: unset;
+    }
+
+    .mg {
+        margin: 5px 0 5px 0;
+    }
+
+    .font-z-bnt {
+        font-size: 14px;
+    }
+
+</style>
+ 
 @foreach (var item in Model)
 {
-<h6>nội dung trả lời: @item.NoiDungPhanHoi</h6>
-<h6>UserID: @item.UserID</h6>
+    <p class="pz mg">@item.UserName</p>
+    <p>nội dung trả lời: @item.NoiDungPhanHoi</p>
+
 }

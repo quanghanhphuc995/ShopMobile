@@ -5,8 +5,8 @@
     Namespace = "";
     RepoName = "";
     GenerateOperations = true;
-	GeneratePocos = true;
-	GenerateCommon = true;   
+	GeneratePocos = true; 
+	GenerateCommon = true; 
 	ClassPrefix = ""; 
 	ClassSuffix = "";
 	TrackModifiedColumns = false;

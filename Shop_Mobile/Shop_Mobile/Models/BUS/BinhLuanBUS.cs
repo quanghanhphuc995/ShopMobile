@@ -9,7 +9,7 @@ namespace Shop_Mobile.Models.BUS
     public class BinhLuanBUS
     {
         //-----------------------Insert Bình luận-----------------------------------
-        public static void AddBinhLuan(string maSanPham, string userId, string noiDung )
+        public static void AddBinhLuan(string maSanPham, string userId, string noiDung, string userName )
         {
             var db = new ShopConnectionDB();
             var binhLuan = new BinhLuan
@@ -17,6 +17,7 @@ namespace Shop_Mobile.Models.BUS
                 MaSanPham = maSanPham,
                 UserID = userId,
                 NoiDung = noiDung,
+                UserName = userName,
                 Ngay = DateTime.Now
             };
             db.Insert(binhLuan);
@@ -62,7 +63,7 @@ namespace Shop_Mobile.Models.BUS
             }
             return false;
         }
-        public static void AddPhanHoiBL(int binhLuanID, string noiDungPhanHoi, string userId)
+        public static void AddPhanHoiBL(int binhLuanID, string noiDungPhanHoi, string userId, string userName)
         {
             var db = new ShopConnectionDB();
             var phanhoiBL = new PhanHoiBL
@@ -71,6 +72,7 @@ namespace Shop_Mobile.Models.BUS
                 BinhLuanID = binhLuanID,
                 NoiDungPhanHoi = noiDungPhanHoi,
                 UserID = userId,
+                UserName = userName,
                 Ngay = DateTime.Now
             };
             db.Insert(phanhoiBL);

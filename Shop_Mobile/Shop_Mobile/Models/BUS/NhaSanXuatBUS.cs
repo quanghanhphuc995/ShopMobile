@@ -9,22 +9,22 @@ namespace Shop_Mobile.Models.BUS
     public class NhaSanXuatBUS
     {
         //---------------------------khach hang-----------------------
-        public static IEnumerable<NhaSanXuat> DanhSach()
+        public static IEnumerable<NhaSanXuat> DanhSachNSX()
         {
             var db = new ShopConnectionDB();
-            return db.Query<NhaSanXuat>("select * from NhaSanXuat");
+            return db.Query<NhaSanXuat>("Select * From NhaSanXuat");
         }
-        
-     
-        public static IEnumerable<SanPham> Chitiet(String id)
-        {
-            var db = new ShopConnectionDB();
-            return db.Query<SanPham>("select * from SanPham where MaNhaSanXuat = @0",id);
-        }
-
         //------------------------Admin------------------
+        public static IEnumerable<SanPham> SanPhamChiTietNSX(String id)
+        {
+            var db = new ShopConnectionDB();
 
-       
+            // Sử dụng INNER JOIN để nối bảng SanPham và NhaSanXuat dựa trên MaNhaSanXuat
+            var query = "SELECT SanPham.* FROM SanPham INNER JOIN NhaSanXuat ON SanPham.MaNhaSanXuat = NhaSanXuat.MaNhaSanXuat WHERE NhaSanXuat.MaNhaSanXuat = @0";
+
+            return db.Query<SanPham>(query, id);
+        }
+
         public static IEnumerable<NhaSanXuat> DanhSachAdmin()
         {
             var db = new ShopConnectionDB();

@@ -134,7 +134,12 @@ header .form-search button:hover {color: #eee;}
 .product .buttons {margin: 10px 0;}
 .product .buttons a {background-color: #eee;}
 .product .name {border-bottom: 1px solid #eee;}
-.product .name h3{font-weight: 500;font-size: 20px;color: #333333;margin-top: 10px;}
+	.product .name h3 {
+		font-weight: 500;
+		font-size: 20px;
+		color: #000000;
+		margin-top: 10px;
+	}
 .product .info ul li{margin: 10px 0;}
 .product .price {font-size: 22px;margin: 10px 0;}
 .product .price span{color: #D0021C ;margin-left: 10px;} 
@@ -142,7 +147,7 @@ header .form-search button:hover {color: #eee;}
 .product .rating span {margin-right: 5px;}
 .product .options {margin: 10px 0;}
 .product .options select{border: 1px solid #eee; width: 100%;}
-.product input.form-inline {border-radius: 4px;border: 1px solid #ccc;padding: 4px 6px;width: 40px;}
+.product input.form-inline {border-radius: 4px;border: 1px solid #ccc;padding: 4px 6px;width: 50px;}
 .product .share .share-btn {margin-right: 25px;padding-top: 20px;}
 @media(max-width:767px) {.product{border: none;}}
 

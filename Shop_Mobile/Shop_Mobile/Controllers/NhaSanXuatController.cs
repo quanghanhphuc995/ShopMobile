@@ -10,11 +10,13 @@ namespace Shop_Mobile.Controllers
 {
     public class NhaSanXuatController : Controller
     {
-        // GET: NhaSanXuat
-        public ActionResult Index(String id ,int page = 1, int pagesize = 3)
+       // GET: NhaSanXuat
+       [HttpGet]
+        public ActionResult Index(String id, int page = 1, int pagesize = 3)
         {
-            var danhSach = NhaSanXuatBUS.Chitiet(id).ToPagedList(page, pagesize);
+            var danhSach = NhaSanXuatBUS.SanPhamChiTietNSX(id).ToPagedList(page, pagesize);
             return View(danhSach);
         }
+
     }
 }

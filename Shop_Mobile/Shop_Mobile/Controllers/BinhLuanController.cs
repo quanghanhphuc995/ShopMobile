@@ -21,17 +21,17 @@ namespace Shop_Mobile.Controllers
         public ActionResult Create(string maSanPham, string noiDung)
         {
             string userId = User.Identity.GetUserId();
+            string userName = User.Identity.GetUserName();
             ViewBag.userID = userId;
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
-                 BinhLuanBUS.AddBinhLuan(maSanPham, userId, noiDung);
-                var noiDungBL = BinhLuanBUS.GetBinhLuan(userId);
-                return PartialView("_BinhLuan", noiDungBL );
+                return Redirect("/Account/Login");
             }
             else
             {
-                return RedirectToAction("Login", "Account");
-            }
+                BinhLuanBUS.AddBinhLuan(maSanPham, userId, noiDung, userName);
+                var noiDungBL = BinhLuanBUS.GetBinhLuan(userId);
+                return PartialView("_BinhLuan", noiDungBL);            }
             
         }
 
@@ -61,13 +61,14 @@ namespace Shop_Mobile.Controllers
         public ActionResult PhanHoiBL(int binhLuanID, string noiDungPhanHoi)
         {
             string userId = User.Identity.GetUserId();
+            string userName = User.Identity.GetUserName();
             if (!User.Identity.IsAuthenticated)
             {
                 return Json(new { success = false, redirectTo = Url.Action("Login", "Account") });
             }
             else
             {
-                BinhLuanBUS.AddPhanHoiBL(binhLuanID, noiDungPhanHoi, userId);
+                BinhLuanBUS.AddPhanHoiBL(binhLuanID, noiDungPhanHoi, userId, userName);
                 return Json(new { success = true, message = "Phản hồi đã được gửi thành công." });
                
             }

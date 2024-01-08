@@ -1,12 +1,30 @@
 ﻿@model List<ShopConnection.BinhLuan>
 
+<style>
+    .pz {
+        font-size: 14px;
+        color: #222b45;
+        font-weight: bold;
+        margin:unset;
+    }
+    .cm {
+        font-size: 13px;
+        color: #20222b;
+        font-weight: unset;
+    }
+    .mg{
+        margin:5px 0 5px 0;
+    }
+    .font-z-bnt{
+        font-size:14px;
+    }
+</style>
 
 @foreach (var item in Model)
 {
-    <h1>Khách Hàng: @item.UserID</h1>
-    <h1>binhLuanID: @item.BinhLuanID</h1>
+    <p class="pz mg">@item.UserName</p>
    
-    <h1> @item.NoiDung</h1>
+    <p class="cm"> @item.NoiDung</p>
     <button class="like-btn" data-binhluan-id="@item.BinhLuanID">Like</button>
     <button class="reply-btn" data-binhluan-id="@item.BinhLuanID">Trả lời</button>
     <div id="reply-input-@item.BinhLuanID" class="reply-input" style="display:none;">
@@ -14,12 +32,12 @@
         <button class="send-reply-btn" data-binhluan-id="@item.BinhLuanID">Gửi</button>
     </div>
     <!-- Khu vực hiển thị số lượng like và trả lời (nếu cần) -->
-    <div id="like-count-@item.BinhLuanID">Số lượt like: @item.LuotLike</div>
+    <div id="like-count-@item.BinhLuanID" class="font-z-bnt mag">Số lượt like: @item.LuotLike</div>
     <div>
-    <a href="#" class="load-replies" data-binhluan-id="@item.BinhLuanID">xem câu trả lời</a>
+    <a href="#" class="load-replies mg pz" data-binhluan-id="@item.BinhLuanID">xem câu trả lời</a>
     </div>
     
-    <div id="replies-@item.BinhLuanID" style="display:none;"></div>
+    <div id="replies-@item.BinhLuanID" class="font-z-bnt" style="display:none;"></div>
 }
 
 <script>
