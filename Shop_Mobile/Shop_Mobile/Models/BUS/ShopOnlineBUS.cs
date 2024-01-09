@@ -149,6 +149,12 @@ WHERE sp.MaSanPham =@0
 
         } 
 
+        public static IEnumerable<SanPham>SanPhamCungGia(string id)
+        {
+            var db = new ShopConnectionDB();
+            return db.Query<SanPham>(@"Select Top 3 * From SanPham Where Gia Between(Select Gia From SanPham Where MaSanPham =@0)*0.9
+                                     And (Select Gia From SanPham Where MaSanPham = @0)*1.1 And MaSanPham != @0", id);
+        }
 
         //------------------------Phần ad hệ điều hành------------------------
 

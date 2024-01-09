@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
-<h2>TimKiem</h2>
+<h2>Kết Quả Tìm Kiếm</h2>
 <div id="page-content" class="single-page">
     <div class="container">
         <div class="row">
@@ -32,7 +32,7 @@
                                         </div>
                                         <div class="caption">
                                             <div class="name"><h3><a href="@Url.Action("Details","Shop",new { id = item.MaSanPham})">@item.TenSanPham</a></h3></div>
-                                            <div class="price">@item.Gia</div>
+                                            <div class="price"><span>@Convert.ToDecimal(item.Gia).ToString("N0") đ</span></div>
                                             <div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
                                         </div>
                                     </div>
