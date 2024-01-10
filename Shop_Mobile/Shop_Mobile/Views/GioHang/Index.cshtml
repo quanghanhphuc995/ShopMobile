@@ -4,8 +4,18 @@
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
-
-
+<style>
+    .name{
+        color:#333333;
+        font-weight:600;
+    }
+        .name span {
+            color: #686e6e;
+        }
+   .prices {
+        color: #D0021C !important;
+    }
+</style>
 <div id="page-content" class="single-page">
     <div class="container">
         <div class="row">
@@ -33,23 +43,23 @@
                     <div class="col-md-9">
                         <div class="caption">
 
-                            <div>Tên Sản Phẩm: @item.TenSanPham</div>
-                            <div>Mã Sản Phẩm: @item.MaSanPham</div>
-                            <div>Giá Sản Phẩm: @item.Gia</div>
+                            <div class="name">Tên Sản Phẩm: <span>@item.TenSanPham</span></div>
+                            <div class="name">Mã Sản Phẩm: <span>@item.MaSanPham</span></div>
+                            <div class="name">Giá: <span class="prices">@Convert.ToDecimal(item.Gia).ToString("N0") đ</span></div>
                             <form action="@Url.Action("CapNhat", "GioHang")" method="post">
-                                <label>Số lượng : </label>
+                                <label class="name">Số lượng : </label>
                                 <input class="form-inline quantity" min="1" max="1000" type="number" value="@item.SoLuong" name="soluong">
                                 <input type="hidden" name="masanpham" value="@item.MaSanPham" />
                                 <input type="submit" class="btn btn-2" value="Update" />
                             </form>
-                            <span>
-                                Tổng tiền: @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C}", item.TongTien)
-                            </span>
-                            <hr>
-
+                            <span class="name">
+                                Tổng tiền:
+                                <span class="prices">@Convert.ToDecimal(item.TongTien).ToString("N0") đ </span>
+                                <hr />
                             <button class="btn-xoa" data-masanpham="@item.MaSanPham">Xóa</button>
+                             </span>
 
-                        </div>
+</div>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -59,33 +69,27 @@
 
 
 
-        @*Quay về trang sản phẩm*@
-        <div class="row">
-            <div class="col-md-4 col-md-offset-8 ">
-                <center><a href="@Url.Action("index","Shop")" class="btn btn-1">Continue To Shopping</a></center>
-            </div>
-        </div>
+       
+        
 
         @*Tính tiền*@
         <div class="row">
             <div class="pricedetails">
                 <div class="col-md-4 col-md-offset-8">
                     <table>
-                        <h6>Tính tiền : </h6>
+                        <h6>Tổng Số Tiền Cần Thanh Toán </h6>
                         <tr>
                             <td>Tổng</td>
-                            <td>@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C}", Model.Sum(item => item.TongTien))</td>
-
+                            <td><div class="prices"><span>@Convert.ToDecimal(Model.Sum(item => item.TongTien)).ToString("N0") đ</span></div></td>
                         </tr>
-
                         <tr>
-                            <td>Giảm giá : </td>
-                            <td>0</td>
+                            <td>Giảm Giá Từ Shop</td>
+                            <td class="prices">0 đ</td>
                         </tr>
-                        <tr style="border-top: 1px solid #333">
-                            <td><h5>THÀNH TIỀN</h5></td>
-                            <td>@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C}", Model.Sum(item => item.TongTien))</td>
 
+                        <tr style="border-top: 1px solid #333">
+                            <td><h6>THÀNH TIỀN</h6></td>
+                            <td><div class="prices"><span>@Convert.ToDecimal(Model.Sum(item => item.TongTien)).ToString("N0") đ</span></div></td>
                         </tr>
                     </table>
                     <center><a id="btnThanhToan"data-userid='@(Model.FirstOrDefault()?.UserID??"")' class="btn btn-1">Thanh Toán</a></center>

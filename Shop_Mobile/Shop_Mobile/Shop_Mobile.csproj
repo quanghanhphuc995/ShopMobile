@@ -901,6 +901,7 @@
     <Content Include="Views\NhaSanXuat\Index.cshtml" />
     <Content Include="Views\Shared\_NhaSanXuatMenu.cshtml" />
     <Content Include="Views\Shared\_SanPhamCungGia.cshtml" />
+    <Content Include="Views\Shared\_SanPhamCungHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -52,21 +52,17 @@ namespace Shop_Mobile.Controllers
 
         // POST: ThanhToan/Create
         [HttpPost]
-        public ActionResult Create(ThongTinKhachHang KH)
+        public ActionResult Create( string nguoiDat, string diaChi, string soDT)
         {
             var userId = User.Identity.GetUserId();
-            try
+            if (ThanhToanBUS.HasThongTinKhachHang(userId))
             {
-                if (KH!=null)
-                {
-                    KH.UserID = userId;
-                    ThanhToanBUS.AddThongTinKhachHang(KH);
-                }
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                ThanhToanBUS.AddThongTinKhachHang(userId, nguoiDat, diaChi, soDT);
+                return RedirectToAction("Index");
             }
         }
 

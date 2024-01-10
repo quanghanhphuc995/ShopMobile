@@ -104,8 +104,19 @@ WHERE sp.MaSanPham =@0
             var db = new ShopConnectionDB();
             return db.Query<SanPham>("select Top 4 * from SanPham where SoLuongDaBan = 0");
         }
-
-
+        //----------------truy vấn sản phẩm cùng giá----------------------
+        public static IEnumerable<SanPham> SanPhamCungGia(string id)
+        {
+            var db = new ShopConnectionDB();
+            return db.Query<SanPham>(@"Select Top 3 * From SanPham Where Gia Between(Select Gia From SanPham Where MaSanPham =@0)*0.9
+                                     And (Select Gia From SanPham Where MaSanPham = @0)*1.1 And MaSanPham != @0", id);
+        }
+        //----------------truy vấn sản phẩm cùng hãng----------------------
+        //public static IEnumerable<SanPham> SanPhamCungHang(string id)
+        //{
+        //    var db = new ShopConnectionDB();
+        //    return db.Query<SanPham>("SELECT * FROM SanPham WHERE MaNhaSanXuat = (SELECT MaNhaSanXuat FROM SanPham WHERE MaSanPham = @0)", id);
+        //}
         //----------------------- Admin Sản phẩm-------------------------------------
         public static IEnumerable<SanPham> DanhSachSPAdmin()
         {
@@ -149,12 +160,7 @@ WHERE sp.MaSanPham =@0
 
         } 
 
-        public static IEnumerable<SanPham>SanPhamCungGia(string id)
-        {
-            var db = new ShopConnectionDB();
-            return db.Query<SanPham>(@"Select Top 3 * From SanPham Where Gia Between(Select Gia From SanPham Where MaSanPham =@0)*0.9
-                                     And (Select Gia From SanPham Where MaSanPham = @0)*1.1 And MaSanPham != @0", id);
-        }
+       
 
         //------------------------Phần ad hệ điều hành------------------------
 

@@ -72,18 +72,23 @@ namespace Shop_Mobile.Models.BUS
         //    var result = db.Query<GioHang>(query, paramerters);
         //    return result ;
         //}
-        public static void AddThongTinKhachHang(ThongTinKhachHang KH)
+        public static void AddThongTinKhachHang(string userID, string nguoiDat, string diaChi, string soDT)
         {
             var db = new ShopConnectionDB();
-            try
+            if (!string.IsNullOrEmpty(nguoiDat) && !string.IsNullOrWhiteSpace(diaChi) && !string.IsNullOrEmpty(soDT))
             {
-                db.Insert( KH);  
+                var thongTinKhachHang = new ThongTinKhachHang
+                {
+                    UserID = userID,
+                    NguoiDat = nguoiDat,
+                    DiaChi = diaChi,
+                    SDT = soDT
+                };
+                db.Insert(thongTinKhachHang);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error inserting data: {ex.Message}");
-                throw;
-            }
+
+
+
         }
 
         public static void UpdateThongTinKhachHang(ThongTinKhachHang KH)

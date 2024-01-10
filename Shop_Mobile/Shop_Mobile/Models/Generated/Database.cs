@@ -228,7 +228,7 @@ namespace ShopConnection
     {
 		[Column] public int IdGH { get; set; }
 		[Column] public string UserID { get; set; }
-		[Column] public string ThongTinKHID { get; set; }
+		[Column] public int? ThongTinKHID { get; set; }
 		[Column] public string MaSanPham { get; set; }
 		[Column] public int? SoLuong { get; set; }
 		[Column] public int? TongTien { get; set; }
@@ -250,7 +250,7 @@ namespace ShopConnection
     {
 		[Column] public int HoaDonID { get; set; }
 		[Column] public string UserID { get; set; }
-		[Column] public string ThongTinKHID { get; set; }
+		[Column] public int? ThongTinKHID { get; set; }
 		[Column] public string NguoiDat { get; set; }
 		[Column] public string DiaChi { get; set; }
 		[Column] public decimal? SDT { get; set; }
@@ -341,14 +341,14 @@ namespace ShopConnection
 	}
     
 	[TableName("dbo.ThongTinKhachHang")]
-	[PrimaryKey("ThongTinKHID", AutoIncrement=false)]
+	[PrimaryKey("ThongTinKHID")]
 	[ExplicitColumns]
     public partial class ThongTinKhachHang : ShopConnectionDB.Record<ThongTinKhachHang>  
     {
-		[Column] public string ThongTinKHID { get; set; }
+		[Column] public int ThongTinKHID { get; set; }
 		[Column] public string UserID { get; set; }
 		[Column] public string NguoiDat { get; set; }
 		[Column] public string DiaChi { get; set; }
-		[Column] public decimal? SDT { get; set; }
+		[Column] public string SDT { get; set; }
 	}
 }
