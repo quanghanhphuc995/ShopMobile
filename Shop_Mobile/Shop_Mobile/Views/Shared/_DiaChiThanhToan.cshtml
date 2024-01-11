@@ -1,19 +1,31 @@
 ﻿@model ShopConnection.ThongTinKhachHang
 
 <style>
-    img{
-        max-height:50px;
-        max-width:50px;
+    .size-imgs {
+        max-height: 20px;
+        max-width: 20px;
     }
 </style>
 
-<p>Địa chỉ giao hàng </p>
-<div>
-    <h1>ten khach hang @Model.NguoiDat</h1>
-    <h1>Dia chi @Model.DiaChi</h1>
-    <h1>so dien thoai lien lac @Model.SDT</h1>
+<h2>Địa chỉ giao hàng </h2>
 
-</div>
-<div>
-    <a href="@Url.Action("Edit","ThanhToan",new {id=Model.UserID})"><img src="~/Asset/images/edit.png.png" /></a>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên Khách Hàng</th>
+                <th>Địa Chỉ Giao Hàng</th>
+                <th>Số Điện Thoại Liên Lạc</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody> 
+                <tr>
+                    <td>@Model.NguoiDat</td>
+                    <td>@Model.DiaChi</td>
+                    <td>@Model.SDT</td>
+                    <td><a href="@Url.Action("Edit","ThanhToan",new {id=Model.UserID})"><img src="~/Asset/images/edit.png.png" alt="Alternate Text" class="size-imgs" /></a></td>
+                </tr>
+        </tbody>
+    </table>
 </div>

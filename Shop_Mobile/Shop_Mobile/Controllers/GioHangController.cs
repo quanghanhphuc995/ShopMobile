@@ -70,6 +70,12 @@ namespace Shop_Mobile.Controllers
             return Json(new { success = true });
            
         }
+        public ActionResult DeleteAllGH()
+        {
+            string userId = User.Identity.GetUserId();
+            GioHangBUS.XoaTatCaGH(userId);
+            return Json(new { success = true });
 
+        }
     }
 }

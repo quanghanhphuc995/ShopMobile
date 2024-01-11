@@ -102,6 +102,14 @@ namespace Shop_Mobile.Models.BUS
             var parameters = new { MaSanPham = gioHangItem.MaSanPham };
             db.Execute(query, parameters);
         }
+        public static void XoaTatCaGH(string userId)
+        {
+            var db = new ShopConnectionDB();
+
+            var query = "DELETE FROM GioHang WHERE UserID = @UserID";
+            var parameters = new { UserID = userId };
+            db.Execute(query, parameters);
+        }
         public static decimal TinhTongTienGH(string userId)
         {
             var db = new ShopConnectionDB();

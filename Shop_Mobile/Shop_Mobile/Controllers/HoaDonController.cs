@@ -16,8 +16,7 @@ namespace Shop_Mobile.Controllers
         {
             string userId = User.Identity.GetUserId();
             HoaDonBUS.AddHoaDon(userId);
-            var db = HoaDonBUS.GetHoaDon(userId);
-            return View(db);
+            return View();
         }
     }
 }
