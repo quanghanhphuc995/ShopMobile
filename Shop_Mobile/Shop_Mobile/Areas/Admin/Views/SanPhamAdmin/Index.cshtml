@@ -33,11 +33,8 @@
 </style>
 
 
-<h2>Quang li nha san xuat</h2>
-<p>Add the border-bottom property to th and td for horizontal dividers:</p>
-
+<h2 class="ml-30">Quản Lý Sản Phẩm</h2>
 <table>
-
     <tr>
         <th>Mã sản phẩm</th>
         <th>Mã loại sản phẩm</th>
@@ -68,7 +65,7 @@
     <td><img src="~/Asset/img/@item.Hinh2" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
     <td><img src="~/Asset/img/@item.Hinh3" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
     <td><img src="~/Asset/img/@item.Hinh4" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
-    <td>@item.Gia</td>
+    <td><div class="price"><span>@Convert.ToDecimal(item.Gia).ToString("N0") đ</span></div></td>
     <td>@item.SoLuong</td>
     <td>@item.LuotView</td>
     <td>@item.TinhTrang</td>

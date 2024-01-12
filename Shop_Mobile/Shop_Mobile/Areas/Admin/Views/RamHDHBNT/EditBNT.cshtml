@@ -53,18 +53,18 @@
     }
 </style>
 
-<h3>Chỉnh Sửa Bộ Nhớ Trong</h3>
+<h2 class="ml-16">Chỉnh Sửa Bộ Nhớ Trong</h2>
 
 <div>
     @using (Html.BeginForm("EditBNT", "RamHDHBNT"))
     {
         <label for="fname">Mã Bộ Nhớ Trong</label>
-        <input type="text" id="fname" name="MaBoNhoTrong" placeholder="Nhập Mã Bộ Nhớ Trong" required value="@Model.MaBoNhoTrong">
+        <input type="text" id="fname" class="cl-black" name="MaBoNhoTrong" placeholder="Nhập Mã Bộ Nhớ Trong" required value="@Model.MaBoNhoTrong">
 
         <label for="lname">Ten Nha San Xuat</label>
-        <input type="text" id="lname" name="DungLuongBoNho" placeholder="Nhập Dung Lượng Bộ Nhớ" required value="@Model.DungLuongBoNho">
+        <input type="text" id="lname" class="cl-black" name="DungLuongBoNho" placeholder="Nhập Dung Lượng Bộ Nhớ" required value="@Model.DungLuongBoNho">
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Chỉnh Sửa">
     }
 </div>
 

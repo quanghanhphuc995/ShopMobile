@@ -53,18 +53,18 @@
     }
 </style>
 
-<h3>Using CSS to style an HTML Form</h3>
+<h3 class="ml-16">Chỉnh Sửa Hệ Điều Hành</h3>
 
 <div>
     @using (Html.BeginForm("EditHDH", "RamHDHBNT"))
     {
         <label for="fname">Ma Nha San Xuat</label>
-        <input type="text" id="fname" name="MaHeDieuHanh" placeholder="Nhap ma nha san xuat" required value="@Model.MaHeDieuHanh">
+        <input type="text" id="fname" class="cl-black" name="MaHeDieuHanh" placeholder="Nhap ma nha san xuat" required value="@Model.MaHeDieuHanh">
 
         <label for="lname">Ten Nha San Xuat</label>
-        <input type="text" id="lname" name="TenHeDieuHanh" placeholder="Your last name.." required value="@Model.TenHeDieuHanh">
+        <input type="text" id="lname" class="cl-black" name="TenHeDieuHanh" placeholder="Your last name.." required value="@Model.TenHeDieuHanh">
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Thêm Chỉnh Sửa">
     }
 </div>
 

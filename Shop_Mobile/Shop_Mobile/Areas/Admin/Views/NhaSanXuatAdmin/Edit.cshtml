@@ -53,19 +53,19 @@
     }
 </style>
 
-<h3>Using CSS to style an HTML Form</h3>
+<h2 class="ml-16">Chỉnh Sửa Nhà Sản Xuất</h2>
 
 <div>
     @using (Html.BeginForm("Edit", "NhaSanXuatAdmin", FormMethod.Post, new { @Style = "" }))
     {
-        <label for="fname">Ma Nha San Xuat</label>
-        <input type="text" id="fname" name="MaNhaSanXuat" placeholder="Nhap ma nha san xuat" required value="@Model.MaNhaSanXuat">
+        <label for="fname">Mã Nhà Sản Xuất</label>
+        <input type="text" id="fname" class="cl-black" name="MaNhaSanXuat" required value="@Model.MaNhaSanXuat" readonly>
 
         <label for="lname">Ten Nha San Xuat</label>
-        <input type="text" id="lname" name="TenNhaSanXuat" placeholder="Your last name.." required value="@Model.TenNhaSanXuat">
+        <input type="text" id="lname" class="cl-black" name="TenNhaSanXuat" value="@Model.TenNhaSanXuat">
 
         <label for="country">tinh Trang</label>
-        <select id="country" name="TinhTrang" required value="@Model.TinhTrang">
+        <select id="country" class="cl-black" name="TinhTrang" required value="@Model.TinhTrang">
             @if (Model.TinhTrang == "0") {
             <option value="0" selected>0</option>
             <option value="1">1</option>
@@ -76,7 +76,7 @@
 
         </select>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Chỉnh Sửa">
     }
 </div>
 

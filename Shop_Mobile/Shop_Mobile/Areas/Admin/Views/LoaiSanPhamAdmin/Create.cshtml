@@ -6,7 +6,7 @@
 
 <style>
     :root {
-        --text-black: #333;
+        --text-black: black;
     }
 
     h3 {
@@ -21,7 +21,6 @@
         border: 1px solid #ccc;
         border-radius: 4px;
         box-sizing: border-box;
-        color: var(--text-black);
     }
 
     input[type=submit] {
@@ -35,7 +34,7 @@
         cursor: pointer;
     }
 
-    button input {
+    label {
         color: var(--text-black);
     }
 
@@ -54,24 +53,25 @@
     }
 </style>
 
-<h3>Using CSS to style an HTML Form</h3>
+
+<h2 class="ml-16">Thêm Mới Loại Sản Phẩm</h2>
 
 <div>
-    @using (Html.BeginForm("Create", "LoaiSanPhamAdmin", FormMethod.Post, new { @Style = "" }))
+    @using (Html.BeginForm("Create", "LoaiSanPhamAdmin", FormMethod.Post))
     {
         <label for="fname">Loại Sản Phẩm</label>
-        <input type="text" id="fname" name="MaLoaiSanPham" placeholder="Nhap ma nha san xuat" required>
+        <input type="text" id="fname" class="cl-black" name="MaLoaiSanPham" placeholder="Nhập mã loại sản phẩm" required>
 
         <label for="lname">Tên Loại Sản Phẩm</label>
-        <input type="text" id="lname" name="TenLoaiSanPham" placeholder="Your last name.." required>
+        <input type="text" id="lname" class="cl-black" name="TenLoaiSanPham" placeholder="Nhập tên loại sản phẩm" required>
 
         <label for="country">Tình Trạng</label>
-        <select id="country" name="TinhTrang" required>
+        <select id="country" class="cl-black" name="TinhTrang" required>
             <option value="0" selected>0</option>
             <option value="1">1</option>
         </select>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Thêm Mới">
     }
 </div>
 

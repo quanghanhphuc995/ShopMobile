@@ -51,18 +51,18 @@
         margin: auto;
     }
 </style>
-<h3 > Hệ Điều Hành</h3>
+<h2 class="ml-16">Thêm Hệ Điều Hành</h2>
 
 <div>
 
     @using (Html.BeginForm("CreateHDH", "RamHDHBNT"))
     {
         <label for= "fname" > Hệ Điều Hành </label >
-        <input type = "text" id = "fname" name = "MaHeDieuHanh" placeholder = "Nhập Hệ Điều Hành" required >
+        <input type = "text" id = "fname" class="cl-black" name = "MaHeDieuHanh" placeholder = "Nhập Hệ Điều Hành" required >
 
         <label for= "lname" > Tên Hệ Điều Hành </label >
-        <input type = "text" id = "lname" name = "TenHeDieuHanh" placeholder = "Nhập Tên Hệ Điều Hành" required >
-        <input type = "submit" value = "Submit" >
+        <input type = "text" id = "lname" class="cl-black" name = "TenHeDieuHanh" placeholder = "Nhập Tên Hệ Điều Hành" required >
+        <input type = "submit" value = "Thêm Hệ Điều Hành" >
      }
  </div >
 
