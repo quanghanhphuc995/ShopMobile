@@ -1,144 +1,164 @@
-﻿@model ShopConnection.SanPham
+﻿@model Shop_Mobile.Models.BUS.ViewSanPhamChiTiet
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
 }
 
-<script src="~/Areas/AssetAdmin/js/product/previewFile.js"></script>
+
+
 <style>
-    input[type=text] {
-        width: 100%;
-        height: 40px;
-        background: white;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ff0000;
-        border-radius: 4px;
-        box-sizing: border-box;
-        color: black;
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        margin-left: 20px;
     }
-
-    .floatleft {
-        float: left
+    .form-group input {
+        color: #000;
+        margin-left: 20px;
     }
-
-    input[type=number] {
-        width: 100%;
-        height: 40px;
-        background: black;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ff0000;
-        border-radius: 4px;
-        box-sizing: border-box;
+    .form-group select{
+        margin-left: 20px;
     }
-
-    input[type=submit] {
-        width: 100%;
-        background-color: #2a9fd6;
-        color: black;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-        input[type=submit]:hover {
-            background-color: #45a049;
-        }
+   .fz-img{
+       margin:20px 0 0 20px ;
+   }
 </style>
+
 @using (Html.BeginForm("Edit", "SanPhamAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="MaSanPham">Mã Sản Phẩm</label>
+                    <input type="text" class="form-control" name="MaSanPham" maxlength="11" value="@Model.MaSanPham " readonly>
+                </div>
 
-<h2>Chỉnh Sữa Sản Phẩm @Model.TenSanPham</h2>
-<table style="width:80% ;margin:auto; background:black;">
-    <tr>
-        <td>Mã Sản Phẩm</td>
-        <td> <input style="width: 300px;float:left; " maxlength="11" type="text" name="MaSanPham" value="@Model.MaSanPham" /></td>
+                <div class="form-group">
+                    <label for="MaLoaiSanPham">Mã Loại Sản Phẩm</label>
+                    @Html.DropDownList("MaLoaiSanPham", null, new { @class = "dropdown-style" })
+                </div>
 
-    </tr>
-    <tr>
-        <td>Mã Loại Sản Phẩm</td>
-        <td>
+                <div class="form-group">
+                    <label for="TenSanPham">Tên Sản Phẩm</label>
+                    <input type="text" class="form-control" name="TenSanPham" maxlength="1000" value="@Model.TenSanPham" required>
+                </div>
 
-            @Html.DropDownList("MaLoaiSanPham", null, new { @style = "float:left; width: 300px; background:black;height:30px;" })
+                <div class="form-group">
+                    <label for="file_Hinh">Hình Ảnh</label>
+                    <input type="file" class="form-control-file" id="file_Hinh" name="HinhChinh" onchange="previewFile('file_Hinh','target')">
+                    <img id="target" class="img-fluid fz-img" src="~/Asset/img/@Model.HinhChinh" alt="your img" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="file_Hinh">Hình Ảnh 1</label>
+                    <input type="file" class="form-control-file" id="file_Hinh1" name="Hinh1" onchange="previewFile('file_Hinh1','target1')">
+                    <img id="target1" class="img-fluid fz-img" src="~/Asset/img/@Model.Hinh1" alt="your img" />
+                </div>
+                <div class="form-group">
+                    <label for="file_Hinh">Hình Ảnh 2</label>
+                    <input type="file" class="form-control-file" id="file_Hinh2" name="Hinh2" onchange="previewFile('file_Hinh2','target2')">
+                    <img id="target2" class="img-fluid fz-img" src="~/Asset/img/@Model.Hinh2" alt="your img" />
+                </div>
+                <div class="form-group">
+                    <label for="file_Hinh">Hình Ảnh 3</label>
+                    <input type="file" class="form-control-file" id="file_Hinh3" name="Hinh3" onchange="previewFile('file_Hinh3','target3')">
+                    <img id="target3" class="img-fluid fz-img" src="~/Asset/img/@Model.Hinh3" alt="your img" />
+                </div>
+                <div class="form-group">
+                    <label for="file_Hinh">Hình Ảnh 4</label>
+                    <input type="file" class="form-control-file" id="file_Hinh4" name="Hinh4" onchange="previewFile('file_Hinh4','target4')">
+                    <img id="target4" class="img-fluid fz-img" src="~/Asset/img/@Model.Hinh4" alt="your img" />
+                </div>
 
-        </td>
-    </tr>
-    <tr>
-        <td>Tên Sản Phẩm</td>
-        <td> <input style="width: 300px;float:left;" type="text" name="TenSanPham" maxlength="50" value="@Model.TenSanPham" /></td>
+                <!-- Tương tự cho các trường upload hình ảnh khác -->
 
-    </tr>
-    <tr>
-        <td>Hình Ảnh</td>
-        <td> <input id="file_Hinh" type="file" name="HinhChinh" onchange="previewFile('file_Hinh','target')" /></td>
-        <td>
-            <img id="target" class="img" src="~/Asset/img/@Model.HinhChinh" alt="your img" style="max-height:100px; max-width:100px;" />
-        </td>
-    </tr>
-    <tr>
-        <td>Hình Ảnh 1</td>
-        <td> <input id="file_Hinh1" type="file" name="Hinh1" onchange="previewFile('file_Hinh1','target1')" /></td>
-        <td>
-            <img id="target1" class="img" src="~/Asset/img/@Model.Hinh1" alt="your img" style="max-height:100px; max-width:100px;" />
-        </td>
-    </tr>
-    <tr>
-        <td>Hình Ảnh 2</td>
-        <td> <input id="file_Hinh2" type="file" name="Hinh2" onchange="previewFile('file_Hinh2','target2')" /></td>
-        <td>
-            <img id="target2" class="img" src="~/Asset/img/@Model.Hinh2" alt="your img" style="max-height:100px; max-width:100px;" />
-        </td>
-    </tr>
-    <tr>
-        <td>Hình Ảnh 3</td>
-        <td> <input id="file_Hinh3" type="file" name="Hinh3" onchange="previewFile('file_Hinh3','target3')" /></td>
-        <td>
-            <img id="target3" class="img" src="~/Asset/img/@Model.Hinh3" alt="your img" style="max-height:100px; max-width:100px;" />
-        </td>
-    </tr>
-    <tr>
-        <td>Hình Ảnh 4</td>
-        <td> <input id="file_Hinh4" type="file" name="Hinh4" onchange="previewFile('file_Hinh4','target4')" /></td>
-        <td>
-            <img id="target4" class="img" src="~/Asset/img/@Model.Hinh4" alt="your img" style="max-height:100px; max-width:100px;" />
-        </td>
-    </tr>
-    <tr>
-        <td>Giá</td>
-        <td> <input style="width: 300px; float:left; background:white; color:black" type="number" name="Gia" value="@Model.Gia" /></td>
-    </tr>
-    <tr>
-        <td>Ghi Chú</td>
-        <td> <input style="width: 300px;float:left;" type="text" name="GhiChu" value="@Model.GhiChu" /></td>
-    </tr>
-    <tr>
-        <td>Nhà Sản Xuất</td>
-        <td>
+                <div class="form-group">
+                    <label for="Gia">Giá</label>
+                    <input type="number" class="form-control" name="Gia" value="@Model.Gia">
+                </div>
 
-            @Html.DropDownList("MaNhaSanXuat", null, new { @style = "float:left; width: 300px; background:black;height:30px;" })
+                <div class="form-group">
+                    <label for="SoLuong">Số Lượng</label>
+                    <input type="number" class="form-control" name="SoLuong" value="@Model.SoLuong">
+                </div>
 
+                <div class="form-group">
+                    <label for="GhiChu">Ghi Chú</label>
+                    <input type="text" class="form-control" name="GhiChu" value="@Model.GhiChu">
+                </div>
 
-        </td>
-    </tr>
-    <tr>
+                <div class="form-group">
+                    <label for="MaNhaSanXuat">Nhà Sản Xuất</label>
+                    @Html.DropDownList("MaNhaSanXuat", null, new { @class = "dropdown-style" })
+                </div>
 
-        <td style="width: 300px;">Cấu Hình</td>
-        <td colspan="2"><textarea class="ckeditor" name="CauHinh" style="width: 300px; color:black; height: 150px; max-width: 100px; max-height: 600px; background:white;" rows="4" cols="30">@Model.CauHinh</textarea></td>
-    </tr>
-    <tr>
-        <td colspan="3">
-            <input style="height: 40px; width: 300px;   margin-left:32%;
-	 background:#016ABC;color: #fff;border: 1px solid #eee;border-radius: 20px;box-shadow: 5px 5px 5px #eee;"
-                   type="submit" name="btn_ThemDienThoai" value="chỉnh sữa điện thoại" />
-        </td>
-    </tr>
-</table>
+                <!-- Các trường thông tin kỹ thuật khác như Màn Hình, Hệ Điều Hành, Camera, ... -->
+
+                <div class="form-group">
+                    <label for="ManHinh">Màn Hình</label>
+                    <input type="text" class="form-control" name="ManHinh" value="@Model.ManHinh">
+                </div>
+
+                <div class="form-group">
+                    <label for="MaHeDieuHanh">Hệ Điều Hành</label>
+                   
+                        @Html.DropDownList("MaHeDieuHanh",null, new { @class = "dropdown-style" })
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="CameraSau">CameraSau</label>
+                    <input type="text" class="form-control" name="CameraSau" value="@Model.CameraSau">
+                </div>
+
+                <div class="form-group">
+                    <label for="CameraTruoc">CameraTruoc</label>
+                    <input type="text" class="form-control" name="CameraTruoc" value="@Model.CameraTruoc">
+                </div>
+
+                <div class="form-group">
+                    <label for="CPU">CPU</label>
+                    <input type="text" class="form-control" name="CPU" value="@Model.CPU">
+                </div>
+
+                <div class="form-group">
+                    <label for="MaRam">Ram</label>
+                   
+                        @Html.DropDownList("MaRam", null, new { @class = "dropdown-style" })
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="MaBoNhoTrong">Bộ Nhớ Trong</label>
+                   
+                        @Html.DropDownList("MaBoNhoTrong",null, new { @class = "dropdown-style" })
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="TheSim">Thẻ Sim</label>
+                    <input type="text" class="form-control" name="TheSim" value="@Model.TheSim">
+                </div>
+
+                <div class="form-group">
+                    <label for="DungLuongPin">Dung Lượng Pin</label>
+                    <input type="text" class="form-control" name="DungLuongPin" value="@Model.DungLuongPin">
+                </div>
+
+                <div class="form-group">
+                    <label for="ThietKe">Thiết Kế</label>
+                    <input type="text" class="form-control" name="ThietKe" value="@Model.ThietKe">
+                </div>
+                <!-- Tiếp tục với các trường khác theo mẫu này -->
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="margin-left:20px;">Chỉnh Sửa Sản Phẩm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
-
+<script src="~/Areas/AssetAdmin/js/product/previewFile.js"></script>
 

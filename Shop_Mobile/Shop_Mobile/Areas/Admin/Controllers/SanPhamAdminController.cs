@@ -167,21 +167,35 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         public ActionResult Edit(string id)
         {
             var loaiSanPhamList = LoaiSanPhamBUS.DanhSachAdmin();
-            var maLoaiSanPham = ShopOnlineBUS.ChitietSPAdmin(id).MaLoaiSanPham;
+            var maLoaiSanPham = ShopOnlineBUS.ChiTietSanPham(id).MaLoaiSanPham;
             ViewBag.MaLoaiSanPham = new SelectList(loaiSanPhamList, "MaLoaiSanPham", "TenLoaiSanPham", maLoaiSanPham);
 
             var nhaSanXuatList = NhaSanXuatBUS.DanhSachAdmin();
-            var maNhaSanXuat = ShopOnlineBUS.ChitietSPAdmin(id).MaNhaSanXuat;
+            var maNhaSanXuat = ShopOnlineBUS.ChiTietSanPham(id).MaNhaSanXuat;
             ViewBag.MaNhaSanXuat = new SelectList(nhaSanXuatList, "MaNhaSanXuat", "TenNhaSanXuat", maNhaSanXuat);
 
-            var db = ShopOnlineBUS.ChitietSPAdmin(id);
+            var DanhSachRamList = ShopOnlineBUS.DanhSachRam();
+            var danhSachRam = ShopOnlineBUS.ChiTietSanPham(id).MaRam;
+            ViewBag.MaRam = new SelectList(DanhSachRamList, "MaRam", "DungLuongRam",danhSachRam);
+
+
+            var DanhSachBNTList = ShopOnlineBUS.DanhSachBNT();
+            var danhSachBNT = ShopOnlineBUS.ChiTietSanPham(id).MaBoNhoTrong;
+            ViewBag.MaBoNhoTrong = new SelectList(DanhSachBNTList, "MaBoNhoTrong", "DungLuongBoNho", danhSachBNT);
+
+
+            var DanhSachHDHList = ShopOnlineBUS.DanhSachHDH();
+            var danhSachHDH = ShopOnlineBUS.ChiTietSanPham(id).MaHeDieuHanh;
+            ViewBag.MaHeDieuHanh = new SelectList(DanhSachHDHList, "MaHeDieuHanh", "TenHeDieuHanh", danhSachHDH);
+
+            var db = ShopOnlineBUS.ChiTietSanPham(id);
             return View(db);
         }
 
         // POST: Admin/SanPham/Edit/5
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit(string id, SanPham sp)
+        public ActionResult Edit(ViewSanPhamChiTiet spChiTiet)
         {
             try
             {
@@ -196,7 +210,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
                         //kiểm tra xem request có nội dung hay không
                         if (hpf.ContentLength > 0)
                         {
-                            string fileName = MakeValidFileName(sp.TenSanPham) + "_img" + (i + 1);
+                            string fileName = MakeValidFileName(spChiTiet.TenSanPham) + "_img" + (i + 1);
                             string directoryPath = Server.MapPath("~/Asset/img");
 
                             string fullName = Path.Combine(directoryPath, fileName + ".png");
@@ -206,20 +220,20 @@ namespace Shop_Mobile.Areas.Admin.Controllers
                             switch (i)
                             {
                                 case 0:
-                                    sp.HinhChinh = fileName + ".png";
+                                    spChiTiet.HinhChinh = fileName + ".png";
                                     break;
 
                                 case 1:
-                                    sp.Hinh1 = fileName + ".png";
+                                    spChiTiet.Hinh1 = fileName + ".png";
                                     break;
                                 case 2:
-                                    sp.Hinh2 = fileName + ".png";
+                                    spChiTiet.Hinh2 = fileName + ".png";
                                     break;
                                 case 3:
-                                    sp.Hinh3 = fileName + ".png";
+                                    spChiTiet.Hinh3 = fileName + ".png";
                                     break;
                                 case 4:
-                                    sp.Hinh4 = fileName + ".png";
+                                    spChiTiet.Hinh4 = fileName + ".png";
                                     break;
                             }
                         }
@@ -227,7 +241,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
                 }
 
                 // TODO: Add update logic here
-                ShopOnlineBUS.UpdateSP(id, sp);
+                ShopOnlineBUS.CapNhatSP(spChiTiet);
                 return RedirectToAction("Index");
             }
             catch
