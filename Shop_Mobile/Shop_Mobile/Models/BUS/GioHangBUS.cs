@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Shop_Mobile.Models.BUS
 {
-    
+   
 
     public class GioHangViewModel
     {
@@ -26,24 +26,24 @@ namespace Shop_Mobile.Models.BUS
     }
     public class GioHangBUS
     {
-       
+
 
         public static GioHang LaySanPhamGH(string userId, GioHang gioHangItem)
         {
             var db = new ShopConnectionDB();
 
             var query = "SELECT * FROM GioHang WHERE MaSanPham = @MaSanPham AND UserID = @UserID";
-            var parameters = new { MaSanPham = gioHangItem.MaSanPham, UserID = userId};
+            var parameters = new { MaSanPham = gioHangItem.MaSanPham, UserID = userId };
             var result = db.FirstOrDefault<GioHang>(query, parameters);
-           
+
             return result;
         }
-         
-    
+
+
         public static void TaoMoiVaThemVaoGioHang(string userId, string maSanPham, GioHang gioHangItem)
         {
             var db = new ShopConnectionDB();
-            
+
 
             if (!string.IsNullOrEmpty(userId))
             {
@@ -118,7 +118,7 @@ namespace Shop_Mobile.Models.BUS
             var tongTien = db.FirstOrDefault<decimal>(
                 "SELECT SUM(TongTien) FROM GioHang WHERE UserID = @UserId",
                 parameters);
-            
+
 
             return tongTien;
         }
@@ -146,11 +146,18 @@ namespace Shop_Mobile.Models.BUS
             GH.UserID = @UserID
     ";
             var parameters = new { UserID = userId };
-            var result = db.Query<GioHangViewModel>(sql,parameters).ToList();
-           
+            var result = db.Query<GioHangViewModel>(sql, parameters).ToList();
+
             return result;
         }
-
-
+        public static int TongSanPham(string userId)
+        {
+            using (var db = new ShopConnectionDB())
+            {
+                var query = "SELECT SUM(SoLuong) FROM GioHang WHERE UserId = @0";
+                var totalQuantity = db.ExecuteScalar<int?>(query, userId);
+                return totalQuantity ?? 0;
+            }
+        }
     }
 }

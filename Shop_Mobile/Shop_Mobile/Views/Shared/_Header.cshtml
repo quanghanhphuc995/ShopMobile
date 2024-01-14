@@ -17,7 +17,7 @@
             <div id="cart">
                
                 <a class="btn btn-1" href="@Url.Action("Index","GioHang")">
-                    <span class="glyphicon glyphicon-shopping-cart"></span>Giỏ Hàng  @ViewBag.TongSoLuong
+                    <span class="glyphicon glyphicon-shopping-cart">Giỏ Hàng: @Session["CartItemCount"]</span>
                 </a>
                 
             </div>

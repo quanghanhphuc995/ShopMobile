@@ -9,10 +9,13 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Shop_Mobile.Models;
+using Shop_Mobile.Models.BUS;
+using ShopConnection;
 
 namespace Shop_Mobile.Controllers
 {
     [Authorize]
+   
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -79,18 +82,55 @@ namespace Shop_Mobile.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
+
+                    if (user != null)
+                    {
+                        // Truy vấn số lượng sản phẩm trong giỏ hàng
+                        int cartItemCount = GetCartItemCount(user.Id);
+                        Session["CartItemCount"] = cartItemCount;
+                    }
+
                     return RedirectToAction("Index","Home");
                 case SignInStatus.LockedOut:
+                    var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
+
+                    if (user != null)
+                    {
+                        // Truy vấn số lượng sản phẩm trong giỏ hàng
+                        int cartItemCount = GetCartItemCount(user.Id);
+                        Session["CartItemCount"] = cartItemCount;
+                    }
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
+                    var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
+
+                    if (user != null)
+                    {
+                        // Truy vấn số lượng sản phẩm trong giỏ hàng
+                        int cartItemCount = GetCartItemCount(user.Id);
+                        Session["CartItemCount"] = cartItemCount;
+                    }
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
+                    var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
+
+                    if (user != null)
+                    {
+                        // Truy vấn số lượng sản phẩm trong giỏ hàng
+                        int cartItemCount = GetCartItemCount(user.Id);
+                        Session["CartItemCount"] = cartItemCount;
+                    }
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
         }
-
+        private int GetCartItemCount(string userId)
+        {
+           
+           return GioHangBUS.TongSanPham(userId);
+        }
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]

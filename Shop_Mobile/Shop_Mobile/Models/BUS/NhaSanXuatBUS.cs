@@ -6,6 +6,7 @@ using System.Web;
 
 namespace Shop_Mobile.Models.BUS
 {
+    
     public class NhaSanXuatBUS
     {
         //---------------------------khach hang-----------------------
@@ -56,7 +57,5 @@ namespace Shop_Mobile.Models.BUS
             var db = new ShopConnectionDB();
             return db.SingleOrDefault<NhaSanXuat>("select * from NhaSanXuat where MaNhaSanXuat = @0", id);
         }
-
-        
     }
 }
