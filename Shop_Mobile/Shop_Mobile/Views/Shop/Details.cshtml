@@ -92,20 +92,20 @@
                 <div class="product">
                     <div class="col-md-6">
                         <div class="image">
-                            <img src="~/Asset/img/@Model.HinhChinh" />
+                            <img id="mainImage" src="~/Asset/img/@Model.HinhChinh" />
                             <div class="image-more">
                                 <ul class="row">
                                     <li class="col-lg-3 col-sm-3 col-xs-4">
-                                        <a href="#"><img class="img-responsive" src="~/Asset/img/@Model.Hinh1"></a>
+                                        <a href="#" class="thumbnail"><img class="img-responsive" src="~/Asset/img/@Model.Hinh1"></a>
                                     </li>
                                     <li class="col-lg-3 col-sm-3 col-xs-4">
-                                        <a href="#"><img class="img-responsive" src="~/Asset/img/@Model.Hinh2"></a>
+                                        <a href="#" class="thumbnail"><img class="img-responsive" src="~/Asset/img/@Model.Hinh2"></a>
                                     </li>
                                     <li class="col-lg-3 col-sm-3 col-xs-4">
-                                        <a href="#"><img class="img-responsive" src="~/Asset/img/@Model.Hinh3"></a>
+                                        <a href="#" class="thumbnail"><img class="img-responsive" src="~/Asset/img/@Model.Hinh3"></a>
                                     </li>
                                     <li class="col-lg-3 col-sm-3 col-xs-4">
-                                        <a href="#"><img class="img-responsive" src="~/Asset/img/@Model.Hinh4"></a>
+                                        <a href="#" class="thumbnail"><img class="img-responsive" src="~/Asset/img/@Model.Hinh4"></a>
                                     </li>
                                 </ul>
                             </div>
@@ -311,5 +311,12 @@
                 }
             });
         });
-});
+    });
+    $(document).ready(function () {
+        $('.thumbnail').click(function (event) {
+            event.preventDefault();
+            var src = $(this).find('img').attr('src');
+            $('#mainImage').attr('src', src);
+        });
+    });
 </script>

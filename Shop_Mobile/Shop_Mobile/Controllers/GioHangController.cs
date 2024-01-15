@@ -33,7 +33,10 @@ namespace Shop_Mobile.Controllers
                 string userId = User.Identity.GetUserId();
                 GioHangBUS.TaoMoiVaThemVaoGioHang(userId, maSanPham, gioHangItem);
                 var GioHangDetails = GioHangBUS.ChiTietGioHang(userId);
-                
+                AccountController accountController = new AccountController();
+                int carItemCount = accountController.GetCartItemCount(userId);
+                Session["CartItemCount"] = carItemCount;
+
                 if (GioHangDetails.Any())
                 {
                     
@@ -59,6 +62,9 @@ namespace Shop_Mobile.Controllers
         {
             string userId = User.Identity.GetUserId();
             GioHangBUS.SanPhamUpdate(userId, gioHangItem);
+            AccountController accountController = new AccountController();
+            int carItemCount = accountController.GetCartItemCount(userId);
+            Session["CartItemCount"] = carItemCount;
             return RedirectToAction("Index", "GioHang");
         }
         [HttpPost]

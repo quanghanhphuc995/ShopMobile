@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="caption">
                                         <div class="name"><h3><a href="@Url.Action("Details", "Shop", new { maSanPham = @item.MaSanPham})">@item.TenSanPham</a></h3></div>
-                                        <div class="price">@item.Gia</div>
+                                        <div class="price"><span>@Convert.ToDecimal(item.Gia).ToString("N0") đ</span></div>
                                         <div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
                                     </div>
                                 </div>

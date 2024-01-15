@@ -1,7 +1,11 @@
 ﻿
-
+<style>
+    .row-flex {
+        display: flex;
+        align-items: center;
+</style>
 <header class="container">
-    <div class="row">
+    <div class="row row-flex">
         <div class="col-md-4">
             <div id="logo"><a href="@Url.Action("Index")"><img src="~/Asset/images/logo.png" /></a></div>
         </div>
@@ -14,10 +18,10 @@
 
         </div>
         <div class="col-md-4">
-            <div id="cart">
+            <div id="cart" class="row-flex">
                
-                <a class="btn btn-1" href="@Url.Action("Index","GioHang")">
-                    <span class="glyphicon glyphicon-shopping-cart">Giỏ Hàng: @Session["CartItemCount"]</span>
+                <a class="btn btn-1 " href="@Url.Action("Index","GioHang")">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>Giỏ Hàng: @Session["CartItemCount"]
                 </a>
                 
             </div>

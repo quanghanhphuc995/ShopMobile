@@ -78,55 +78,80 @@ namespace Shop_Mobile.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
+            //var result = await SignInManager.PasswordSignInAsync(model.UserNameOrEmail, model.Password, model.RememberMe, shouldLockout: false);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
+
+            //        if (user != null)
+            //        {
+            //            // Truy vấn số lượng sản phẩm trong giỏ hàng
+            //            int cartItemCount = GetCartItemCount(user.Id);
+            //            Session["CartItemCount"] = cartItemCount;
+            //        }
+
+            //        return RedirectToAction("Index","Home");
+            //    case SignInStatus.LockedOut:
+            //        var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
+
+            //        if (user != null)
+            //        {
+            //            // Truy vấn số lượng sản phẩm trong giỏ hàng
+            //            int cartItemCount = GetCartItemCount(user.Id);
+            //            Session["CartItemCount"] = cartItemCount;
+            //        }
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
+
+            //        if (user != null)
+            //        {
+            //            // Truy vấn số lượng sản phẩm trong giỏ hàng
+            //            int cartItemCount = GetCartItemCount(user.Id);
+            //            Session["CartItemCount"] = cartItemCount;
+            //        }
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            //    case SignInStatus.Failure:
+            //        var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
+
+            //        if (user != null)
+            //        {
+            //            // Truy vấn số lượng sản phẩm trong giỏ hàng
+            //            int cartItemCount = GetCartItemCount(user.Id);
+            //            Session["CartItemCount"] = cartItemCount;
+            //        }
+            //    default:
+            //        ModelState.AddModelError("", "Invalid login attempt.");
+            //        return View(model);
+            //}
             var result = await SignInManager.PasswordSignInAsync(model.UserNameOrEmail, model.Password, model.RememberMe, shouldLockout: false);
+            ApplicationUser user = null;
+
             switch (result)
             {
                 case SignInStatus.Success:
-                    var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
-
-                    if (user != null)
-                    {
-                        // Truy vấn số lượng sản phẩm trong giỏ hàng
-                        int cartItemCount = GetCartItemCount(user.Id);
-                        Session["CartItemCount"] = cartItemCount;
-                    }
-
-                    return RedirectToAction("Index","Home");
+                    user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
+                    break;
                 case SignInStatus.LockedOut:
-                    var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
-
-                    if (user != null)
-                    {
-                        // Truy vấn số lượng sản phẩm trong giỏ hàng
-                        int cartItemCount = GetCartItemCount(user.Id);
-                        Session["CartItemCount"] = cartItemCount;
-                    }
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
-
-                    if (user != null)
-                    {
-                        // Truy vấn số lượng sản phẩm trong giỏ hàng
-                        int cartItemCount = GetCartItemCount(user.Id);
-                        Session["CartItemCount"] = cartItemCount;
-                    }
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
-                    var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
-
-                    if (user != null)
-                    {
-                        // Truy vấn số lượng sản phẩm trong giỏ hàng
-                        int cartItemCount = GetCartItemCount(user.Id);
-                        Session["CartItemCount"] = cartItemCount;
-                    }
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+
+            if (user != null)
+            {
+                int cartItemCount = GetCartItemCount(user.Id);
+                Session["CartItemCount"] = cartItemCount;
+            }
+
+            return RedirectToAction("Index", "Home");
         }
-        private int GetCartItemCount(string userId)
+        public int GetCartItemCount(string userId)
         {
            
            return GioHangBUS.TongSanPham(userId);
@@ -432,6 +457,7 @@ namespace Shop_Mobile.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session["CartItemCount"] = "";
             return RedirectToAction("Index", "Home");
         }
 

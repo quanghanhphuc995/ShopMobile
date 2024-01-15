@@ -16,6 +16,8 @@ namespace Shop_Mobile.Controllers
         {
             string userId = User.Identity.GetUserId();
             HoaDonBUS.AddHoaDon(userId);
+            AccountController accountController = new AccountController();
+            Session["CartItemCount"] = "";
             return View();
         }
     }
