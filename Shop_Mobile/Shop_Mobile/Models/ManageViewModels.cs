@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using ShopConnection;
 
 namespace Shop_Mobile.Models
 {
@@ -12,8 +13,18 @@ namespace Shop_Mobile.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public string Email { get;set; }
+        public string UserName { get; set; }
+        public bool LockoutEnabled { get; set; }
     }
-
+    public class AccountBUS
+    {
+        public static IndexViewModel ThongTintaiKhoan(string userId)
+        {
+            var db = new ShopConnectionDB();
+            return db.SingleOrDefault<IndexViewModel>("Select * From AspNetUsers Where Id = @0",userId);
+        }
+    }
     public class ManageLoginsViewModel
     {
         public IList<UserLoginInfo> CurrentLogins { get; set; }

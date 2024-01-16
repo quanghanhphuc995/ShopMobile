@@ -49,15 +49,15 @@ namespace Shop_Mobile.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "User Name or Email")]
+        [Display(Name = "Tên Đăng Nhập")]
         public string UserNameOrEmail { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Mật Khẩu")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Nhớ tài Khoản?")]
         public bool RememberMe { get; set; }
     }
 

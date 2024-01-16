@@ -8,15 +8,15 @@
     <p class="text-success">@ViewBag.StatusMessage</p>
     <div class="row">
         <div class="col-md-12">
-            <h4>Thay đổi thông tin tài khoản</h4>
+            <h4>Thông Tin Tài Khoản</h4>
             <hr />
             <div class="form-horizontal">
                 <div class="form-group">
-                    <label class="control-label col-md-2">Password:</label>
+                    <label class="control-label col-md-2">Mật Khẩu:</label>
                     <div class="col-md-10">
                         @if (Model.HasPassword)
                         {
-                            @Html.ActionLink("Change your password", "ChangePassword", null, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Thay đổi mật khẩu", "ChangePassword", null, new { @class = "btn btn-default" })
                         }
                         else
                         {
@@ -24,15 +24,8 @@
                         }
                     </div>
                 </div>
-                @*<div class="form-group">
-                    <label class="control-label col-md-2">External Logins:</label>
-                    <div class="col-md-10">
-                        @Model.Logins.Count @Html.ActionLink("Manage", "ManageLogins", null, new { @class = "btn btn-default" })
-                    </div>
-                </div>*@
-               
                 <div class="form-group">
-                    <label class="control-label col-md-2">phone number:</label>
+                    <label class="control-label col-md-2">Số Điện Thoại:</label>
                     <div class="col-md-10">
                         @if (Model.PhoneNumber != null)
                         {
