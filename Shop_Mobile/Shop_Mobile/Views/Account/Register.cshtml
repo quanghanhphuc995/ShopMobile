@@ -24,15 +24,15 @@
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                            <label for="UserName" class="control-label">Tên người dùng</label>
                             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                            <label for="Password" class="control-label">Mật khẩu</label>
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                            <label for="ConfirmPassword" class="control-label">Nhập lại mật khẩu</label>
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                         </div>
                         <div class="form-group text-center">
