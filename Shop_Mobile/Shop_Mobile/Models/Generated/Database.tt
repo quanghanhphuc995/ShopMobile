@@ -12,7 +12,7 @@
 	TrackModifiedColumns = false;
 	ExplicitColumns = true;
 	ExcludePrefix = new string[] {}; // Exclude tables by prefix.
-	//fdsfdsfds
+	//fdsfdsfds 
     // Read schema
 	var tables = LoadTables();
 

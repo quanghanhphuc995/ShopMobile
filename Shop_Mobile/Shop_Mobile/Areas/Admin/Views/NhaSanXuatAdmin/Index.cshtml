@@ -16,49 +16,84 @@
         text-align: center;
         border-bottom: 1px solid #ddd;
     }
+
     .imgpx {
         max-width: 15px;
         max-height: 15px;
         filter: brightness(0) invert(1);
         -webkit-filter: brightness(0) invert(1);
     }
+
     img {
         max-width: 15px;
         max-height: 15px;
         filter: brightness(0) invert(1);
         -webkit-filter: brightness(0) invert(1);
-        
     }
 </style>
 
 
-    <h2 class="mb-5 ml-5">Quản Lý Nhà Sản Xuất</h2>
+<h2 class="mb-5 ml-5">Quản Lý Nhà Sản Xuất</h2>
 
-    <table>
+<table>
 
-        <tr>
-            <th>Ma Nha San Xuat</th>
-            <th>Ten Nha San Xuat</th>
-            <th>Tinh Trang</th>
-            <th><a href="@Url.Action("Create","NhaSanXuatAdmin")"><img src="~/Asset/images/add.png.png" style="margin-left:auto" /></a></th>
-        </tr>
-        @foreach (var item in Model)
-        {
     <tr>
-        <td>@item.MaNhaSanXuat</td>
-        <td>@item.TenNhaSanXuat</td>
-        <td>@item.TinhTrang</td>
-        <td><a href="@Url.Action("Edit","NhaSanXuatAdmin",new {id= item.MaNhaSanXuat })"><img src="~/Asset/images/edit.png.png" /></a></td>
-        <td>
-            @using (Html.BeginForm("Delete", "NhaSanXuatAdmin", new { id = item.MaNhaSanXuat }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa hệ điều hành này?');" }))
-            {
-                <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
-            }
-        </td>
+        <th>Ma Nha San Xuat</th>
+        <th>Ten Nha San Xuat</th>
+        <th>Tinh Trang</th>
+        <th><a href="@Url.Action("Create","NhaSanXuatAdmin")"><img src="~/Asset/images/add.png.png" style="margin-left:auto" /></a></th>
     </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MaNhaSanXuat</td>
+            <td>@item.TenNhaSanXuat</td>
+            <td>@item.TinhTrang</td>
+            <td><a href="@Url.Action("Edit","NhaSanXuatAdmin",new {id= item.MaNhaSanXuat })"><img src="~/Asset/images/edit.png.png" /></a></td>
+            <td>
+                <img class="btn-xoa imgpx" src="~/Asset/images/delete.png.png" alt="Delete" data-id="@item.MaNhaSanXuat" />
+            </td>
+
+        </tr>
+    }
 
 
 
-    </table>
+</table>
 
+<script>
+    $(document).ready(function() {
+        $(".btn-xoa").click(function (e) {
+            e.preventDefault();
+            var button = $(this);
+            var Id = button.data("id");
+
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: "Bạn có chắc chắn muốn xóa tài khoản này không?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/NhaSanXuatAdmin/Delete', // Đảm bảo URL chính xác
+                        type: 'POST',
+                        data: { id: Id },
+                        success: function (result) {
+                            if (result.success) {
+                                console.log("xóa thành công!");
+                                window.location.reload(); // Hoặc cập nhật giao diện mà không tải lại trang
+                            }
+                        },
+                        error: function () {
+                            console.log("thất bại");
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

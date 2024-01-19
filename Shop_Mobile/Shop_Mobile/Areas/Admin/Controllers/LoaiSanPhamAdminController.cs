@@ -76,8 +76,8 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         {
             LoaiSanPhamBUS.DeleteLSP(id);
 
-            return RedirectToAction("Index");
-            
+            return Json(new { success = true });
+
         }
     }
 }

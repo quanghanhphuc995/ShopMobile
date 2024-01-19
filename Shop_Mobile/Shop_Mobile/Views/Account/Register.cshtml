@@ -35,6 +35,10 @@
                             <label for="ConfirmPassword" class="control-label">Nhập lại mật khẩu</label>
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                         </div>
+                        <div class="form-group">
+                            <label for="PhoneNumber" class="control-label">Số điện thoại</label>
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                        </div>
                         <div class="form-group text-center">
                             <input type="submit" class="btn btn-primary" value="Đăng Ký" />
                         </div>

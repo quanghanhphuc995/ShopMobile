@@ -68,7 +68,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         public ActionResult DeleteHDH(string maHeDieuHanh)
         {
             ShopOnlineBUS.XoaHDH(maHeDieuHanh);
-            return RedirectToAction ("Index");
+            return Json(new { success = true });
         }
 
         //--------------------------Phan Bo Nho trong------------------------
@@ -97,7 +97,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         public ActionResult DeleteBNT(String maBoNhoTrong)
         {
             ShopOnlineBUS.XoaBNT(maBoNhoTrong);
-            return RedirectToAction("Index");
+            return Json(new { success = true });
         }
 
         //--------------------------Phan Ram------------------------
@@ -126,7 +126,7 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         public ActionResult DeleteRam(String maRam)
         {
             ShopOnlineBUS.XoaRam(maRam);
-            return RedirectToAction("Index");
+            return Json(new { success = true });
         }
     }
 }

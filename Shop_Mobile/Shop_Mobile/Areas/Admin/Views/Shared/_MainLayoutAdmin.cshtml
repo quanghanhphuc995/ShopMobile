@@ -19,13 +19,14 @@
     <script src="~/Areas/AssetAdmin/ckeditor/ckeditor.js"></script>
 
     <!-- you need to include the shieldui css and js assets in order for the charts to work -->
-     <link rel="stylesheet" type="text/css" href="https://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="https://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
+
 
     <link id="gridcss" rel="stylesheet" type="text/css" href="https://www.shieldui.com/shared/components/latest/css/dark-bootstrap/all.min.css" />
 
     <script type="text/javascript" src="https://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
     <script type="text/javascript" src="https://www.prepbootstrap.com/Content/js/gridData.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -37,11 +38,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("Index","MainAdmin")">Admin Panel</a>
+                <a class="navbar-brand" href="@Url.Action("Index","Home", new {area="" })">Trang Chủ</a>
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="active" class="nav navbar-nav side-nav">
-                    <li class="selected"><a href="@Url.Action("Index","MainAdmin")"><i class="fa fa-bullseye"></i> Dashboard</a></li>
+                    <li class="selected"><a href="@Url.Action("Index","MainAdmin")"><i class="fa fa-bullseye"></i>Admin Panel</a></li>
                     <li ><a href="@Url.Action("Index","RamHDHBNT")"><i class="fa fa-bullseye"></i> Quản Lý Ram, Hệ Điều Hành, Bộ Nhớ </a></li>
                     <li><a href="@Url.Action("Index","NhaSanXuatAdmin")"><i class="fa fa-tasks"></i> Quản lý Nhà sản xuất</a></li>
                     <li><a href="@Url.Action("Index","LoaiSanPhamAdmin")"><i class="fa fa-globe"></i> Quản lý Loại sản phẩm</a></li>

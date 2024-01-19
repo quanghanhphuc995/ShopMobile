@@ -6,6 +6,17 @@ using System.Web;
 
 namespace Shop_Mobile.Models.BUS
 {
+    public class BinhLuanViewModel
+    {
+        // Thêm tất cả thuộc tính từ BinhLuan
+        public int BinhLuanId { get; set; }
+        public string NoiDung { get; set; }
+        // ...các thuộc tính khác...
+
+        // Thuộc tính mới từ bảng AspNetUsers
+        public string UserName { get; set; }
+    }
+
     public class BinhLuanBUS
     {
         //-----------------------Insert Bình luận-----------------------------------
@@ -23,15 +34,20 @@ namespace Shop_Mobile.Models.BUS
             db.Insert(binhLuan);
         }
         //-----------------------Get Bình luận-----------------------------------
-        public static BinhLuan GetBinhLuan(string userId)
+        public static BinhLuanViewModel GetBinhLuanWithUserName(string userId)
         {
             var db = new ShopConnectionDB();
-            var query = "SELECT TOP 1 * FROM BinhLuan WHERE UserID = @UserID ORDER BY Ngay DESC";
-            var parameters = new { UserID = userId};
-            var resul = db.FirstOrDefault<BinhLuan>(query, parameters);
-            return resul;
+            var query = @"SELECT TOP 1 bl.*, u.UserName 
+                  FROM BinhLuan bl 
+                  INNER JOIN AspNetUsers u ON bl.UserID = u.Id 
+                  WHERE bl.UserID = @UserID 
+                  ORDER BY bl.Ngay DESC";
 
+            var parameters = new { UserID = userId };
+            var result = db.Query<BinhLuanViewModel>(query, parameters).FirstOrDefault();
+            return result;
         }
+
         public static List<BinhLuan> GetTatCaBinhLuan(string maSanPham)
         {
             var db = new ShopConnectionDB();

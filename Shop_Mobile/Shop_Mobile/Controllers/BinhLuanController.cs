@@ -30,7 +30,7 @@ namespace Shop_Mobile.Controllers
             else
             {
                 BinhLuanBUS.AddBinhLuan(maSanPham, userId, noiDung, userName);
-                var noiDungBL = BinhLuanBUS.GetBinhLuan(userId);
+                var noiDungBL = BinhLuanBUS.GetBinhLuanWithUserName(userId);
                 return PartialView("_BinhLuan", noiDungBL);            }
             
         }

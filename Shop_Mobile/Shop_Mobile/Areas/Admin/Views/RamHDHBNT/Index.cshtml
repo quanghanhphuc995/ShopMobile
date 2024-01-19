@@ -16,26 +16,31 @@
         text-align: center;
         border-bottom: 1px solid #ddd;
     }
+
     .imgpx {
         max-width: 15px;
         max-height: 15px;
         filter: brightness(0) invert(1);
         -webkit-filter: brightness(0) invert(1);
     }
+
     img {
         max-width: 15px;
         max-height: 15px;
         filter: brightness(0) invert(1);
         -webkit-filter: brightness(0) invert(1);
     }
+
     .table-spacingBot {
         margin-bottom: 50px;
     }
-    .mb-5{
-        margin-bottom:30px;
+
+    .mb-5 {
+        margin-bottom: 30px;
     }
-    .ml-5{
-        margin-left:30px;
+
+    .ml-5 {
+        margin-left: 30px;
     }
 </style>
 
@@ -54,10 +59,7 @@
             <td>@hdh.TenHeDieuHanh</td>
             <td><a href="@Url.Action("EditHDH","RamHDHBNT", new { id = hdh.MaHeDieuHanh })"><img src="~/Asset/images/edit.png.png" /></a></td>
             <td>
-                @using (Html.BeginForm("DeleteHDH", "RamHDHBNT", new { maHeDieuHanh = hdh.MaHeDieuHanh }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa hệ điều hành này?');" }))
-                {
-                    <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
-                }
+                <img class="btn-xoa-hdh imgpx" src="~/Asset/images/delete.png.png" alt="Delete" data-ma-He-Dieu-Hanh="@hdh.MaHeDieuHanh" />
             </td>
         </tr>
     }
@@ -76,10 +78,7 @@
             <td>@bnt.DungLuongBoNho</td>
             <td><a href="@Url.Action("EditBNT","RamHDHBNT", new { maBoNhoTrong = bnt.MaBoNhoTrong })"><img src="~/Asset/images/edit.png.png" /></a></td>
             <td>
-                @using (Html.BeginForm("DeleteBNT", "RamHDHBNT", new { maBoNhoTrong = bnt.MaBoNhoTrong }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa?');" }))
-                {
-                    <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
-                }
+                <img class="btn-xoa-bnt imgpx" src="~/Asset/images/delete.png.png" alt="Delete" data-ma-Bo-Nho-Trong="@bnt.MaBoNhoTrong" />
             </td>
         </tr>
     }
@@ -98,13 +97,60 @@
             <td>@ram.DungLuongRam</td>
             <td><a href="@Url.Action("EditRam","RamHDHBNT", new { maRam = ram.MaRam })"><img src="~/Asset/images/edit.png.png" /></a></td>
             <td>
-                @using (Html.BeginForm("DeleteRam", "RamHDHBNT", new { maRam = ram.MaRam }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa?');" }))
-                {
-                    <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
-                }
+                <img class="btn-xoa-ram imgpx" src="~/Asset/images/delete.png.png" alt="Delete" data-ma-Ram="@ram.MaRam" />
             </td>
         </tr>
     }
 </table>
 
 
+<script>
+    function xoaAjax(url, IdHDH, IdBNT, IdR) {
+        Swal.fire({
+            title: 'Xác nhận xóa',
+            text: "Bạn có chắc chắn muốn xóa không?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: { maHeDieuHanh: IdHDH, maBoNhoTrong: IdBNT, maRam: IdR },
+                    success: function (result) {
+                        if (result.success) {
+                            console.log("xóa thành công!");
+                            window.location.reload(true)
+                        }
+                    },
+                    error: function () {
+                        console.log("thất bại");
+                    }
+                });
+            }
+        });
+    }
+    $(".btn-xoa-hdh").click(function (e) {
+        e.preventDefault();
+        var IdHDH = $(this).data("maHeDieuHanh");
+        console.log("id:", IdHDH);
+        xoaAjax('/RamHDHBNT/DeleteHDH', IdHDH, null, null);
+    });
+
+    $(".btn-xoa-bnt").click(function (e) {
+        e.preventDefault();
+        var IdBNT = $(this).data("maBoNhoTrong");
+        xoaAjax('/RamHDHBNT/DeleteBNT', null, IdBNT, null);
+    });
+
+    $(".btn-xoa-ram").click(function (e) {
+        e.preventDefault();
+        var IdR = $(this).data("maRam");
+        console.log("id:", IdR);
+        xoaAjax('/RamHDHBNT/DeleteRam', null, null, IdR);
+    });
+
+</script>

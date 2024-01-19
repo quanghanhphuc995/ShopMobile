@@ -74,8 +74,8 @@ namespace Shop_Mobile.Areas.Admin.Controllers
         {
            
                 NhaSanXuatBUS.DeleteNSX( id);
-                return RedirectToAction("Index");
-            
+            return Json(new { success = true });
+
         }
     }
 }

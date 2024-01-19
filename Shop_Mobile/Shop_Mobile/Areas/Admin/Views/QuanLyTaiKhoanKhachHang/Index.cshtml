@@ -34,29 +34,39 @@
     $(".btn-xoa").click(function (e) {
         console.log("Nút Xóa đã được click!");
         e.preventDefault();
+
         var button = $(this);
         var Id = button.data("id");
         console.log("ID:", Id);
 
-        $.ajax({
-            url: '/QuanLyTaiKhoanKhachHang/Delete',
-            type: 'POST',
-            data: { id: Id },
-            success: function (result) {
-                // Xử lý kết quả trả về (nếu cần)
-                if (result.success) {
-                    console.log("xóa thành công!");
-
-                    // Cập nhật giao diện người dùng mà không làm tải lại trang
-                    // Đặt lại dữ liệu giỏ hàng với danh sách mới
-                    window.location.href = '/Admin/QuanLyTaiKhoanKhachHang/Index';
-
-                }
-            },
-            error: function () {
-                console.log("thất bại");
-                // Xử lý lỗi (nếu cần)
+        // Sử dụng SweetAlert để xác nhận
+        Swal.fire({
+            title: 'Xác nhận xóa',
+            text: "Bạn có chắc chắn muốn xóa tài khoản này không Khi xóa sẽ xóa tất cả mục liên quan mà tài khoản này đã sử dụng trước đó?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng xác nhận xóa
+                $.ajax({
+                    url: '/QuanLyTaiKhoanKhachHang/Delete',
+                    type: 'POST',
+                    data: { id: Id },
+                    success: function (result) {
+                        if (result.success) {
+                            console.log("xóa thành công!");
+                            window.location.href = '/Admin/QuanLyTaiKhoanKhachHang/Index';
+                        }
+                    },
+                    error: function () {
+                        console.log("thất bại");
+                    }
+                });
             }
         });
     });
 </script>
+
