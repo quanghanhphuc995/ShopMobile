@@ -1,0 +1,45 @@
+﻿@model Shop_Mobile.Models.BUS.ViewSanPhamChiTiet
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<style>
+    .product-image img {
+        max-width: 200px;
+        height: auto;
+    }
+</style>
+
+<div class="container">
+    <h2 class="my-4">Chi Tiết Sản Phẩm</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+
+            <tr><th>Mã Sản Phẩm</th><td>@Model.MaSanPham</td></tr>
+            <tr><th>Mã Loại Sản Phẩm</th><td>@Model.MaLoaiSanPham</td></tr>
+            <tr><th>Mã Nhà Sản Xuất</th><td>@Model.MaNhaSanXuat</td></tr>
+            <tr><th>Tên Sản Phẩm</th><td>@Model.TenSanPham</td></tr>
+            <tr><th>Hình Chính</th><td class="product-image"><img src="~/Asset/img/@Model.HinhChinh" alt="Hình Chính"></td></tr>
+            <tr><th>Hình Phụ 1</th><td class="product-image"><img src="~/Asset/img/@Model.Hinh1" alt="Hình 1"></td></tr>
+            <tr><th>Hình Phụ 2</th><td class="product-image"><img src="~/Asset/img/@Model.Hinh2" alt="Hình 2"></td></tr>
+            <tr><th>Hình Phụ 3</th><td class="product-image"><img src="~/Asset/img/@Model.Hinh3" alt="Hình 3"></td></tr>
+            <tr><th>Hình Phụ 4</th><td class="product-image"><img src="~/Asset/img/@Model.Hinh4" alt="Hình 4"></td></tr>
+            <tr><th>Giá</th><td class="price"><span>@Convert.ToDecimal(Model.Gia).ToString("N0") đ</span></td></tr>
+            <tr><th>Số Lượng</th><td>@Model.SoLuong</td></tr>
+            <tr><th>Ghi Chú</th><td>@Model.GhiChu</td></tr>
+            <tr><th>Video Sản Phẩm</th><td><video controls><source src="{{VideoSP}}" type="video/mp4">Your browser does not support the video tag.</video></td></tr>
+            <tr><th>Màn Hình</th><td>@Model.ManHinh</td></tr>
+            <tr><th>Mã Hệ Điều Hành</th><td>@Model.MaHeDieuHanh</td></tr>
+            <tr><th>Camera Sau</th><td>@Model.CameraSau</td></tr>
+            <tr><th>Camera Trước</th><td>@Model.CameraTruoc</td></tr>
+            <tr><th>CPU</th><td>@Model.CPU</td></tr>
+            <tr><th>Mã RAM</th><td>>@Model.MaRam</td></tr>
+            <tr><th>Mã Bộ Nhớ Trong</th><td>>@Model.MaBoNhoTrong</td></tr>
+            <tr><th>Thẻ SIM</th><td>@Model.TheSim</td></tr>
+            <tr><th>Dung Lượng Pin</th><td>@Model.DungLuongPin</td></tr>
+            <tr><th>Thiết Kế</th><td>@Model.ThietKe</td></tr>
+        </table>
+    </div>
+</div>
+

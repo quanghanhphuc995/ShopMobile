@@ -23,5 +23,11 @@ namespace Shop_Mobile.Areas.Admin.Controllers
             var db = HoaDonBUS.DanhSachGH(hD);
             return View(db);
         }
+
+        public ActionResult SoLuongSauKhiXL(string maSanPhams)
+        {
+            HoaDonBUS.UpdateSoLuongSanPham(maSanPhams);
+            return RedirectToAction("Index");
+        }
     }
 }

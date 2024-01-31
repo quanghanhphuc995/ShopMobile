@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ShopConnection.HoaDon>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    #invoice {
+        width: 80%;
+        margin: auto;
+        border: 1px solid #ccc;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        #invoice h2 {
+            color: #333;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #5c5656;
+    }
+
+    #total {
+        margin-top: 20px;
+        text-align: right;
+    }
+</style>
+
+<body>
+
+    <div class="container mt-4">
+        <div id="invoice">
+            <h2 class="text-center">Đơn Hàng</h2>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-black">
+                        <tr>
+                            <th scope="col">Khách Hàng</th>
+                            <th scope="col">Số Điện Thoại Liên Lạc</th>
+                            <th scope="col">Địa Chỉ</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Thay đổi dữ liệu theo chi tiết hóa đơn của bạn -->
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.NguoiDat</td>
+                                <td>@item.SDT</td>
+                                <td>@item.DiaChi</td>
+                                <td><a href="@Url.Action("ChiTieHoaDonAdmin","HoaDonAdmin", new { UserId = item.UserID })">Chi Tiết Hóa Đơn</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+

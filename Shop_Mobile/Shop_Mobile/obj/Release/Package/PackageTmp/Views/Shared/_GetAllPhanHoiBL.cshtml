@@ -1,0 +1,34 @@
+﻿@model List<ShopConnection.PhanHoiBL>
+<style>
+    .binh-luan-item {
+        background-color: #f8f9fa;
+        border: 1px solid #e3e6f0;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .ten-nguoi-dung {
+        font-size: 14px;
+        color: #222b45;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .noi-dung-binh-luan {
+        font-size: 13px;
+        color: #20222b;
+        margin: 0;
+        padding-left: 20px;
+    }
+
+</style>
+
+@foreach (var item in Model)
+{
+    <div class="binh-luan-item">
+        <p class="ten-nguoi-dung">@item.UserName</p>
+        <p class="noi-dung-binh-luan">Nội dung trả lời: @item.NoiDungPhanHoi</p>
+    </div>
+}

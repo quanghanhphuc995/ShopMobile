@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ShopConnection.SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin: auto;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        
+    }
+    .imgpx {
+        max-width: 15px;
+        max-height: 15px;
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+    }
+    img {
+        max-width: 15px;
+        max-height: 15px;
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+    }
+</style>
+
+
+<h2 class="ml-30">Quản Lý Sản Phẩm</h2>
+<table>
+    <tr>
+        <th>Mã sản phẩm</th>
+        <th>Mã loại sản phẩm</th>
+        <th>Mã nhà sản xuất</th>
+        <th>Tên nhà sản phẩm</th>
+        <th>Hình chính</th>
+        <th>Hình 1</th>
+        <th>Hình 2</th>
+        <th>Hình 3</th>
+        <th>Hình 4</th>
+        <th>Giá</th>
+        <th>Số lượng hiện tại</th>
+        <th>Lượt view</th>
+        <th>Tình trạng</th>
+        <th>Ghi chú</th>
+        <th></th>
+        <th><a href="@Url.Action("Create","SanPhamAdmin")"><img src="~/Asset/images/add.png.png" style="margin-left:auto" /></a></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@item.MaSanPham</td>
+    <td>@item.MaLoaiSanPham</td>
+    <td>@item.MaNhaSanXuat</td>
+    <td>@item.TenSanPham</td>>
+    <td><img src="~/Asset/img/@item.HinhChinh" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
+    <td><img src="~/Asset/img/@item.Hinh1" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter:none;" /></td>
+    <td><img src="~/Asset/img/@item.Hinh2" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
+    <td><img src="~/Asset/img/@item.Hinh3" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
+    <td><img src="~/Asset/img/@item.Hinh4" style="max-width: 50px; max-height: 100px; filter: none; -webkit-filter: none; " /></td>
+    <td><div class="price"><span>@Convert.ToDecimal(item.Gia).ToString("N0") đ</span></div></td>
+    <td>@item.SoLuong</td>
+    <td>@item.LuotView</td>
+    <td>@item.TinhTrang</td>
+    <td>@item.GhiChu</td>
+
+    <td><a href="@Url.Action("Details","SanPhamAdmin", new {maSanPham = @item.MaSanPham })">Chi Tiết Sản Phẩm</a></td>
+    <td><a href="@Url.Action("Edit","SanPhamAdmin",new {id=@item.MaSanPham })"><img src="~/Asset/images/edit.png.png" /></a></td>
+    <td>
+        @using (Html.BeginForm("Delete", "SanPhamAdmin", new { id = item.MaSanPham }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa hệ điều hành này?');" }))
+        {
+            <input class="imgpx" type="image" src="~/Asset/images/delete.png.png" alt="Delete" />
+        }
+    </td>
+</tr>
+    }
+
+
+
+</table>
+
+
+

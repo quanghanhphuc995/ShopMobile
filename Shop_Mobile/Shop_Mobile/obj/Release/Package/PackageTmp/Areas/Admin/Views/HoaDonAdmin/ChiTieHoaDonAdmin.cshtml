@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ShopConnection.HoaDon>
+@{
+    ViewBag.Title = "ChiTieHoaDonAdmin";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+<style>
+    .ellipsis {
+        max-width: 150px; /* hoặc bất kỳ giới hạn nào bạn muốn */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<div id="invoice" class="container mt-4">
+    <h2 class="mb-4">Chi Tiết Hóa Đơn Khách Hàng</h2>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>Mã Sản Phẩm</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Hình Ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Thay đổi dữ liệu theo chi tiết hóa đơn của bạn -->
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td><a href="@Url.Action("Details","SanPhamAdmin", new {maSanPham = item.MaSanPham })">@item.MaSanPham</a></td>
+                    <td class="ellipsis"><a href="@Url.Action("Details","SanPhamAdmin", new {maSanPham = item.MaSanPham })">@item.TenSanPham</a></td>
+                    <td>
+                        <a href="@Url.Action("Details","SanPhamAdmin", new {maSanPham = item.MaSanPham })">
+                            <img src="~/Asset/img/@item.HinhChinh" style="width: 60px; height: auto;" alt="Hình ảnh sản phẩm" />
+                        </a>
+                    </td>
+                    <td>@item.SoLuong</td>
+                    <td class="price"><span>@Convert.ToDecimal(item.Gia).ToString("N0") đ</span></td>
+                    <td class="price"><span>@Convert.ToDecimal(item.TongTien).ToString("N0") đ</span></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

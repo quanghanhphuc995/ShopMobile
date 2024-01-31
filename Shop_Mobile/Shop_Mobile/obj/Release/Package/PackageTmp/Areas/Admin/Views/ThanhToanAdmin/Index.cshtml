@@ -1,0 +1,16 @@
+﻿@model List<Shop_Mobile.Models.BUS.HoaDonViewModelAdmin>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+
+<h2>Index</h2>
+@foreach (var item in Model)
+{
+    <h2>Index @item.TenSanPham</h2>
+    <h2>Index @item.NguoiDat</h2>
+    <h2>Index @item.NgayTao</h2>
+    <h2>Index @item.SDT</h2>
+}
+

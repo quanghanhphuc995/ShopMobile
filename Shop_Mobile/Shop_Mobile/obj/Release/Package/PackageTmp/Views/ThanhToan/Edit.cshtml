@@ -1,0 +1,41 @@
+﻿@model ShopConnection.ThongTinKhachHang
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<h4>Thông tin người mua hàng</h4>
+@using (Html.BeginForm("Edit", "ThanhToan"))
+{
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="email" type="text" class="form-control" name="NguoiDat" placeholder="Name" value="@Model.NguoiDat">
+    </div>
+    <br>
+    <div class="input-group" style="display:none;">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input class="form-control" name="ThongTinKHID" value="@Model.ThongTinKHID">
+    </div>
+    <br>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+        <input id="email" type="text" class="form-control" name="DiaChi" placeholder="Địa Chỉ" value="@Model.DiaChi">
+    </div>
+    <br>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+        <input id="email" type="number" class="form-control" name="SDT" placeholder="Số Điện Thoại" value="@Model.SDT">
+    </div>
+
+    <br>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+        <textarea rows="5" class="form-control" style="resize: none;" name="Content"></textarea>
+    </div>
+
+    <br>
+
+    <input type="submit" class="btn btn-success" value="Chỉnh sửa thông tin giao hàng">
+}
+
+

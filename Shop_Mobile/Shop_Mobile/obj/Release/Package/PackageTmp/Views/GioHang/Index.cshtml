@@ -1,0 +1,169 @@
+﻿@model List<Shop_Mobile.Models.BUS.GioHangViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<style>
+    .name{
+        color:#333333;
+        font-weight:600;
+    }
+        .name span {
+            color: #686e6e;
+        }
+   .prices {
+        color: #D0021C !important;
+    }
+</style>
+<div id="page-content" class="single-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                    <li><a href="@Url.Action("HienThiThongTinSanPham","GioHang")">Cart</a></li>
+                </ul>
+            </div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+
+            <div class="row">
+                <div class="product well">
+                    <div class="col-md-3">
+                        <a href="@Url.Action("Details","Shop",new {id = item.MaSanPham })">
+                            <div class="image">
+                                <img src="~/Asset/img/@item.HinhChinh" alt="Alternate Text" />
+                            </div>
+                        </a>
+
+                    </div>
+                    <div class="col-md-9">
+                        <div class="caption">
+
+                            <div class="name">Tên Sản Phẩm: <span>@item.TenSanPham</span></div>
+                            <div class="name">Mã Sản Phẩm: <span>@item.MaSanPham</span></div>
+                            <div class="name">Giá: <span class="prices">@Convert.ToDecimal(item.Gia).ToString("N0") đ</span></div>
+                            <form action="@Url.Action("CapNhat", "GioHang")" method="post">
+                                <label class="name">Số lượng : </label>
+                                <input class="form-inline quantity" min="1" max="1000" type="number" value="@item.SoLuong" name="soluong">
+                                <input type="hidden" name="masanpham" value="@item.MaSanPham" />
+                                <input type="submit" class="btn btn-2" value="Update" />
+                            </form>
+                            <span class="name">
+                                Tổng tiền:
+                                <span class="prices">@Convert.ToDecimal(item.TongTien).ToString("N0") đ </span>
+                                <hr />
+                            <button class="btn-xoa" data-masanpham="@item.MaSanPham">Xóa</button>
+                             </span>
+
+</div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+
+
+
+
+       
+        
+
+        @*Tính tiền*@
+        <div class="row">
+            <div class="pricedetails">
+                <div class="col-md-4 col-md-offset-8">
+                    <table>
+                        <h6>Tổng Số Tiền Cần Thanh Toán </h6>
+                        <tr>
+                            <td>Tổng</td>
+                            <td><div class="prices"><span>@Convert.ToDecimal(Model.Sum(item => item.TongTien)).ToString("N0") đ</span></div></td>
+                        </tr>
+                        <tr>
+                            <td>Giảm Giá Từ Shop</td>
+                            <td class="prices">0 đ</td>
+                        </tr>
+
+                        <tr style="border-top: 1px solid #333">
+                            <td><h6>THÀNH TIỀN</h6></td>
+                            <td><div class="prices"><span>@Convert.ToDecimal(Model.Sum(item => item.TongTien)).ToString("N0") đ</span></div></td>
+                        </tr>
+                    </table>
+                    <center><a id="btnThanhToan"data-userid='@(Model.FirstOrDefault()?.UserID??"")' class="btn btn-1">Thanh Toán</a></center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(".btn-xoa").click(function () {
+        console.log("Nút Xóa đã được click!");
+
+        var button = $(this);  // Lưu lại đối tượng button để sử dụng sau này
+        var idGH = button.data("idgh");
+        var maSanPham = button.data("masanpham");
+        var userId = button.data("userId");
+
+        $.ajax({
+            url: '/GioHang/XoaGioHang',
+            type: 'POST',
+            data: { maSanPham: maSanPham, userId: userId },
+            success: function (result) {
+                // Xử lý kết quả trả về (nếu cần)
+                if (result.success) {
+                    console.log("xóa thành công!");
+
+                    // Cập nhật giao diện người dùng mà không làm tải lại trang
+                    // Đặt lại dữ liệu giỏ hàng với danh sách mới
+                    window.location.href = '/GioHang';
+
+                }
+            },
+            error: function () {
+                console.log("thất bại");
+                // Xử lý lỗi (nếu cần)
+            }
+        });
+    });
+
+
+    document.getElementById("btnThanhToan").addEventListener("click", function (event) {
+        console.log("Nút Thanh Toán đã được click!");
+
+        // Lấy giá trị userId từ thuộc tính data
+        var userId = $(this).data("userid");
+        console.log("Nút Thanh Toán đã được click!"+ userId);
+        $.ajax({
+            url: "/ThanhToan/HasThongTinKhachHang",
+            type: "GET",
+            data: { userId: userId },
+            success: function (result) {
+                if (result) {
+                    // Nếu đã có dữ liệu khách hàng, chuyển hướng đến trang Index
+                    console.log("Đã có thông tin khách hàng.");
+                    window.location.href = "@Url.Action("Index","ThanhToan")";
+                } else {
+                    // Nếu chưa có dữ liệu khách hàng, chuyển hướng đến trang Create
+                    console.log("Chưa có thông tin khách hàng.");
+                    window.location.href = "@Url.Action("Create","ThanhToan")";
+                }
+            },
+            error: function (error) {
+                console.error("Error checking ThongTinKhachHang:", error);
+            }
+        });
+
+        // Ngăn chặn hành động mặc định của nút thanh toán
+        event.preventDefault();
+    });
+
+
+</script>
+
+
+

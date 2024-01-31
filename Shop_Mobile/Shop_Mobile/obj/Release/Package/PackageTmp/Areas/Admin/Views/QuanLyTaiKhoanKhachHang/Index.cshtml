@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Shop_Mobile.Models.BUS.AspNetUserss>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            @foreach (var item in Model)
+            {
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Thông Tin Tài Khoản</h5>
+                        <hr>
+                        <p class="card-text"><strong>Tên Người Dùng:</strong> @item.UserName</p>
+                        <p class="card-text"><strong>Email:</strong> @item.Email</p>
+                        <p class="card-text"><strong>Số Điện Thoại:</strong> @item.PhoneNumber</p>
+                        <p class="card-text"><strong>Địa Chỉ:</strong> 123, Phố Nào Đó, Thành Phố, Quốc Gia</p>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-danger btn-xoa" data-id="@item.Id">
+                                Xóa Tài Khoản
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(".btn-xoa").click(function (e) {
+        console.log("Nút Xóa đã được click!");
+        e.preventDefault();
+
+        var button = $(this);
+        var Id = button.data("id");
+        console.log("ID:", Id);
+
+        // Sử dụng SweetAlert để xác nhận
+        Swal.fire({
+            title: 'Xác nhận xóa',
+            text: "Bạn có chắc chắn muốn xóa tài khoản này không Khi xóa sẽ xóa tất cả mục liên quan mà tài khoản này đã sử dụng trước đó?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng xác nhận xóa
+                $.ajax({
+                    url: '/QuanLyTaiKhoanKhachHang/Delete',
+                    type: 'POST',
+                    data: { id: Id },
+                    success: function (result) {
+                        if (result.success) {
+                            console.log("xóa thành công!");
+                            window.location.href = '/Admin/QuanLyTaiKhoanKhachHang/Index';
+                        }
+                    },
+                    error: function () {
+                        console.log("thất bại");
+                    }
+                });
+            }
+        });
+    });
+</script>
+

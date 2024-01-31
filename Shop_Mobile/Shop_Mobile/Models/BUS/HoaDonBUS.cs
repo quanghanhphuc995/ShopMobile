@@ -1,4 +1,5 @@
-﻿using ShopConnection;
+﻿using PetaPoco;
+using ShopConnection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,5 +89,36 @@ namespace Shop_Mobile.Models.BUS
             var result = db.Query<HoaDon>(query, parameters);
             return result;
         }
+
+        public static void UpdateSoLuongSanPham(string maSanPhams)
+        {
+            var db = new ShopConnectionDB(); // Thay thế bằng tên kết nối cơ sở dữ liệu của bạn
+
+            // Lấy danh sách sản phẩm dựa trên danh sách mã sản phẩm
+            var sqlSelect = new Sql("SELECT * FROM SanPham WHERE MaSanPham IN (@MaSanPham)", new { MaSanPham = maSanPhams.Split(',') });
+            var sanPhams = db.Fetch<SanPham>(sqlSelect);
+
+            foreach (var sanPham in sanPhams)
+            {
+                // Lấy số lượng hóa đơn hiện tại
+                var sqlCountHoaDon = new Sql("SELECT COUNT(*) FROM HoaDon WHERE MaSanPham = @MaSanPham", new { MaSanPham = sanPham.MaSanPham });
+                int? soLuongHoaDonNullable = db.ExecuteScalar<int?>(sqlCountHoaDon);
+
+                // Kiểm tra và gán giá trị cho biến soLuongHoaDon
+                int soLuongHoaDon = soLuongHoaDonNullable.HasValue ? soLuongHoaDonNullable.Value : 0;
+
+                // Trừ số lượng hóa đơn từ số lượng sản phẩm
+                int soLuongMoi = (int)sanPham.SoLuong - (soLuongHoaDonNullable ?? 0);
+
+                // Cập nhật số lượng mới trong cơ sở dữ liệu
+                var sqlUpdate = new Sql("UPDATE SanPham SET SoLuong = @SoLuongMoi WHERE MaSanPham = @MaSanPham",
+                                        new { SoLuongMoi = soLuongMoi, MaSanPham = sanPham.MaSanPham });
+
+                db.Execute(sqlUpdate);
+            }
+        }
+
+
+
     }
 }

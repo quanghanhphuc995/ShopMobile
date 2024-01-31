@@ -1,0 +1,22 @@
+﻿@model Shop_Mobile.Models.BUS.Comment
+<section class="feed-item">
+    <div class="icon pull-left">
+        <i class="fa fa-comment"></i>
+    </div>
+    <div class="feed-item-body">
+        <div class="text">
+            @if (Model==null)
+            {
+            <a href="#">đay là </a>
+            }
+            else
+            {
+                <a href="#">@Model.UserName đã bình luận với nội dung</a> @Model.NoiDung <a href="#">@Model.TenSanPham</a>
+            }
+           
+        </div>
+        <div class="time pull-left">
+            3 h
+        </div>
+    </div>
+</section>

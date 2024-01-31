@@ -1,0 +1,5 @@
+workstation id=ShopOnlineMobile.mssql.somee.com;packet size=4096;user id=quanghanhphuc95_SQLLogin_1;pwd=a8yj7zkux1;data source=ShopOnlineMobile.mssql.somee.com;persist security info=False;initial catalog=ShopOnlineMobile
+
+
+
+a8yj7zkux1

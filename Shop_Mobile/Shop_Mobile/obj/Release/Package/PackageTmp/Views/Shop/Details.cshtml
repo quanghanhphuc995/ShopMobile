@@ -1,0 +1,322 @@
+﻿@model Shop_Mobile.Models.BUS.ViewSanPhamChiTiet
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@{
+    var userId = ViewBag.userID;
+}
+<style>
+    .comment-box-container {
+        width: 100%;
+        max-width: 600px; /* chiều rộng tối đa */
+        margin: auto;
+        padding: 15px;
+    }
+
+        .comment-box-container textarea {
+            width: 100%; /* chiếm toàn bộ chiều rộng của container */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical; /* cho phép thay đổi kích thước dọc */
+            min-height: 100px; /* chiều cao tối thiểu */
+        }
+
+        .comment-box-container button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .comment-box-container button:hover {
+                background-color: #0056b3;
+            }
+
+    .product-details {
+        font-family: Arial, sans-serif;
+        max-width: 700px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+        .product-details h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .product-details img {
+            display: block;
+            margin: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+    .specification-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .specification-table th,
+        .specification-table td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .specification-table th {
+            background-color: #f2f2f2;
+        }
+</style>
+
+<div id="page-content" class="single-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="breadcrumb">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li><a href="category.html">Category</a></li>
+                    <li><a href="#">@Model.TenSanPham</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div id="main-content" class="col-md-8">
+                <div class="product">
+                    <div class="col-md-6">
+                        <div class="image">
+                            <img id="mainImage" src="~/Asset/img/@Model.HinhChinh" />
+                            <div class="image-more">
+                                <ul class="row">
+                                    <li class="col-lg-3 col-sm-3 col-xs-4">
+                                        <a href="#" class="thumbnail"><img class="img-responsive" src="~/Asset/img/@Model.Hinh1"></a>
+                                    </li>
+                                    <li class="col-lg-3 col-sm-3 col-xs-4">
+                                        <a href="#" class="thumbnail"><img class="img-responsive" src="~/Asset/img/@Model.Hinh2"></a>
+                                    </li>
+                                    <li class="col-lg-3 col-sm-3 col-xs-4">
+                                        <a href="#" class="thumbnail"><img class="img-responsive" src="~/Asset/img/@Model.Hinh3"></a>
+                                    </li>
+                                    <li class="col-lg-3 col-sm-3 col-xs-4">
+                                        <a href="#" class="thumbnail"><img class="img-responsive" src="~/Asset/img/@Model.Hinh4"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="caption">
+                            <div class="name"><h3>@Model.TenSanPham</h3></div>
+                            <div class="info">
+                                <ul>
+                                    
+                                    <li>ID: @Model.MaSanPham</li>
+                                </ul>
+                            </div>
+                            <div class="price"><span>@Convert.ToDecimal(Model.Gia).ToString("N0") đ</span></div>
+                            <div class="options">
+                                AVAILABLE OPTIONS
+                                <select>
+                                    <option value="" selected>----Please Select----</option>
+                                    <option value="red">RED</option>
+                                    <option value="black">BLACK</option>
+                                </select>
+                            </div>
+                            <div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
+                            <form action="@Url.Action("ThemVaoGioHang", "GioHang", new { maSanPham = Model.MaSanPham })" method="POST">
+                                <!-- Trường input số lượng -->
+                                <label>Số Lượng: </label>
+                                <input class="form-inline quantity" name="SoLuong" type="number" value="1" min="1" max="100">
+
+                                <!-- Nút submit để gửi form -->
+                                <input type="submit" value="Thêm Vào Giỏ Hàng" class="btn btn-2">
+                            </form>
+
+
+                            
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="product-desc">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#description" data-target="#description" class="tab-link">Cấu Hình</a></li>
+                        <li><a href="#review" data-target="#review-content" class="tab-link">Đánh Giá Sản Phẩm</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="product-details tab-content" id="description">
+                            <h2>Thông Số Kỹ Thuật</h2>
+                            
+                            <table class="specification-table">
+                                <tr>
+                                    <th>Màn Hình</th>
+                                    <td>@Model.ManHinh</td>
+                                </tr>
+                                <!-- Thêm các hàng khác tương tự cho từng thông số kỹ thuật -->
+                                <tr>
+                                    <th>Hệ Điều Hành</th>
+                                    <td>@Model.TenHeDieuHanh</td>
+                                </tr>
+                                <tr>
+                                    <th>Camera Sau</th>
+                                    <td>@Model.CameraSau</td>
+                                </tr>
+                                <tr>
+                                    <th>Camera Trước</th>
+                                    <td>@Model.CameraTruoc</td>
+                                </tr>
+                                <tr>
+                                    <th>CPU</th>
+                                    <td>@Model.CPU</td>
+                                </tr>
+                                <tr>
+                                    <th>Ram</th>
+                                    <td>@Model.DungLuongRam</td>
+                                </tr>
+                                <tr>
+                                    <th>Bộ Nhớ Trong</th>
+                                    <td>@Model.DungLuongBoNho</td>
+                                </tr>
+                                <tr>
+                                    <th>Thẻ Sim</th>
+                                    <td>@Model.TheSim</td>
+                                </tr>
+                                <tr>
+                                    <th>Dung Lượng Pin</th>
+                                    <td>@Model.DungLuongPin</td>
+                                </tr>
+                                <tr>
+                                    <th>Thiết Kế</th>
+                                    <td>@Model.ThietKe</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="review-content" class="tab-content" style="display:none;">
+                            <div class="comment-box-container">
+                                @using (Html.BeginForm("Create", "BinhLuan", FormMethod.Post, new { id = "comment-form" }))
+                                {
+                                    <textarea id="comment" name="NoiDung" placeholder="Nhập bình luận của bạn..." required></textarea>
+                                    <input type="hidden" name="MaSanPham" value="@Model.MaSanPham" />
+                                    <button type="submit">Gửi Bình Luận</button>
+                                }
+                            </div>
+                            <div id="comment-section">
+                                
+                                @Html.Action("GetAllBinhLuan", "BinhLuan", new {maSanPham = @Model.MaSanPham })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @Html.Partial("_SanPhamCungGia",Shop_Mobile.Models.BUS.ShopOnlineBUS.SanPhamCungGia(Model.MaSanPham))
+            </div>
+            <div id="sidebar" class="col-md-4">
+                <div class="widget wid-categories">
+                    <div class="heading"><h4>CATEGORIES</h4></div>
+                    <div class="content">
+                        <ul>
+                            <li><a href="#">PC Computers</a></li>
+                            <li><a href="#">Laptops & Notebooks</a></li>
+                            <li><a href="#">Mobiles & Tablet</a></li>
+                            <li><a href="#">Software</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget wid-type">
+                    <div class="heading"><h4>TYPE</h4></div>
+                    <div class="content">
+                        <select>
+                            <option value="EL" selected>Electronics</option>
+                            <option value="MT">Mice and Trackballs</option>
+                            <option value="WC">Web Cameras</option>
+                            <option value="TA">Tablates</option>
+                            <option value="AP">Audio Parts</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="widget wid-discouts">
+                    <div class="heading"><h4>DISCOUNTS</h4></div>
+                    <div class="content">
+                        <label class="checkbox"><input type="checkbox" name="discount" checked="">Upto - 10% (20)</label>
+                        <label class="checkbox"><input type="checkbox" name="discount">40% - 50% (5)</label>
+                        <label class="checkbox"><input type="checkbox" name="discount">30% - 20% (7)</label>
+                        <label class="checkbox"><input type="checkbox" name="discount">10% - 5% (2)</label>
+                        <label class="checkbox"><input type="checkbox" name="discount">Other(50)</label>
+                    </div>
+                </div>
+                <div class="widget wid-brand">
+                    <div class="heading"><h4>BRAND</h4></div>
+                    <div class="content">
+                        <label class="checkbox"><input type="checkbox" name="brand">Nokia</label>
+                        <label class="checkbox"><input type="checkbox" name="brand">Samsung</label>
+                        <label class="checkbox"><input type="checkbox" name="brand">Iphone</label>
+                        <label class="checkbox"><input type="checkbox" name="brand">HTC</label>
+                        <label class="checkbox"><input type="checkbox" name="brand">Oppo</label>
+                        <label class="checkbox"><input type="checkbox" name="brand">Kings</label>
+                        <label class="checkbox"><input type="checkbox" name="brand">Zumba</label>
+                    </div>
+                </div>
+               @* @Html.Partial("_SanPhamCungHang",Shop_Mobile.Models.BUS.ShopOnlineBUS.SanPhamCungHang(Model.MaSanPham))*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var tabs = document.querySelectorAll('.tab-link');
+
+        tabs.forEach(function (tab) {
+            tab.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                var target = this.getAttribute('data-target');
+
+                // Xóa lớp active khỏi tất cả các tabs và tab contents
+                tabs.forEach(function (tab) {
+                    tab.parentNode.classList.remove('active');
+                    document.querySelector(tab.getAttribute('data-target')).style.display = 'none';
+                });
+
+                // Thêm lớp active vào tab được chọn và hiển thị nội dung tương ứng
+                this.parentNode.classList.add('active');
+                document.querySelector(target).style.display = 'block';
+            });
+        });
+    });
+    $(document).ready(function() {
+        $("#comment-form").submit(function (event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: '@Url.Action("Create", "BinhLuan")',
+                type: 'POST',
+                data: formData,
+                success: function (result) {
+                    // Cập nhật kết quả bình luận vào DOM
+                    $("#comment-section").append(result);
+                    
+                },
+                
+                error: function () {
+                    // Xử lý lỗi
+                }
+            });
+        });
+    });
+    $(document).ready(function () {
+        $('.thumbnail').click(function (event) {
+            event.preventDefault();
+            var src = $(this).find('img').attr('src');
+            $('#mainImage').attr('src', src);
+        });
+    });
+</script>

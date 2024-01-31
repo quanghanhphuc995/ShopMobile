@@ -1,0 +1,21 @@
+﻿@model ShopConnection.SanPham
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+@using (Html.BeginForm("Delete", "SanPhamAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <h2>Xóa Sản Phẩm @Model.TenSanPham</h2>
+
+    <div>
+        <p>Bạn có chắc chắn muốn xóa sản phẩm này?</p>
+        <p>Mã sản phẩm: </p>
+        <p>Tên sản phẩm: </p>
+        <img src="~/Asset/img/" alt="Alternate Text" />
+        <!-- Thêm các thông tin khác bạn muốn hiển thị -->
+    </div>
+
+    <input type="submit" value="Xác nhận xóa" />
+
+}

@@ -1,0 +1,50 @@
+﻿@model Shop_Mobile.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+
+<div class="container">
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Thông Tin Tài Khoản</h4>
+            <hr />
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Mật Khẩu:</label>
+                    <div class="col-md-10">
+                        @if (Model.HasPassword)
+                        {
+                            @Html.ActionLink("Thay đổi mật khẩu", "ChangePassword", null, new { @class = "btn btn-default" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Create", "SetPassword", null, new { @class = "btn btn-default" })
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Số Điện Thoại:</label>
+                    <div class="col-md-10">
+                        @if (Model.PhoneNumber != null)
+                        {
+                            <div>@Model.PhoneNumber</div>
+                            @Html.ActionLink("Change", "AddPhoneNumber", null, new { @class = "btn btn-default" })
+                            using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Remove" class="btn btn-link" />
+                            }
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Add", "AddPhoneNumber", null, new { @class = "btn btn-default" })
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

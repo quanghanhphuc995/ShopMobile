@@ -14,6 +14,17 @@ namespace Shop_Mobile.Models.BUS
         public string UserName { get; set; }
         public int LockoutEnabled { get; set; }
     }
+    public class Order
+    {
+
+    }
+    public class Comment
+    {
+        public string UserName { get; set; }
+        public string NoiDung { get; set; }
+        public DateTime? Ngay { get; set; }
+        public string TenSanPham { get; set; }
+    }
     public class DataBUS
     {
         public static IEnumerable<AspNetUserss> QuanLyTK()
@@ -26,6 +37,13 @@ namespace Shop_Mobile.Models.BUS
         {
             var db = new ShopConnectionDB();
             db.Execute("Delete From AspNetUsers Where Id = @0", id);
+        }
+        public static Comment Top1Comment()
+        {
+            var db = new ShopConnectionDB();
+            var query = @"Select Top 1 b.*, s.TenSanPham From BinhLuan b Inner Join SanPham s On b.MaSanPham = s.MaSanPham
+                        Order By b.Ngay Desc";
+            return db.SingleOrDefault<Comment>(query);
         }
     }
 }

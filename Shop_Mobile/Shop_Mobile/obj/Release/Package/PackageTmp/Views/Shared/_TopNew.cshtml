@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ShopConnection.SanPham>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="heading"><h2>Sản Phẩm Mới Nhất</h2></div>
+        <div class="products">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="product">
+                        <div class="image"><a href="@Url.Action("Details","Shop", new { maSanPham= @item.MaSanPham})"><img src="~/Asset/img/@item.HinhChinh" /></a></div>
+                        <div class="buttons">
+                            <a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                            <a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
+                            <a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
+                        </div>
+                        <div class="caption">
+                            <div class="name"><h3><a href="@Url.Action("Details","Shop", new { maSanPham= @item.MaSanPham})">@item.TenSanPham</a></h3></div>
+                            <div class="price"><span>@Convert.ToDecimal(item.Gia).ToString("N0") đ</span></div>
+                            <div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

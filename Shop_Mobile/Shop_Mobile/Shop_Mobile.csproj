@@ -177,6 +177,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DataAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\HoaDonAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoaiSanPhamAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\MainAdminController.cs" />
@@ -833,6 +834,7 @@
     <Content Include="fonts\Gilroy-UltraLight.ttf" />
     <Content Include="fonts\Gilroy-UltraLightItalic.ttf" />
     <Content Include="Areas\Admin\Views\QuanLyTaiKhoanKhachHang\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Top1Comment.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -909,6 +911,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\DataAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

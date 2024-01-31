@@ -10,6 +10,10 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    table a, .table a {
+        text-decoration: none;
+    }
 </style>
 
 <div id="invoice" class="container mt-4">
@@ -32,7 +36,7 @@
                 @foreach (var item in Model)
                 {
                 <tr>
-                    <td><a href="@Url.Action("Details","SanPhamAdmin", new {maSanPham = item.MaSanPham })">@item.MaSanPham</a></td>
+                    <td class=" maSanPham"><a href="@Url.Action("Details","SanPhamAdmin", new {maSanPham = item.MaSanPham })">@item.MaSanPham</a></td>
                     <td class="ellipsis"><a href="@Url.Action("Details","SanPhamAdmin", new {maSanPham = item.MaSanPham })">@item.TenSanPham</a></td>
                     <td>
                         <a href="@Url.Action("Details","SanPhamAdmin", new {maSanPham = item.MaSanPham })">
@@ -42,9 +46,29 @@
                     <td>@item.SoLuong</td>
                     <td class="price"><span>@Convert.ToDecimal(item.Gia).ToString("N0") đ</span></td>
                     <td class="price"><span>@Convert.ToDecimal(item.TongTien).ToString("N0") đ</span></td>
+
                 </tr>
                 }
+
             </tbody>
         </table>
+        <button id="XuatHoaDon">Xuất Hóa Đơn</button>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#XuatHoaDon').on('click', function () {
+            var maSanPhams = [];
+            $('.table tbody tr').each(function () {
+                var maSanPham = $(this).find('.maSanPham').text().trim();
+                maSanPhams.push(encodeURIComponent(maSanPham));
+            });
+
+            // Chuyển hướng đến action controller và truyền các mã sản phẩm
+            var url = '@Url.Action("SoLuongSauKhiXL","HoaDonAdmin")';
+            window.location.href = url + '?maSanPhams=' + maSanPhams.join(',');
+            console.log(url + '?maSanPhams=' + maSanPhams.join(','));
+        });
+    });
+</script>

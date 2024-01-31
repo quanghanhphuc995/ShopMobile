@@ -1,0 +1,117 @@
+﻿@model List<ShopConnection.BinhLuan>
+
+<style>
+    .pz {
+        font-size: 14px;
+        color: #222b45;
+        font-weight: bold;
+        margin:unset;
+    }
+    .cm {
+        font-size: 13px;
+        color: #20222b;
+        font-weight: unset;
+    }
+    .mg{
+        margin:5px 0 5px 0;
+    }
+    .font-z-bnt{
+        font-size:14px;
+    }
+</style>
+
+@foreach (var item in Model)
+{
+    <p class="pz mg">@item.UserName</p>
+   
+    <p class="cm"> @item.NoiDung</p>
+    <button class="like-btn" data-binhluan-id="@item.BinhLuanID">Like</button>
+    <button class="reply-btn" data-binhluan-id="@item.BinhLuanID">Trả lời</button>
+    <div id="reply-input-@item.BinhLuanID" class="reply-input" style="display:none;">
+        <input type="text" placeholder="Nhập trả lời của bạn..." />
+        <button class="send-reply-btn" data-binhluan-id="@item.BinhLuanID">Gửi</button>
+    </div>
+    <!-- Khu vực hiển thị số lượng like và trả lời (nếu cần) -->
+    <div id="like-count-@item.BinhLuanID" class="font-z-bnt mag">Số lượt like: @item.LuotLike</div>
+    <div>
+    <a href="#" class="load-replies mg pz" data-binhluan-id="@item.BinhLuanID">xem câu trả lời</a>
+    </div>
+    
+    <div id="replies-@item.BinhLuanID" class="font-z-bnt" style="display:none;"></div>
+}
+
+<script>
+     $(document).ready(function() {
+        $('.like-btn').click(function() {
+            var binhLuanID = $(this).data('binhluan-id');
+            $.ajax({
+                url: '@Url.Action("LuotLike", "BinhLuan")',
+                type: 'POST',
+                data: { binhLuanID: binhLuanID },
+                success: function(response) {
+                    if (response.success) {
+
+                        $('#like-count-' + binhLuanID).text('Số Lượt like: ' + response.newLikeCount);
+                    } else {
+                        // Xử lý trường hợp không thành công
+                    }
+                }
+            });
+        });
+
+         $('.reply-btn').click(function () {
+             var binhluanID = $(this).data('binhluan-id');
+             $('#reply-input-' + binhluanID).toggle();
+         });
+
+         $('.send-reply-btn').click(function () {
+             var binhluanID = $(this).data('binhluan-id');
+             var phanHoiBL = $('#reply-input-' + binhluanID + ' input').val();
+
+             $.ajax({
+                 url: '@Url.Action("PhanHoiBL","BinhLuan")',
+                 type: 'POST',
+                 data: {
+                     binhLuanID: binhluanID,
+                     noiDungPhanHoi: phanHoiBL
+                 },
+                 success: function (response) {
+                     if (response.success) {
+                         var themvaohienthi = $('#replies-' + binhluanID);
+                         themvaohienthi.append('<p>' + phanHoiBL + '</p>');
+                         $('#reply-input-' + binhluanID + ' input').val('');
+
+                         $('#reply-input-' + binhluanID + ' input').val('');
+                         $('#reply-input-' + binhluanID).hide();
+                     }
+                     else {
+                         if (response.redirectTo) {
+                             window.location.assign(response.redirectTo);
+                         }
+                     }
+                 }
+             });
+         });
+
+         $('.load-replies').click(function (e) {
+             e.preventDefault();
+             var binhluanID = $(this).data('binhluan-id');
+             var targetDiv = $('#replies-' + binhluanID);
+             if (!targetDiv.is(':visible')) {
+                 $.ajax({
+                     url: '@Url.Action("GetAllPhanHoiBL", "BinhLuan")',
+                     type: 'Get',
+                     data: { binhLuanID: binhluanID },
+                     success: function (response) {
+                         targetDiv.html(response).slideDown();
+                     }
+                 });
+             } else {
+                 targetDiv.slideUp();
+             }
+         });
+
+
+    });
+</script>
+

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<ShopConnection.SanPham>
+<div class="widget wid-product">
+    <div class="heading"><h4>LATEST</h4></div>
+    <div class="content">
+        @foreach (var item in Model)
+        {
+            <div class="product">
+                <a href="@Url.Action("Details","Shop", new {maSanPham =item.MaSanPham })"><img src="~/Asset/img/@item.HinhChinh" /></a>
+                <div class="wrapper">
+                    <h5><a href="@Url.Action("Details","Shop", new {maSanPham =item.MaSanPham })">@item.TenSanPham</a></h5>
+                    <div class="price"><span>@Convert.ToDecimal(item.Gia).ToString("N0") đ</span></div>
+                    <div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
