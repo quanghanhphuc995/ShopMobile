@@ -151,7 +151,7 @@ header .form-search button:hover {color: #eee;}
 .product .share .share-btn {margin-right: 25px;padding-top: 20px;}
 @media screen and (max-width: 600px) {
 	table th:nth-child(n), table td:nth-child(n) {
-		display: none;
+		display:block;
 	}
 }
 @media(max-width:767px) {.product{border: none;}}

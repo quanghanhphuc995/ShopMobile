@@ -150,53 +150,56 @@
                         <li class="active"><a href="#description" data-target="#description" class="tab-link">Cấu Hình</a></li>
                         <li><a href="#review" data-target="#review-content" class="tab-link">Đánh Giá Sản Phẩm</a></li>
                     </ul>
-                    <div class="tab-content">
-                        <div class="product-details tab-content" id="description">
+                    <div class="tab-content ">
+                        <div class="product-details tab-content " id="description">
                             <h2>Thông Số Kỹ Thuật</h2>
+                            <div class="table-responsive">
+                                <table class="specification-table">
+                                    <tr>
+                                        <th>Màn Hình</th>
+                                        <td>@Model.ManHinh</td>
+                                    </tr>
+                                    <!-- Thêm các hàng khác tương tự cho từng thông số kỹ thuật -->
+                                    <tr>
+                                        <th>Hệ Điều Hành</th>
+                                        <td>@Model.TenHeDieuHanh</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Camera Sau</th>
+                                        <td>@Model.CameraSau</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Camera Trước</th>
+                                        <td>@Model.CameraTruoc</td>
+                                    </tr>
+                                    <tr>
+                                        <th>CPU</th>
+                                        <td>@Model.CPU</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ram</th>
+                                        <td>@Model.DungLuongRam</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bộ Nhớ Trong</th>
+                                        <td>@Model.DungLuongBoNho</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Thẻ Sim</th>
+                                        <td>@Model.TheSim</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Dung Lượng Pin</th>
+                                        <td>@Model.DungLuongPin</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Thiết Kế</th>
+                                        <td>@Model.ThietKe</td>
+                                    </tr>
+                                </table>
+                            </div>
                             
-                            <table class="specification-table">
-                                <tr>
-                                    <th>Màn Hình</th>
-                                    <td>@Model.ManHinh</td>
-                                </tr>
-                                <!-- Thêm các hàng khác tương tự cho từng thông số kỹ thuật -->
-                                <tr>
-                                    <th>Hệ Điều Hành</th>
-                                    <td>@Model.TenHeDieuHanh</td>
-                                </tr>
-                                <tr>
-                                    <th>Camera Sau</th>
-                                    <td>@Model.CameraSau</td>
-                                </tr>
-                                <tr>
-                                    <th>Camera Trước</th>
-                                    <td>@Model.CameraTruoc</td>
-                                </tr>
-                                <tr>
-                                    <th>CPU</th>
-                                    <td>@Model.CPU</td>
-                                </tr>
-                                <tr>
-                                    <th>Ram</th>
-                                    <td>@Model.DungLuongRam</td>
-                                </tr>
-                                <tr>
-                                    <th>Bộ Nhớ Trong</th>
-                                    <td>@Model.DungLuongBoNho</td>
-                                </tr>
-                                <tr>
-                                    <th>Thẻ Sim</th>
-                                    <td>@Model.TheSim</td>
-                                </tr>
-                                <tr>
-                                    <th>Dung Lượng Pin</th>
-                                    <td>@Model.DungLuongPin</td>
-                                </tr>
-                                <tr>
-                                    <th>Thiết Kế</th>
-                                    <td>@Model.ThietKe</td>
-                                </tr>
-                            </table>
+                            
                         </div>
                         <div id="review-content" class="tab-content" style="display:none;">
                             <div class="comment-box-container">
